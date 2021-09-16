@@ -1,0 +1,1661 @@
+   1              		.file	"main.c"
+   9              	.Ltext0:
+  10              		.global	hr
+  11              		.section	.rodata.str1.4,"aMS",%progbits,1
+  12              		.align	2
+  13              	.LC0:
+  14 0000 3D3D3D3D 		.ascii	"==================================================="
+  14      3D3D3D3D 
+  14      3D3D3D3D 
+  14      3D3D3D3D 
+  14      3D3D3D3D 
+  15 0033 3D3D3D3D 		.ascii	"===================\012\000"
+  15      3D3D3D3D 
+  15      3D3D3D3D 
+  15      3D3D3D3D 
+  15      3D3D3D0A 
+  16              		.data
+  17              		.align	2
+  20              	hr:
+  21 0000 00000000 		.word	.LC0
+  22              		.global	scroll_apps
+  23              		.bss
+  24              		.align	2
+  27              	scroll_apps:
+  28 0000 00000000 		.space	4
+  29              		.global	cursor
+  30              		.align	2
+  33              	cursor:
+  34 0004 00000000 		.space	4
+  35              		.global	key_code
+  36              		.data
+  37              		.align	2
+  40              	key_code:
+  41 0004 FF000000 		.word	255
+  42              		.section	.rodata
+  45              	phone_ack:
+  46 0000 1B       		.byte	27
+  47 0001 F6       		.byte	-10
+  48 0002 02       		.byte	2
+  49 0003 00       		.byte	0
+  50 0004 41       		.byte	65
+  51 0005 03       		.byte	3
+  52 0006 42       		.byte	66
+  53              		.section	.text.fb_clear,"ax",%progbits
+  54              		.align	2
+  56              	fb_clear:
+  57              	.LFB68:
+  58              		.file 1 "include/fb/framebuffer.h"
+   1:include/fb/framebuffer.h **** #ifndef _FB_FRAMEBUFFER_H
+   2:include/fb/framebuffer.h **** #define _FB_FRAMEBUFFER_H
+   3:include/fb/framebuffer.h **** 
+   4:include/fb/framebuffer.h **** #include <fb/font.h>
+   5:include/fb/framebuffer.h **** #include <stdint.h>
+   6:include/fb/framebuffer.h **** 
+   7:include/fb/framebuffer.h **** /* color is encoded as <special><red><green><blue> */
+   8:include/fb/framebuffer.h **** /* if a color is "special", then the RGB components most likely
+   9:include/fb/framebuffer.h ****    don't make sense. Use "special" colours when you have to
+  10:include/fb/framebuffer.h ****    mask out bits with transparency or you have to encode
+  11:include/fb/framebuffer.h ****    colours in a fixed color palette... */
+  12:include/fb/framebuffer.h **** 
+  13:include/fb/framebuffer.h **** #define FB_COLOR_WHITE		0x00ffffffU
+  14:include/fb/framebuffer.h **** #define FB_COLOR_BLACK		0x00000000U
+  15:include/fb/framebuffer.h **** #define FB_COLOR_TRANSP		0x01ffffffU
+  16:include/fb/framebuffer.h **** 
+  17:include/fb/framebuffer.h **** #define FB_COLOR_RGB(r,g,b) ((((r) & 0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff))
+  18:include/fb/framebuffer.h **** #define FB_COLOR_RED		FB_COLOR_RGB(0xff,0x00,0x00)
+  19:include/fb/framebuffer.h **** #define FB_COLOR_GREEN		FB_COLOR_RGB(0x00,0xff,0x00)
+  20:include/fb/framebuffer.h **** #define FB_COLOR_BLUE		FB_COLOR_RGB(0x00,0x00,0xff)
+  21:include/fb/framebuffer.h **** 
+  22:include/fb/framebuffer.h **** /* encode */
+  23:include/fb/framebuffer.h **** 
+  24:include/fb/framebuffer.h **** /* decode */
+  25:include/fb/framebuffer.h **** #define FB_COLOR_IS_SPECIAL(v)     (!!((v) & 0xff000000U))
+  26:include/fb/framebuffer.h **** #define FB_COLOR_TO_R(v)		(((v)>>16) & 0xff)
+  27:include/fb/framebuffer.h **** #define FB_COLOR_TO_G(v)		(((v)>> 8) & 0xff)
+  28:include/fb/framebuffer.h **** #define FB_COLOR_TO_B(v)		( (v)      & 0xff)
+  29:include/fb/framebuffer.h **** 
+  30:include/fb/framebuffer.h **** struct framebuffer {
+  31:include/fb/framebuffer.h **** 	char name[8];				// keep it short!
+  32:include/fb/framebuffer.h **** 	void (*init)();				// (re)initialize
+  33:include/fb/framebuffer.h **** 	void (*clear)();			// clear display
+  34:include/fb/framebuffer.h **** 	void (*boxto)(uint16_t x,uint16_t y);	// draw box to xy
+  35:include/fb/framebuffer.h **** 	void (*lineto)(uint16_t x,uint16_t y);	// draw line to xy
+  36:include/fb/framebuffer.h **** 	int (*putstr)(char *c,int maxwidth);	// put text in current font to fb
+  37:include/fb/framebuffer.h **** 	void (*flush)();			// flush changes
+  38:include/fb/framebuffer.h **** 
+  39:include/fb/framebuffer.h **** 	uint16_t width,height;			// width/height of fb
+  40:include/fb/framebuffer.h **** 	uint16_t cursor_x,cursor_y;		// current cursor
+  41:include/fb/framebuffer.h **** 	uint32_t fg_color,bg_color;		// current fg/bg color
+  42:include/fb/framebuffer.h **** 	enum fb_font_id font;			// current font
+  43:include/fb/framebuffer.h **** };
+  44:include/fb/framebuffer.h **** 
+  45:include/fb/framebuffer.h **** /* there is a single framebuffer, the specific driver defines
+  46:include/fb/framebuffer.h ****    the "framebuffer" symbol */
+  47:include/fb/framebuffer.h **** extern struct framebuffer *framebuffer;
+  48:include/fb/framebuffer.h **** 
+  49:include/fb/framebuffer.h **** static inline void
+  50:include/fb/framebuffer.h **** fb_init(){
+  51:include/fb/framebuffer.h **** 	framebuffer->init();
+  52:include/fb/framebuffer.h **** }
+  53:include/fb/framebuffer.h **** 
+  54:include/fb/framebuffer.h **** static inline void
+  55:include/fb/framebuffer.h **** fb_clear(){
+  59              		.loc 1 55 0
+  60              		@ args = 0, pretend = 0, frame = 0
+  61              		@ frame_needed = 0, uses_anonymous_args = 0
+  62              	.LVL0:
+  63 0000 04E02DE5 		str	lr, [sp, #-4]!
+  64              	.LCFI0:
+  56:include/fb/framebuffer.h **** 	framebuffer->clear();
+  65              		.loc 1 56 0
+  66 0004 0C309FE5 		ldr	r3, .L3
+  67 0008 003093E5 		ldr	r3, [r3, #0]
+  68 000c 0FE0A0E1 		mov	lr, pc
+  69 0010 0CF093E5 		ldr	pc, [r3, #12]
+  57:include/fb/framebuffer.h **** }
+  70              		.loc 1 57 0
+  71 0014 04F09DE4 		ldr	pc, [sp], #4
+  72              	.L4:
+  73              		.align	2
+  74              	.L3:
+  75 0018 00000000 		.word	framebuffer
+  76              	.LFE68:
+  78              		.section	.text.fb_boxto,"ax",%progbits
+  79              		.align	2
+  81              	fb_boxto:
+  82              	.LFB69:
+  58:include/fb/framebuffer.h **** 
+  59:include/fb/framebuffer.h **** static inline void
+  60:include/fb/framebuffer.h **** fb_boxto(uint16_t x,uint16_t y){
+  83              		.loc 1 60 0
+  84              		@ args = 0, pretend = 0, frame = 0
+  85              		@ frame_needed = 0, uses_anonymous_args = 0
+  86              	.LVL1:
+  87 0000 04E02DE5 		str	lr, [sp, #-4]!
+  88              	.LCFI1:
+  61:include/fb/framebuffer.h **** 	framebuffer->boxto(x,y);
+  89              		.loc 1 61 0
+  90 0004 1C309FE5 		ldr	r3, .L7
+  91              		.loc 1 60 0
+  92 0008 0008A0E1 		mov	r0, r0, asl #16
+  93              	.LVL2:
+  94 000c 0118A0E1 		mov	r1, r1, asl #16
+  95              	.LVL3:
+  96              		.loc 1 61 0
+  97 0010 003093E5 		ldr	r3, [r3, #0]
+  98 0014 2008A0E1 		mov	r0, r0, lsr #16
+  99              	.LVL4:
+ 100 0018 2118A0E1 		mov	r1, r1, lsr #16
+ 101              	.LVL5:
+ 102 001c 0FE0A0E1 		mov	lr, pc
+ 103 0020 10F093E5 		ldr	pc, [r3, #16]
+ 104              	.LVL6:
+  62:include/fb/framebuffer.h **** }
+ 105              		.loc 1 62 0
+ 106 0024 04F09DE4 		ldr	pc, [sp], #4
+ 107              	.L8:
+ 108              		.align	2
+ 109              	.L7:
+ 110 0028 00000000 		.word	framebuffer
+ 111              	.LFE69:
+ 113              		.section	.text.fb_putstr,"ax",%progbits
+ 114              		.align	2
+ 116              	fb_putstr:
+ 117              	.LFB71:
+  63:include/fb/framebuffer.h **** 
+  64:include/fb/framebuffer.h **** static inline void
+  65:include/fb/framebuffer.h **** fb_lineto(uint16_t x,uint16_t y){
+  66:include/fb/framebuffer.h **** 	framebuffer->lineto(x,y);
+  67:include/fb/framebuffer.h **** }
+  68:include/fb/framebuffer.h **** 
+  69:include/fb/framebuffer.h **** static inline int
+  70:include/fb/framebuffer.h **** fb_putstr(char *str,int maxwidth){
+ 118              		.loc 1 70 0
+ 119              		@ args = 0, pretend = 0, frame = 0
+ 120              		@ frame_needed = 0, uses_anonymous_args = 0
+ 121              	.LVL7:
+ 122 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 123              	.LCFI2:
+  71:include/fb/framebuffer.h **** 	return framebuffer->putstr(str,maxwidth);
+ 124              		.loc 1 71 0
+ 125 0004 0C309FE5 		ldr	r3, .L11
+ 126 0008 003093E5 		ldr	r3, [r3, #0]
+ 127 000c 0FE0A0E1 		mov	lr, pc
+ 128 0010 18F093E5 		ldr	pc, [r3, #24]
+ 129              	.LVL8:
+  72:include/fb/framebuffer.h **** }
+ 130              		.loc 1 72 0
+ 131 0014 04F09DE4 		ldr	pc, [sp], #4
+ 132              	.L12:
+ 133              		.align	2
+ 134              	.L11:
+ 135 0018 00000000 		.word	framebuffer
+ 136              	.LFE71:
+ 138              		.section	.text.fb_flush,"ax",%progbits
+ 139              		.align	2
+ 141              	fb_flush:
+ 142              	.LFB72:
+  73:include/fb/framebuffer.h **** 
+  74:include/fb/framebuffer.h **** static inline void
+  75:include/fb/framebuffer.h **** fb_flush(){
+ 143              		.loc 1 75 0
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              	.LVL9:
+ 147 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 148              	.LCFI3:
+  76:include/fb/framebuffer.h **** 	framebuffer->flush();
+ 149              		.loc 1 76 0
+ 150 0004 0C309FE5 		ldr	r3, .L15
+ 151 0008 003093E5 		ldr	r3, [r3, #0]
+ 152 000c 0FE0A0E1 		mov	lr, pc
+ 153 0010 1CF093E5 		ldr	pc, [r3, #28]
+  77:include/fb/framebuffer.h **** }
+ 154              		.loc 1 77 0
+ 155 0014 04F09DE4 		ldr	pc, [sp], #4
+ 156              	.L16:
+ 157              		.align	2
+ 158              	.L15:
+ 159 0018 00000000 		.word	framebuffer
+ 160              	.LFE72:
+ 162              		.section	.text._memcmp,"ax",%progbits
+ 163              		.align	2
+ 164              		.global	_memcmp
+ 166              	_memcmp:
+ 167              	.LFB79:
+ 168              		.file 2 "apps/menu/main.c"
+   1:apps/menu/main.c **** /* Menu for Calypso Phone to load applicatios from flash */
+   2:apps/menu/main.c **** 
+   3:apps/menu/main.c **** /* (C) 2013 by Andreas Eversberg <jolly@eversberg.eu>
+   4:apps/menu/main.c ****  *
+   5:apps/menu/main.c ****  * All Rights Reserved
+   6:apps/menu/main.c ****  *
+   7:apps/menu/main.c ****  * This program is free software; you can redistribute it and/or modify
+   8:apps/menu/main.c ****  * it under the terms of the GNU General Public License as published by
+   9:apps/menu/main.c ****  * the Free Software Foundation; either version 2 of the License, or
+  10:apps/menu/main.c ****  * (at your option) any later version.
+  11:apps/menu/main.c ****  *
+  12:apps/menu/main.c ****  * This program is distributed in the hope that it will be useful,
+  13:apps/menu/main.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  14:apps/menu/main.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  15:apps/menu/main.c ****  * GNU General Public License for more details.
+  16:apps/menu/main.c ****  *
+  17:apps/menu/main.c ****  * You should have received a copy of the GNU General Public License along
+  18:apps/menu/main.c ****  * with this program; if not, write to the Free Software Foundation, Inc.,
+  19:apps/menu/main.c ****  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  20:apps/menu/main.c ****  *
+  21:apps/menu/main.c ****  */
+  22:apps/menu/main.c **** 
+  23:apps/menu/main.c **** #include <stdint.h>
+  24:apps/menu/main.c **** #include <stdio.h>
+  25:apps/menu/main.c **** #include <string.h>
+  26:apps/menu/main.c **** #include <errno.h>
+  27:apps/menu/main.c **** 
+  28:apps/menu/main.c **** #include <debug.h>
+  29:apps/menu/main.c **** #include <memory.h>
+  30:apps/menu/main.c **** #include <delay.h>
+  31:apps/menu/main.c **** #include <byteorder.h>
+  32:apps/menu/main.c **** #include <rffe.h>
+  33:apps/menu/main.c **** #include <keypad.h>
+  34:apps/menu/main.c **** #include <board.h>
+  35:apps/menu/main.c **** #include <abb/twl3025.h>
+  36:apps/menu/main.c **** #include <rf/trf6151.h>
+  37:apps/menu/main.c **** #include <calypso/clock.h>
+  38:apps/menu/main.c **** #include <calypso/tpu.h>
+  39:apps/menu/main.c **** #include <calypso/tsp.h>
+  40:apps/menu/main.c **** #include <calypso/dsp.h>
+  41:apps/menu/main.c **** #include <calypso/irq.h>
+  42:apps/menu/main.c **** #include <calypso/misc.h>
+  43:apps/menu/main.c **** #include <calypso/timer.h>
+  44:apps/menu/main.c **** #include <comm/sercomm.h>
+  45:apps/menu/main.c **** #include <comm/timer.h>
+  46:apps/menu/main.c **** #include <uart.h>
+  47:apps/menu/main.c **** #include <fb/framebuffer.h>
+  48:apps/menu/main.c **** #include <battery/battery.h>
+  49:apps/menu/main.c **** #include <asm/system.h>
+  50:apps/menu/main.c **** 
+  51:apps/menu/main.c **** #define RAM 0x00820000
+  52:apps/menu/main.c **** #define MAGIC 0x0083ff00
+  53:apps/menu/main.c **** 
+  54:apps/menu/main.c **** enum key_codes key_code = KEY_INV;
+  55:apps/menu/main.c **** static volatile enum key_states key_state;
+  56:apps/menu/main.c **** 
+  57:apps/menu/main.c **** int cursor = 0, scroll_apps = 0;
+  58:apps/menu/main.c **** 
+  59:apps/menu/main.c **** struct apps {
+  60:apps/menu/main.c **** 	char name[16];
+  61:apps/menu/main.c **** 	void *start;
+  62:apps/menu/main.c **** 	int len;
+  63:apps/menu/main.c **** } apps[32];
+  64:apps/menu/main.c **** 
+  65:apps/menu/main.c **** int _memcmp(char *s1, char *s2, int size)
+  66:apps/menu/main.c **** {
+ 169              		.loc 2 66 0
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 172              	.LVL10:
+ 173 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 174              	.LCFI4:
+ 175              		.loc 2 66 0
+ 176 0004 00C0A0E3 		mov	ip, #0
+ 177              	.LVL11:
+ 178 0008 02E0A0E1 		mov	lr, r2
+ 179 000c 0C0000EA 		b	.L18
+ 180              	.LVL12:
+ 181              	.L19:
+  67:apps/menu/main.c **** 	int i;
+  68:apps/menu/main.c **** 
+  69:apps/menu/main.c **** 	for (i = 0; i < size; i++) {
+  70:apps/menu/main.c **** 		if (*s1 < *s2)
+ 182              		.loc 2 70 0
+ 183 0010 0020DCE7 		ldrb	r2, [ip, r0]	@ zero_extendqisi2
+ 184 0014 0130DCE7 		ldrb	r3, [ip, r1]	@ zero_extendqisi2
+ 185 0018 030052E1 		cmp	r2, r3
+ 186              		.loc 2 69 0
+ 187 001c 01C08CE2 		add	ip, ip, #1
+ 188              		.loc 2 70 0
+ 189 0020 0900002A 		bcs	.L20
+ 190 0024 0000E0E3 		mvn	r0, #0
+ 191              	.LVL13:
+ 192 0028 04F09DE4 		ldr	pc, [sp], #4
+ 193              	.LVL14:
+ 194              	.L20:
+  71:apps/menu/main.c **** 			return -1;
+  72:apps/menu/main.c **** 		if (*s1 > *s2)
+ 195              		.loc 2 72 0
+ 196 002c 0C00009A 		bls	.L18
+ 197 0030 0100A0E3 		mov	r0, #1
+ 198              	.LVL15:
+ 199 0034 04F09DE4 		ldr	pc, [sp], #4
+ 200              	.LVL16:
+ 201              	.L18:
+ 202              		.loc 2 69 0
+ 203 0038 0E005CE1 		cmp	ip, lr
+ 204 003c 020000BA 		blt	.L19
+ 205 0040 0000A0E3 		mov	r0, #0
+ 206              	.LVL17:
+  73:apps/menu/main.c **** 			return 1;
+  74:apps/menu/main.c **** 		s1++;
+  75:apps/menu/main.c **** 		s2++;
+  76:apps/menu/main.c **** 	}
+  77:apps/menu/main.c **** 
+  78:apps/menu/main.c **** 	return 0;
+  79:apps/menu/main.c **** }
+ 207              		.loc 2 79 0
+ 208 0044 04F09DE4 		ldr	pc, [sp], #4
+ 209              	.LFE79:
+ 211              		.section	.text.wait_key_release,"ax",%progbits
+ 212              		.align	2
+ 214              	wait_key_release:
+ 215              	.LFB81:
+  80:apps/menu/main.c **** 
+  81:apps/menu/main.c **** static void locate_apps(void)
+  82:apps/menu/main.c **** {
+  83:apps/menu/main.c **** 	int i, j, k;
+  84:apps/menu/main.c **** 	char *p;
+  85:apps/menu/main.c **** 
+  86:apps/menu/main.c **** 	memset(apps, 0, sizeof(apps));
+  87:apps/menu/main.c **** 
+  88:apps/menu/main.c **** 	for (j = 0, i = 0x010000; i < 0x200000; i += 0x10000) {
+  89:apps/menu/main.c **** 		p = (char *)i;
+  90:apps/menu/main.c **** 		/* check for highram header: "highram:" */
+  91:apps/menu/main.c **** 		if (!!_memcmp(p, "highram:", 8))
+  92:apps/menu/main.c **** 			continue;
+  93:apps/menu/main.c **** 		p += 8;
+  94:apps/menu/main.c **** 		/* check for app name after header: "highram:<name>\n" */
+  95:apps/menu/main.c **** 		printf("found highram image at flash mem address 0x%p\n",
+  96:apps/menu/main.c **** 			(char *)i);
+  97:apps/menu/main.c **** 		for (k = 0; k < (int)sizeof(apps[j].name) - 1; k++) {
+  98:apps/menu/main.c **** 			if (p[k] == '\n')
+  99:apps/menu/main.c **** 				break;
+ 100:apps/menu/main.c **** 		}
+ 101:apps/menu/main.c **** 		if (k == sizeof(apps[j].name) - 3) {
+ 102:apps/menu/main.c **** 			printf("skipping: corrupt highram header, no '\\n' "
+ 103:apps/menu/main.c **** 				"after image name or name more larger than %d "
+ 104:apps/menu/main.c **** 				"digits\n", (int)sizeof(apps[j].name) - 3);
+ 105:apps/menu/main.c **** 				continue;
+ 106:apps/menu/main.c **** 		}
+ 107:apps/menu/main.c **** 		if (j < 9)
+ 108:apps/menu/main.c **** 			apps[j].name[0] = '1' + j;
+ 109:apps/menu/main.c **** 		else if (j == 9)
+ 110:apps/menu/main.c **** 			apps[j].name[0] = '0';
+ 111:apps/menu/main.c **** 		else
+ 112:apps/menu/main.c **** 			apps[j].name[0] = ' ';
+ 113:apps/menu/main.c **** 		apps[j].name[1] = ' ';
+ 114:apps/menu/main.c **** 		memcpy(apps[j].name + 2, p, k);
+ 115:apps/menu/main.c **** 		apps[j].len = 0x20000;
+ 116:apps/menu/main.c **** 		p += k + 1;
+ 117:apps/menu/main.c **** 		/* p points to highram image after header */
+ 118:apps/menu/main.c **** 		apps[j].start = p;
+ 119:apps/menu/main.c **** 		j++;
+ 120:apps/menu/main.c **** 	}
+ 121:apps/menu/main.c **** }
+ 122:apps/menu/main.c **** 
+ 123:apps/menu/main.c **** static void wait_key_release(void)
+ 124:apps/menu/main.c **** {
+ 216              		.loc 2 124 0
+ 217              		@ args = 0, pretend = 0, frame = 0
+ 218              		@ frame_needed = 0, uses_anonymous_args = 0
+ 219              	.LVL18:
+ 220 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 221              	.LCFI5:
+ 222 0004 020000EA 		b	.L28
+ 223              	.L29:
+ 125:apps/menu/main.c **** 	/* wait for key release */
+ 126:apps/menu/main.c **** 	while (key_state == PRESSED) {
+ 127:apps/menu/main.c **** 		delay_ms(10);
+ 224              		.loc 2 127 0
+ 225 0008 FEFFFFEB 		bl	delay_ms
+ 128:apps/menu/main.c **** 		keypad_poll();
+ 226              		.loc 2 128 0
+ 227 000c FEFFFFEB 		bl	keypad_poll
+ 228              	.L28:
+ 229              		.loc 2 126 0
+ 230 0010 10309FE5 		ldr	r3, .L32
+ 231 0014 003093E5 		ldr	r3, [r3, #0]
+ 232 0018 000053E3 		cmp	r3, #0
+ 233              		.loc 2 127 0
+ 234 001c 0A00A0E3 		mov	r0, #10
+ 235              		.loc 2 126 0
+ 236 0020 0000000A 		beq	.L29
+ 129:apps/menu/main.c **** 	}
+ 130:apps/menu/main.c **** }
+ 237              		.loc 2 130 0
+ 238 0024 04F09DE4 		ldr	pc, [sp], #4
+ 239              	.L33:
+ 240              		.align	2
+ 241              	.L32:
+ 242 0028 0C000000 		.word	key_state
+ 243              	.LFE81:
+ 245              		.data
+ 246              		.align	2
+ 249              	f.3468:
+ 250 0008 00008200 		.word	8519680
+ 251              		.bss
+ 252              		.align	2
+ 253              	i.3466:
+ 254 0008 00000000 		.space	4
+ 255              		.section	.text.load_app,"ax",%progbits
+ 256              		.align	2
+ 258              	load_app:
+ 259              	.LFB82:
+ 131:apps/menu/main.c **** 
+ 132:apps/menu/main.c **** static void load_app(void)
+ 133:apps/menu/main.c **** {
+ 260              		.loc 2 133 0
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263              	.LVL19:
+ 264 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 265              	.LCFI6:
+ 134:apps/menu/main.c **** 	static int i;
+ 135:apps/menu/main.c **** 	static void (*f) (void) = (void (*)(void))RAM;
+ 136:apps/menu/main.c **** 
+ 137:apps/menu/main.c **** 	wait_key_release();
+ 266              		.loc 2 137 0
+ 267 0004 FEFFFFEB 		bl	wait_key_release
+ 268              	.LBB2:
+ 138:apps/menu/main.c **** 
+ 139:apps/menu/main.c **** 	local_irq_disable();
+ 269              		.loc 2 139 0
+ 270 0008 00300FE1 		mrs	r3, cpsr		@ local_irq_disable
+ 271 000c 803083E3 		orr	r3, r3, #128
+ 272 0010 03F021E1 		msr	cpsr_c, r3
+ 273              	.LVL20:
+ 274              	.LBE2:
+ 140:apps/menu/main.c **** 
+ 141:apps/menu/main.c **** 	for (i = 0; i < apps[cursor].len; i++)
+ 275              		.loc 2 141 0
+ 276 0014 0020A0E3 		mov	r2, #0
+ 277 0018 54309FE5 		ldr	r3, .L39
+ 278              	.LVL21:
+ 279 001c 0200A0E1 		mov	r0, r2
+ 280 0020 002083E5 		str	r2, [r3, #0]
+ 281 0024 0D0000EA 		b	.L35
+ 282              	.L36:
+ 142:apps/menu/main.c **** 		((unsigned char *)RAM)[i] = ((unsigned char *)apps[cursor].start)[i];
+ 283              		.loc 2 142 0
+ 284 0028 103092E5 		ldr	r3, [r2, #16]
+ 285 002c 0020D3E7 		ldrb	r2, [r3, r0]	@ zero_extendqisi2
+ 286 0030 8238A0E3 		mov	r3, #8519680
+ 287 0034 0320C0E7 		strb	r2, [r0, r3]
+ 288 0038 010080E2 		add	r0, r0, #1
+ 289              	.L35:
+ 290              		.loc 2 141 0
+ 291 003c 34309FE5 		ldr	r3, .L39+4
+ 292 0040 001093E5 		ldr	r1, [r3, #0]
+ 293 0044 30309FE5 		ldr	r3, .L39+8
+ 294 0048 1820A0E3 		mov	r2, #24
+ 295 004c 913222E0 		mla	r2, r1, r2, r3
+ 296 0050 143092E5 		ldr	r3, [r2, #20]
+ 297 0054 030050E1 		cmp	r0, r3
+ 298 0058 080000BA 		blt	.L36
+ 299 005c 10309FE5 		ldr	r3, .L39
+ 300 0060 000083E5 		str	r0, [r3, #0]
+ 143:apps/menu/main.c **** 	f();
+ 301              		.loc 2 143 0
+ 302 0064 14309FE5 		ldr	r3, .L39+12
+ 303 0068 0FE0A0E1 		mov	lr, pc
+ 304 006c 00F093E5 		ldr	pc, [r3, #0]
+ 144:apps/menu/main.c **** }
+ 305              		.loc 2 144 0
+ 306 0070 04F09DE4 		ldr	pc, [sp], #4
+ 307              	.L40:
+ 308              		.align	2
+ 309              	.L39:
+ 310 0074 08000000 		.word	i.3466
+ 311 0078 00000000 		.word	cursor
+ 312 007c 00000000 		.word	apps
+ 313 0080 08000000 		.word	f.3468
+ 314              	.LFE82:
+ 316              		.section	.text.key_handler,"ax",%progbits
+ 317              		.align	2
+ 319              	key_handler:
+ 320              	.LFB85:
+ 145:apps/menu/main.c **** 
+ 146:apps/menu/main.c **** /* UI */
+ 147:apps/menu/main.c **** 
+ 148:apps/menu/main.c **** static void refresh_display(void)
+ 149:apps/menu/main.c **** {
+ 150:apps/menu/main.c **** #if 0
+ 151:apps/menu/main.c **** 	char text[16];
+ 152:apps/menu/main.c **** 	int bat = battery_info.battery_percent;
+ 153:apps/menu/main.c **** #endif
+ 154:apps/menu/main.c **** 	int i;
+ 155:apps/menu/main.c **** 
+ 156:apps/menu/main.c **** 	fb_clear();
+ 157:apps/menu/main.c **** 
+ 158:apps/menu/main.c **** 	/* header */
+ 159:apps/menu/main.c **** 	fb_setbg(FB_COLOR_WHITE);
+ 160:apps/menu/main.c **** 	if (1) {
+ 161:apps/menu/main.c **** 		fb_setfg(FB_COLOR_BLUE);
+ 162:apps/menu/main.c **** 		fb_setfont(FB_FONT_HELVR08);
+ 163:apps/menu/main.c **** 		fb_gotoxy(0, 7);
+ 164:apps/menu/main.c **** 		fb_putstr("Osmocom Menu", -1);
+ 165:apps/menu/main.c **** 		fb_setfg(FB_COLOR_RGB(0xc0, 0xc0, 0x00));
+ 166:apps/menu/main.c **** 		fb_setfont(FB_FONT_SYMBOLS);
+ 167:apps/menu/main.c **** #if 0
+ 168:apps/menu/main.c **** 		fb_gotoxy(framebuffer->width - 15, 8);
+ 169:apps/menu/main.c **** 		if (bat >= 100 && (battery_info.flags & BATTERY_CHG_ENABLED)
+ 170:apps/menu/main.c **** 		 && !(battery_info.flags & BATTERY_CHARGING))
+ 171:apps/menu/main.c **** 			fb_putstr("@HHBC", framebuffer->width);
+ 172:apps/menu/main.c **** 		else {
+ 173:apps/menu/main.c **** 			sprintf(text, "@%c%c%cC", (bat >= 30) ? 'B':'A',
+ 174:apps/menu/main.c **** 				(bat >= 60) ? 'B':'A', (bat >= 90) ? 'B':'A');
+ 175:apps/menu/main.c **** 			fb_putstr(text, framebuffer->width);
+ 176:apps/menu/main.c **** 		}
+ 177:apps/menu/main.c **** #endif
+ 178:apps/menu/main.c **** 		fb_gotoxy(0, 8);
+ 179:apps/menu/main.c **** 		fb_putstr("GGEGG", framebuffer->width);
+ 180:apps/menu/main.c **** 		fb_setfg(FB_COLOR_GREEN);
+ 181:apps/menu/main.c **** 		fb_gotoxy(0, 10);
+ 182:apps/menu/main.c **** 		fb_boxto(framebuffer->width - 1, 10);
+ 183:apps/menu/main.c **** 	}
+ 184:apps/menu/main.c **** 	fb_setfg(FB_COLOR_BLACK);
+ 185:apps/menu/main.c **** 	fb_setfont(FB_FONT_C64);
+ 186:apps/menu/main.c **** 
+ 187:apps/menu/main.c **** 
+ 188:apps/menu/main.c **** 	for (i = 0; i < 5; i++) {
+ 189:apps/menu/main.c **** 		if (!apps[scroll_apps + i].name)
+ 190:apps/menu/main.c **** 			break;
+ 191:apps/menu/main.c **** 		if (scroll_apps + i == cursor) {
+ 192:apps/menu/main.c **** 			fb_setfg(FB_COLOR_WHITE);
+ 193:apps/menu/main.c **** 			fb_setbg(FB_COLOR_BLUE);
+ 194:apps/menu/main.c **** 		}
+ 195:apps/menu/main.c **** 		fb_gotoxy(0, 20 + i * 10);
+ 196:apps/menu/main.c **** 		fb_putstr(apps[scroll_apps + i].name,
+ 197:apps/menu/main.c **** 			framebuffer->width);
+ 198:apps/menu/main.c **** 		if (scroll_apps + i == cursor) {
+ 199:apps/menu/main.c **** 			fb_setfg(FB_COLOR_BLACK);
+ 200:apps/menu/main.c **** 			fb_setbg(FB_COLOR_WHITE);
+ 201:apps/menu/main.c **** 		}
+ 202:apps/menu/main.c **** 	}
+ 203:apps/menu/main.c **** 	if (i == 0) {
+ 204:apps/menu/main.c **** 		fb_gotoxy(0, 50);
+ 205:apps/menu/main.c **** 		fb_putstr("No apps!", -1);
+ 206:apps/menu/main.c **** 	}
+ 207:apps/menu/main.c **** 
+ 208:apps/menu/main.c **** 	fb_flush();
+ 209:apps/menu/main.c **** }
+ 210:apps/menu/main.c **** 
+ 211:apps/menu/main.c **** static void handle_key_code()
+ 212:apps/menu/main.c **** {
+ 213:apps/menu/main.c **** 	if (key_code == KEY_INV)
+ 214:apps/menu/main.c **** 		return;
+ 215:apps/menu/main.c **** 
+ 216:apps/menu/main.c **** 	switch (key_code) {
+ 217:apps/menu/main.c **** 	case KEY_1:
+ 218:apps/menu/main.c **** 	case KEY_2:
+ 219:apps/menu/main.c **** 	case KEY_3:
+ 220:apps/menu/main.c **** 	case KEY_4:
+ 221:apps/menu/main.c **** 	case KEY_5:
+ 222:apps/menu/main.c **** 	case KEY_6:
+ 223:apps/menu/main.c **** 	case KEY_7:
+ 224:apps/menu/main.c **** 	case KEY_8:
+ 225:apps/menu/main.c **** 	case KEY_9:
+ 226:apps/menu/main.c **** 		if (apps[key_code - KEY_1].len) {
+ 227:apps/menu/main.c **** 			cursor = key_code - KEY_1;
+ 228:apps/menu/main.c **** 			load_app();
+ 229:apps/menu/main.c **** 		}
+ 230:apps/menu/main.c **** 		break;
+ 231:apps/menu/main.c **** 	case KEY_0:
+ 232:apps/menu/main.c **** 		if (apps[9].len) {
+ 233:apps/menu/main.c **** 			cursor = 9;
+ 234:apps/menu/main.c **** 			load_app();
+ 235:apps/menu/main.c **** 		}
+ 236:apps/menu/main.c **** 		break;
+ 237:apps/menu/main.c **** 	case KEY_UP:
+ 238:apps/menu/main.c **** 		if (cursor == 0)
+ 239:apps/menu/main.c **** 			return;
+ 240:apps/menu/main.c **** 		cursor--;
+ 241:apps/menu/main.c **** 		if (cursor < scroll_apps)
+ 242:apps/menu/main.c **** 			scroll_apps = cursor;
+ 243:apps/menu/main.c **** 		refresh_display();
+ 244:apps/menu/main.c **** 		break;
+ 245:apps/menu/main.c **** 	case KEY_DOWN:
+ 246:apps/menu/main.c **** 		if (!apps[cursor + 1].name[0])
+ 247:apps/menu/main.c **** 			return;
+ 248:apps/menu/main.c **** 		cursor++;
+ 249:apps/menu/main.c **** 		if (cursor >= scroll_apps + 5)
+ 250:apps/menu/main.c **** 			scroll_apps = cursor - 4;
+ 251:apps/menu/main.c **** 		refresh_display();
+ 252:apps/menu/main.c **** 		break;
+ 253:apps/menu/main.c **** 	case KEY_OK:
+ 254:apps/menu/main.c **** 		if (apps[cursor].len)
+ 255:apps/menu/main.c **** 			load_app();
+ 256:apps/menu/main.c **** 		break;
+ 257:apps/menu/main.c **** 	case KEY_POWER:
+ 258:apps/menu/main.c **** 		wait_key_release();
+ 259:apps/menu/main.c **** 		twl3025_power_off();
+ 260:apps/menu/main.c **** 		break;
+ 261:apps/menu/main.c **** 	default:
+ 262:apps/menu/main.c **** 		break;
+ 263:apps/menu/main.c **** 	}
+ 264:apps/menu/main.c **** 
+ 265:apps/menu/main.c **** 	key_code = KEY_INV;
+ 266:apps/menu/main.c **** }
+ 267:apps/menu/main.c **** 
+ 268:apps/menu/main.c **** /* Main Program */
+ 269:apps/menu/main.c **** const char *hr = "======================================================================\n";
+ 270:apps/menu/main.c **** 
+ 271:apps/menu/main.c **** static void key_handler(enum key_codes code, enum key_states state)
+ 272:apps/menu/main.c **** {
+ 321              		.loc 2 272 0
+ 322              		@ args = 0, pretend = 0, frame = 0
+ 323              		@ frame_needed = 0, uses_anonymous_args = 0
+ 324              		@ link register save eliminated.
+ 325              	.LVL22:
+ 273:apps/menu/main.c **** 	key_state = state;
+ 326              		.loc 2 273 0
+ 327 0000 10309FE5 		ldr	r3, .L45
+ 274:apps/menu/main.c **** 
+ 275:apps/menu/main.c **** 	if (state != PRESSED)
+ 328              		.loc 2 275 0
+ 329 0004 000051E3 		cmp	r1, #0
+ 330              		.loc 2 273 0
+ 331 0008 001083E5 		str	r1, [r3, #0]
+ 276:apps/menu/main.c **** 		return;
+ 277:apps/menu/main.c **** 
+ 278:apps/menu/main.c **** 	key_code = code;
+ 332              		.loc 2 278 0
+ 333 000c 08309F05 		ldreq	r3, .L45+4
+ 334              		.loc 2 272 0
+ 335              		@ lr needed for prologue
+ 336              		.loc 2 278 0
+ 337 0010 00008305 		streq	r0, [r3, #0]
+ 338 0014 1EFF2FE1 		bx	lr
+ 339              	.L46:
+ 340              		.align	2
+ 341              	.L45:
+ 342 0018 0C000000 		.word	key_state
+ 343 001c 00000000 		.word	key_code
+ 344              	.LFE85:
+ 346              		.section	.rodata.str1.4
+ 347              		.align	2
+ 348              	.LC1:
+ 349 0048 4F736D6F 		.ascii	"Osmocom Menu\000"
+ 349      636F6D20 
+ 349      4D656E75 
+ 349      00
+ 350 0055 000000   		.align	2
+ 351              	.LC2:
+ 352 0058 47474547 		.ascii	"GGEGG\000"
+ 352      4700
+ 353              		.section	.text.refresh_display,"ax",%progbits
+ 354              		.align	2
+ 356              	refresh_display:
+ 357              	.LFB83:
+ 358              		.loc 2 149 0
+ 359              		@ args = 0, pretend = 0, frame = 0
+ 360              		@ frame_needed = 0, uses_anonymous_args = 0
+ 361              	.LVL23:
+ 362 0000 F0452DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 363              	.LCFI7:
+ 364              	.LBB3:
+ 365              	.LBB4:
+  78:include/fb/framebuffer.h **** 
+  79:include/fb/framebuffer.h **** static inline void
+  80:include/fb/framebuffer.h **** fb_gotoxy(uint16_t x,uint16_t y){
+  81:include/fb/framebuffer.h **** 	framebuffer->cursor_x = x;
+  82:include/fb/framebuffer.h **** 	framebuffer->cursor_y = y;
+  83:include/fb/framebuffer.h **** }
+  84:include/fb/framebuffer.h **** 
+  85:include/fb/framebuffer.h **** static inline void
+  86:include/fb/framebuffer.h **** fb_setfg(uint32_t color){
+  87:include/fb/framebuffer.h **** 	framebuffer->fg_color = color;
+  88:include/fb/framebuffer.h **** }
+  89:include/fb/framebuffer.h **** 
+  90:include/fb/framebuffer.h **** static inline void
+  91:include/fb/framebuffer.h **** fb_setbg(uint32_t color){
+  92:include/fb/framebuffer.h **** 	framebuffer->bg_color = color;
+ 366              		.loc 1 92 0
+ 367 0004 40519FE5 		ldr	r5, .L57
+ 368              	.LBE4:
+ 369              	.LBE3:
+ 370              		.loc 2 156 0
+ 371 0008 FEFFFFEB 		bl	fb_clear
+ 372              	.LBB5:
+ 373              	.LBB6:
+ 374              		.loc 1 92 0
+ 375 000c 002095E5 		ldr	r2, [r5, #0]
+ 376 0010 FF34E0E3 		mvn	r3, #-16777216
+ 377 0014 2C3082E5 		str	r3, [r2, #44]
+ 378              	.LBE6:
+ 379              	.LBE5:
+ 380              	.LBB7:
+ 381              	.LBB8:
+ 382              		.loc 1 87 0
+ 383 0018 FF30A0E3 		mov	r3, #255
+ 384              	.LBE8:
+ 385              	.LBE7:
+ 386              	.LBB9:
+ 387              	.LBB10:
+  93:include/fb/framebuffer.h **** }
+  94:include/fb/framebuffer.h **** 
+  95:include/fb/framebuffer.h **** static inline void
+  96:include/fb/framebuffer.h **** fb_setfont(enum fb_font_id fid){
+  97:include/fb/framebuffer.h **** 	framebuffer->font = fid;
+ 388              		.loc 1 97 0
+ 389 001c 0040A0E3 		mov	r4, #0
+ 390              	.LBE10:
+ 391              	.LBE9:
+ 392              	.LBB11:
+ 393              	.LBB12:
+ 394              		.loc 1 87 0
+ 395 0020 283082E5 		str	r3, [r2, #40]
+ 396              	.LBE12:
+ 397              	.LBE11:
+ 398              	.LBB13:
+ 399              	.LBB14:
+ 400              		.loc 1 82 0
+ 401 0024 0730A0E3 		mov	r3, #7	@ movhi
+ 402 0028 B632C2E1 		strh	r3, [r2, #38]	@ movhi
+ 403              	.LBE14:
+ 404              	.LBE13:
+ 405              	.LBB15:
+ 406              	.LBB16:
+ 407              		.loc 1 97 0
+ 408 002c 304082E5 		str	r4, [r2, #48]
+ 409              	.LBE16:
+ 410              	.LBE15:
+ 411              	.LBB17:
+ 412              	.LBB18:
+ 413              		.loc 1 81 0
+ 414 0030 B442C2E1 		strh	r4, [r2, #36]	@ movhi
+ 415              	.LBE18:
+ 416              	.LBE17:
+ 417              		.loc 2 164 0
+ 418 0034 0010E0E3 		mvn	r1, #0
+ 419 0038 10019FE5 		ldr	r0, .L57+4
+ 420 003c FEFFFFEB 		bl	fb_putstr
+ 421              	.LBB19:
+ 422              	.LBB20:
+ 423              		.loc 1 87 0
+ 424 0040 002095E5 		ldr	r2, [r5, #0]
+ 425 0044 08319FE5 		ldr	r3, .L57+8
+ 426 0048 283082E5 		str	r3, [r2, #40]
+ 427              	.LBE20:
+ 428              	.LBE19:
+ 429              	.LBB21:
+ 430              	.LBB22:
+ 431              		.loc 1 97 0
+ 432 004c 0330A0E3 		mov	r3, #3
+ 433 0050 303082E5 		str	r3, [r2, #48]
+ 434              	.LBE22:
+ 435              	.LBE21:
+ 436              	.LBB23:
+ 437              	.LBB24:
+ 438              		.loc 1 82 0
+ 439 0054 0830A0E3 		mov	r3, #8	@ movhi
+ 440              	.LBE24:
+ 441              	.LBE23:
+ 442              		.loc 2 179 0
+ 443 0058 B012D2E1 		ldrh	r1, [r2, #32]
+ 444              	.LBB25:
+ 445              	.LBB26:
+ 446              		.loc 1 82 0
+ 447 005c B632C2E1 		strh	r3, [r2, #38]	@ movhi
+ 448              		.loc 1 81 0
+ 449 0060 B442C2E1 		strh	r4, [r2, #36]	@ movhi
+ 450              	.LBE26:
+ 451              	.LBE25:
+ 452              		.loc 2 179 0
+ 453 0064 EC009FE5 		ldr	r0, .L57+12
+ 454 0068 FEFFFFEB 		bl	fb_putstr
+ 455              	.LBB27:
+ 456              	.LBB28:
+ 457              		.loc 1 87 0
+ 458 006c 002095E5 		ldr	r2, [r5, #0]
+ 459              	.LBE28:
+ 460              	.LBE27:
+ 461              		.loc 2 182 0
+ 462 0070 B002D2E1 		ldrh	r0, [r2, #32]
+ 463              	.LBB29:
+ 464              	.LBB30:
+ 465              		.loc 1 87 0
+ 466 0074 FF3CA0E3 		mov	r3, #65280
+ 467              	.LBE30:
+ 468              	.LBE29:
+ 469              		.loc 2 182 0
+ 470 0078 010040E2 		sub	r0, r0, #1
+ 471              	.LBB31:
+ 472              	.LBB32:
+ 473              		.loc 1 87 0
+ 474 007c 283082E5 		str	r3, [r2, #40]
+ 475              	.LBE32:
+ 476              	.LBE31:
+ 477              		.loc 2 182 0
+ 478 0080 0008A0E1 		mov	r0, r0, asl #16
+ 479              	.LBB33:
+ 480              	.LBB34:
+ 481              		.loc 1 82 0
+ 482 0084 0A30A0E3 		mov	r3, #10	@ movhi
+ 483 0088 B632C2E1 		strh	r3, [r2, #38]	@ movhi
+ 484              		.loc 1 81 0
+ 485 008c B442C2E1 		strh	r4, [r2, #36]	@ movhi
+ 486              	.LBE34:
+ 487              	.LBE33:
+ 488              		.loc 2 182 0
+ 489 0090 2008A0E1 		mov	r0, r0, lsr #16
+ 490 0094 0A10A0E3 		mov	r1, #10
+ 491 0098 FEFFFFEB 		bl	fb_boxto
+ 492              	.LBB35:
+ 493              	.LBB36:
+ 494              		.loc 1 87 0
+ 495 009c 002095E5 		ldr	r2, [r5, #0]
+ 496              	.LBE36:
+ 497              	.LBE35:
+ 498              	.LBB37:
+ 499              	.LBB38:
+ 500              		.loc 1 97 0
+ 501 00a0 0230A0E3 		mov	r3, #2
+ 502 00a4 303082E5 		str	r3, [r2, #48]
+ 503              	.LBE38:
+ 504              	.LBE37:
+ 505              	.LBB39:
+ 506              	.LBB40:
+ 507              		.loc 1 87 0
+ 508 00a8 284082E5 		str	r4, [r2, #40]
+ 509              	.LBE40:
+ 510              	.LBE39:
+ 511              	.LBB41:
+ 512              	.LBB42:
+ 513              		.loc 1 97 0
+ 514 00ac 1460A0E3 		mov	r6, #20
+ 515              	.L48:
+ 516              	.LBE42:
+ 517              	.LBE41:
+ 518              		.loc 2 191 0
+ 519 00b0 A4509FE5 		ldr	r5, .L57+16
+ 520              		.loc 2 196 0
+ 521 00b4 002095E5 		ldr	r2, [r5, #0]
+ 522 00b8 A0309FE5 		ldr	r3, .L57+20
+ 523              	.LVL24:
+ 524 00bc 042082E0 		add	r2, r2, r4
+ 525 00c0 1810A0E3 		mov	r1, #24
+ 526              		.loc 2 191 0
+ 527 00c4 98709FE5 		ldr	r7, .L57+24
+ 528              		.loc 2 196 0
+ 529 00c8 923120E0 		mla	r0, r2, r1, r3
+ 530              	.LBB43:
+ 531              	.LBB44:
+ 532              		.loc 1 81 0
+ 533 00cc 78A09FE5 		ldr	sl, .L57
+ 534              	.LBE44:
+ 535              	.LBE43:
+ 536              		.loc 2 191 0
+ 537 00d0 003095E5 		ldr	r3, [r5, #0]
+ 538 00d4 002097E5 		ldr	r2, [r7, #0]
+ 539 00d8 043083E0 		add	r3, r3, r4
+ 540              	.LBB45:
+ 541              	.LBB46:
+ 542              		.loc 1 81 0
+ 543 00dc 00C09AE5 		ldr	ip, [sl, #0]
+ 544              	.LBE46:
+ 545              	.LBE45:
+ 546              		.loc 2 191 0
+ 547 00e0 020053E1 		cmp	r3, r2
+ 548              	.LBB47:
+ 549              	.LBB48:
+ 550              		.loc 1 92 0
+ 551 00e4 FF30A003 		moveq	r3, #255
+ 552              	.LBE48:
+ 553              	.LBE47:
+ 554              	.LBB49:
+ 555              	.LBB50:
+ 556              		.loc 1 87 0
+ 557 00e8 0C20A001 		moveq	r2, ip
+ 558              	.LBE50:
+ 559              	.LBE49:
+ 560              	.LBB51:
+ 561              	.LBB52:
+ 562              		.loc 1 92 0
+ 563 00ec 2C308205 		streq	r3, [r2, #44]
+ 564              	.LBE52:
+ 565              	.LBE51:
+ 566              	.LBB53:
+ 567              	.LBB54:
+ 568              		.loc 1 81 0
+ 569 00f0 0080A0E3 		mov	r8, #0
+ 570              	.LBE54:
+ 571              	.LBE53:
+ 572              	.LBB55:
+ 573              	.LBB56:
+ 574              		.loc 1 87 0
+ 575 00f4 FF34E003 		mvneq	r3, #-16777216
+ 576 00f8 28308205 		streq	r3, [r2, #40]
+ 577              	.LBE56:
+ 578              	.LBE55:
+ 579              	.LBB57:
+ 580              	.LBB58:
+ 581              		.loc 1 82 0
+ 582 00fc B662CCE1 		strh	r6, [ip, #38]	@ movhi
+ 583              		.loc 1 81 0
+ 584 0100 B482CCE1 		strh	r8, [ip, #36]	@ movhi
+ 585              	.LBE58:
+ 586              	.LBE57:
+ 587              		.loc 2 196 0
+ 588 0104 B012DCE1 		ldrh	r1, [ip, #32]
+ 589 0108 FEFFFFEB 		bl	fb_putstr
+ 590              		.loc 2 188 0
+ 591 010c 0A3086E2 		add	r3, r6, #10
+ 592 0110 0338A0E1 		mov	r3, r3, asl #16
+ 593 0114 2368A0E1 		mov	r6, r3, lsr #16
+ 594              		.loc 2 198 0
+ 595 0118 003095E5 		ldr	r3, [r5, #0]
+ 596 011c 002097E5 		ldr	r2, [r7, #0]
+ 597 0120 043083E0 		add	r3, r3, r4
+ 598 0124 020053E1 		cmp	r3, r2
+ 599              	.LBB59:
+ 600              	.LBB60:
+ 601              		.loc 1 87 0
+ 602 0128 00209A05 		ldreq	r2, [sl, #0]
+ 603              	.LBE60:
+ 604              	.LBE59:
+ 605              	.LBB61:
+ 606              	.LBB62:
+ 607              		.loc 1 92 0
+ 608 012c FF34E003 		mvneq	r3, #-16777216
+ 609              	.LBE62:
+ 610              	.LBE61:
+ 611              		.loc 2 188 0
+ 612 0130 014084E2 		add	r4, r4, #1
+ 613              	.LBB63:
+ 614              	.LBB64:
+ 615              		.loc 1 92 0
+ 616 0134 2C308205 		streq	r3, [r2, #44]
+ 617              	.LBE64:
+ 618              	.LBE63:
+ 619              	.LBB65:
+ 620              	.LBB66:
+ 621              		.loc 1 87 0
+ 622 0138 28808205 		streq	r8, [r2, #40]
+ 623              	.LBE66:
+ 624              	.LBE65:
+ 625              		.loc 2 188 0
+ 626 013c 050054E3 		cmp	r4, #5
+ 627 0140 2A00001A 		bne	.L48
+ 628              		.loc 2 209 0
+ 629 0144 F045BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, sl, lr}
+ 630              		.loc 2 208 0
+ 631 0148 FEFFFFEA 		b	fb_flush
+ 632              	.L58:
+ 633              		.align	2
+ 634              	.L57:
+ 635 014c 00000000 		.word	framebuffer
+ 636 0150 48000000 		.word	.LC1
+ 637 0154 00C0C000 		.word	12632064
+ 638 0158 58000000 		.word	.LC2
+ 639 015c 00000000 		.word	scroll_apps
+ 640 0160 00000000 		.word	apps
+ 641 0164 00000000 		.word	cursor
+ 642              	.LFE83:
+ 644              		.section	.rodata.str1.4
+ 645 005e 0000     		.align	2
+ 646              	.LC3:
+ 647 0060 0A0A4F73 		.ascii	"\012\012OsmocomBB Menu (revision osmocon_v0.0.0-174"
+ 647      6D6F636F 
+ 647      6D424220 
+ 647      4D656E75 
+ 647      20287265 
+ 648 008d 382D6734 		.ascii	"8-g46188c72-modified)\012\000"
+ 648      36313838 
+ 648      6337322D 
+ 648      6D6F6469 
+ 648      66696564 
+ 649              		.align	2
+ 650              	.LC4:
+ 651 00a4 6D656E75 		.ascii	"menu\000"
+ 651      00
+ 652 00a9 000000   		.align	2
+ 653              	.LC5:
+ 654 00ac 6F736D6F 		.ascii	"osmocom-bb\000"
+ 654      636F6D2D 
+ 654      626200
+ 655 00b7 00       		.align	2
+ 656              	.LC6:
+ 657 00b8 68696768 		.ascii	"highram:\000"
+ 657      72616D3A 
+ 657      00
+ 658 00c1 000000   		.align	2
+ 659              	.LC7:
+ 660 00c4 666F756E 		.ascii	"found highram image at flash mem address 0x%p\012\000"
+ 660      64206869 
+ 660      67687261 
+ 660      6D20696D 
+ 660      61676520 
+ 661 00f3 00       		.align	2
+ 662              	.LC8:
+ 663 00f4 736B6970 		.ascii	"skipping: corrupt highram header, no '\\n' after im"
+ 663      70696E67 
+ 663      3A20636F 
+ 663      72727570 
+ 663      74206869 
+ 664 0126 61676520 		.ascii	"age name or name more larger than %d digits\012\000"
+ 664      6E616D65 
+ 664      206F7220 
+ 664      6E616D65 
+ 664      206D6F72 
+ 665 0153 00       		.section	.text.main,"ax",%progbits
+ 666              		.align	2
+ 667              		.global	main
+ 669              	main:
+ 670              	.LFB86:
+ 279:apps/menu/main.c **** }
+ 280:apps/menu/main.c **** 
+ 281:apps/menu/main.c **** extern void putchar_asm(uint32_t c);
+ 282:apps/menu/main.c **** 
+ 283:apps/menu/main.c **** static const uint8_t phone_ack[] = { 0x1b, 0xf6, 0x02, 0x00, 0x41, 0x03, 0x42 };
+ 284:apps/menu/main.c **** 
+ 285:apps/menu/main.c **** int main(void)
+ 286:apps/menu/main.c **** {
+ 671              		.loc 2 286 0
+ 672              		@ args = 0, pretend = 0, frame = 0
+ 673              		@ frame_needed = 0, uses_anonymous_args = 0
+ 674              	.LVL25:
+ 675 0000 F0412DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, lr}
+ 676              	.LCFI8:
+ 677              		.loc 2 286 0
+ 678 0004 88439FE5 		ldr	r4, .L106
+ 679              	.L60:
+ 287:apps/menu/main.c **** 	int i;
+ 288:apps/menu/main.c **** 
+ 289:apps/menu/main.c **** 	/* Simulate a compal loader saying "ACK" */
+ 290:apps/menu/main.c **** 	for (i = 0; i < (int)sizeof(phone_ack); i++) {
+ 291:apps/menu/main.c **** 		putchar_asm(phone_ack[i]);
+ 680              		.loc 2 291 0
+ 681 0008 0100D4E4 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+ 682 000c FEFFFFEB 		bl	putchar_asm
+ 683              		.loc 2 290 0
+ 684 0010 80339FE5 		ldr	r3, .L106+4
+ 685 0014 030054E1 		cmp	r4, r3
+ 686 0018 0000001A 		bne	.L60
+ 292:apps/menu/main.c **** 	}
+ 293:apps/menu/main.c **** 
+ 294:apps/menu/main.c **** 	board_init(0);
+ 295:apps/menu/main.c **** 
+ 296:apps/menu/main.c **** 	puts("\n\nOsmocomBB Menu (revision " GIT_REVISION ")\n");
+ 297:apps/menu/main.c **** 	puts(hr);
+ 687              		.loc 2 297 0
+ 688 001c 78639FE5 		ldr	r6, .L106+8
+ 689              		.loc 2 294 0
+ 690 0020 0000A0E3 		mov	r0, #0
+ 691 0024 FEFFFFEB 		bl	board_init
+ 692              	.LBB67:
+ 693              	.LBB68:
+ 694              		.loc 1 87 0
+ 695 0028 70439FE5 		ldr	r4, .L106+12
+ 696              	.LBE68:
+ 697              	.LBE67:
+ 698              		.loc 2 296 0
+ 699 002c 70039FE5 		ldr	r0, .L106+16
+ 700 0030 FEFFFFEB 		bl	puts
+ 701              		.loc 2 297 0
+ 702 0034 000096E5 		ldr	r0, [r6, #0]
+ 703 0038 FEFFFFEB 		bl	puts
+ 298:apps/menu/main.c **** 
+ 299:apps/menu/main.c **** 	fb_clear();
+ 704              		.loc 2 299 0
+ 705 003c FEFFFFEB 		bl	fb_clear
+ 706              	.LBB69:
+ 707              	.LBB70:
+ 708              		.loc 1 87 0
+ 709 0040 002094E5 		ldr	r2, [r4, #0]
+ 710              	.LBE70:
+ 711              	.LBE69:
+ 712              	.LBB71:
+ 713              	.LBB72:
+ 714              		.loc 1 97 0
+ 715 0044 0130A0E3 		mov	r3, #1
+ 716              	.LBE72:
+ 717              	.LBE71:
+ 300:apps/menu/main.c **** 
+ 301:apps/menu/main.c **** 	fb_setfg(FB_COLOR_BLACK);
+ 302:apps/menu/main.c **** 	fb_setbg(FB_COLOR_WHITE);
+ 303:apps/menu/main.c **** 	fb_setfont(FB_FONT_HELVB14);
+ 304:apps/menu/main.c **** 
+ 305:apps/menu/main.c **** 	fb_gotoxy(2,20);
+ 306:apps/menu/main.c **** 	fb_putstr("menu",framebuffer->width-4);
+ 718              		.loc 2 306 0
+ 719 0048 B012D2E1 		ldrh	r1, [r2, #32]
+ 720              	.LBB73:
+ 721              	.LBB74:
+ 722              		.loc 1 97 0
+ 723 004c 303082E5 		str	r3, [r2, #48]
+ 724              	.LBE74:
+ 725              	.LBE73:
+ 726              	.LBB75:
+ 727              	.LBB76:
+ 728              		.loc 1 81 0
+ 729 0050 0230A0E3 		mov	r3, #2	@ movhi
+ 730              	.LBE76:
+ 731              	.LBE75:
+ 732              	.LBB77:
+ 733              	.LBB78:
+ 734              		.loc 1 87 0
+ 735 0054 0050A0E3 		mov	r5, #0
+ 736              	.LBE78:
+ 737              	.LBE77:
+ 738              	.LBB79:
+ 739              	.LBB80:
+ 740              		.loc 1 92 0
+ 741 0058 FF74E0E3 		mvn	r7, #-16777216
+ 742              	.LBE80:
+ 743              	.LBE79:
+ 744              	.LBB81:
+ 745              	.LBB82:
+ 746              		.loc 1 81 0
+ 747 005c B432C2E1 		strh	r3, [r2, #36]	@ movhi
+ 748              		.loc 1 82 0
+ 749 0060 1430A0E3 		mov	r3, #20	@ movhi
+ 750              	.LBE82:
+ 751              	.LBE81:
+ 752              	.LBB83:
+ 753              	.LBB84:
+ 754              		.loc 1 92 0
+ 755 0064 2C7082E5 		str	r7, [r2, #44]
+ 756              	.LBE84:
+ 757              	.LBE83:
+ 758              	.LBB85:
+ 759              	.LBB86:
+ 760              		.loc 1 82 0
+ 761 0068 B632C2E1 		strh	r3, [r2, #38]	@ movhi
+ 762              	.LBE86:
+ 763              	.LBE85:
+ 764              		.loc 2 306 0
+ 765 006c 041041E2 		sub	r1, r1, #4
+ 766              	.LBB87:
+ 767              	.LBB88:
+ 768              		.loc 1 87 0
+ 769 0070 285082E5 		str	r5, [r2, #40]
+ 770              	.LBE88:
+ 771              	.LBE87:
+ 772              		.loc 2 306 0
+ 773 0074 2C039FE5 		ldr	r0, .L106+20
+ 774 0078 FEFFFFEB 		bl	fb_putstr
+ 775              	.LBB89:
+ 776              	.LBB90:
+ 777              		.loc 1 87 0
+ 778 007c 002094E5 		ldr	r2, [r4, #0]
+ 779 0080 FF38A0E3 		mov	r3, #16711680
+ 780              	.LBE90:
+ 781              	.LBE89:
+ 307:apps/menu/main.c **** 
+ 308:apps/menu/main.c **** 	fb_setfg(FB_COLOR_RED);
+ 309:apps/menu/main.c **** 	fb_setbg(FB_COLOR_BLUE);
+ 310:apps/menu/main.c **** 
+ 311:apps/menu/main.c **** 	fb_gotoxy(2,25);
+ 312:apps/menu/main.c **** 	fb_boxto(framebuffer->width-3,38);
+ 782              		.loc 2 312 0
+ 783 0084 B002D2E1 		ldrh	r0, [r2, #32]
+ 784              	.LBB91:
+ 785              	.LBB92:
+ 786              		.loc 1 87 0
+ 787 0088 283082E5 		str	r3, [r2, #40]
+ 788              	.LBE92:
+ 789              	.LBE91:
+ 790              	.LBB93:
+ 791              	.LBB94:
+ 792              		.loc 1 92 0
+ 793 008c FF30A0E3 		mov	r3, #255
+ 794 0090 2C3082E5 		str	r3, [r2, #44]
+ 795              	.LBE94:
+ 796              	.LBE93:
+ 797              		.loc 2 312 0
+ 798 0094 030040E2 		sub	r0, r0, #3
+ 799              	.LBB95:
+ 800              	.LBB96:
+ 801              		.loc 1 81 0
+ 802 0098 0230A0E3 		mov	r3, #2	@ movhi
+ 803 009c B432C2E1 		strh	r3, [r2, #36]	@ movhi
+ 804              	.LBE96:
+ 805              	.LBE95:
+ 806              		.loc 2 312 0
+ 807 00a0 0008A0E1 		mov	r0, r0, asl #16
+ 808              	.LBB97:
+ 809              	.LBB98:
+ 810              		.loc 1 82 0
+ 811 00a4 1930A0E3 		mov	r3, #25	@ movhi
+ 812 00a8 B632C2E1 		strh	r3, [r2, #38]	@ movhi
+ 813              	.LBE98:
+ 814              	.LBE97:
+ 815              		.loc 2 312 0
+ 816 00ac 2008A0E1 		mov	r0, r0, lsr #16
+ 817 00b0 2610A0E3 		mov	r1, #38
+ 818 00b4 FEFFFFEB 		bl	fb_boxto
+ 819              	.LBB99:
+ 820              	.LBB100:
+ 821              		.loc 1 87 0
+ 822 00b8 003094E5 		ldr	r3, [r4, #0]
+ 823              	.LBE100:
+ 824              	.LBE99:
+ 825              	.LBB101:
+ 826              	.LBB102:
+ 827              		.loc 1 81 0
+ 828 00bc 0820A0E3 		mov	r2, #8	@ movhi
+ 829              	.LBE102:
+ 830              	.LBE101:
+ 313:apps/menu/main.c **** 
+ 314:apps/menu/main.c **** 	fb_setfg(FB_COLOR_WHITE);
+ 315:apps/menu/main.c **** 	fb_setfont(FB_FONT_HELVR08);
+ 316:apps/menu/main.c **** 	fb_gotoxy(8,33);
+ 317:apps/menu/main.c **** 	fb_putstr("osmocom-bb",framebuffer->width-4);
+ 831              		.loc 2 317 0
+ 832 00c0 B012D3E1 		ldrh	r1, [r3, #32]
+ 833              	.LBB103:
+ 834              	.LBB104:
+ 835              		.loc 1 81 0
+ 836 00c4 B422C3E1 		strh	r2, [r3, #36]	@ movhi
+ 837              		.loc 1 82 0
+ 838 00c8 2120A0E3 		mov	r2, #33	@ movhi
+ 839              	.LBE104:
+ 840              	.LBE103:
+ 841              	.LBB105:
+ 842              	.LBB106:
+ 843              		.loc 1 87 0
+ 844 00cc 287083E5 		str	r7, [r3, #40]
+ 845              	.LBE106:
+ 846              	.LBE105:
+ 847              	.LBB107:
+ 848              	.LBB108:
+ 849              		.loc 1 82 0
+ 850 00d0 B622C3E1 		strh	r2, [r3, #38]	@ movhi
+ 851              	.LBE108:
+ 852              	.LBE107:
+ 853              		.loc 2 317 0
+ 854 00d4 041041E2 		sub	r1, r1, #4
+ 855              	.LBB109:
+ 856              	.LBB110:
+ 857              		.loc 1 97 0
+ 858 00d8 305083E5 		str	r5, [r3, #48]
+ 859              	.LBE110:
+ 860              	.LBE109:
+ 861              		.loc 2 317 0
+ 862 00dc C8029FE5 		ldr	r0, .L106+24
+ 863 00e0 FEFFFFEB 		bl	fb_putstr
+ 318:apps/menu/main.c **** 
+ 319:apps/menu/main.c **** 	fb_flush();
+ 864              		.loc 2 319 0
+ 865 00e4 FEFFFFEB 		bl	fb_flush
+ 320:apps/menu/main.c **** 
+ 321:apps/menu/main.c **** 	/* Dump device identification */
+ 322:apps/menu/main.c **** 	dump_dev_id();
+ 866              		.loc 2 322 0
+ 867 00e8 FEFFFFEB 		bl	dump_dev_id
+ 323:apps/menu/main.c **** 	puts(hr);
+ 868              		.loc 2 323 0
+ 869 00ec 000096E5 		ldr	r0, [r6, #0]
+ 870 00f0 FEFFFFEB 		bl	puts
+ 324:apps/menu/main.c **** 
+ 325:apps/menu/main.c **** 	/* Dump clock config before PLL set */
+ 326:apps/menu/main.c **** 	calypso_clk_dump();
+ 871              		.loc 2 326 0
+ 872 00f4 FEFFFFEB 		bl	calypso_clk_dump
+ 327:apps/menu/main.c **** 	puts(hr);
+ 873              		.loc 2 327 0
+ 874 00f8 000096E5 		ldr	r0, [r6, #0]
+ 875 00fc FEFFFFEB 		bl	puts
+ 328:apps/menu/main.c **** 
+ 329:apps/menu/main.c **** 	keypad_set_handler(&key_handler);
+ 876              		.loc 2 329 0
+ 877 0100 A8029FE5 		ldr	r0, .L106+28
+ 878 0104 FEFFFFEB 		bl	keypad_set_handler
+ 330:apps/menu/main.c **** 
+ 331:apps/menu/main.c **** 	/* Dump clock config after PLL set */
+ 332:apps/menu/main.c **** 	calypso_clk_dump();
+ 879              		.loc 2 332 0
+ 880 0108 FEFFFFEB 		bl	calypso_clk_dump
+ 333:apps/menu/main.c **** 	puts(hr);
+ 881              		.loc 2 333 0
+ 882 010c 000096E5 		ldr	r0, [r6, #0]
+ 883 0110 FEFFFFEB 		bl	puts
+ 884              	.LBB111:
+ 885              	.LBB112:
+ 886              		.loc 2 86 0
+ 887 0114 98029FE5 		ldr	r0, .L106+32
+ 888 0118 0510A0E1 		mov	r1, r5
+ 889 011c 032CA0E3 		mov	r2, #768
+ 890 0120 FEFFFFEB 		bl	memset
+ 891 0124 88829FE5 		ldr	r8, .L106+32
+ 892 0128 0178A0E3 		mov	r7, #65536
+ 893              	.LVL26:
+ 894              	.LVL27:
+ 895              	.L62:
+ 896              		.loc 2 91 0
+ 897 012c 0700A0E1 		mov	r0, r7
+ 898              	.LVL28:
+ 899 0130 80129FE5 		ldr	r1, .L106+36
+ 900 0134 0820A0E3 		mov	r2, #8
+ 901 0138 FEFFFFEB 		bl	_memcmp
+ 902              	.LVL29:
+ 903 013c 004050E2 		subs	r4, r0, #0
+ 904              	.LVL30:
+ 905 0140 7D00001A 		bne	.L63
+ 906              		.loc 2 95 0
+ 907 0144 70029FE5 		ldr	r0, .L106+40
+ 908 0148 0710A0E1 		mov	r1, r7
+ 909              	.LVL31:
+ 910 014c FEFFFFEB 		bl	printf
+ 911              	.LVL32:
+ 912              		.loc 2 92 0
+ 913 0150 086087E2 		add	r6, r7, #8
+ 914              	.LVL33:
+ 915              	.L65:
+ 916              		.loc 2 98 0
+ 917 0154 0630D4E7 		ldrb	r3, [r4, r6]	@ zero_extendqisi2
+ 918 0158 0A0053E3 		cmp	r3, #10
+ 919 015c 5A00000A 		beq	.L66
+ 920              		.loc 2 97 0
+ 921 0160 014084E2 		add	r4, r4, #1
+ 922 0164 0F0054E3 		cmp	r4, #15
+ 923 0168 6000000A 		beq	.L68
+ 924 016c 530000EA 		b	.L65
+ 925              	.L66:
+ 926              		.loc 2 101 0
+ 927 0170 0D0054E3 		cmp	r4, #13
+ 928 0174 6000001A 		bne	.L68
+ 929              		.loc 2 102 0
+ 930 0178 0410A0E1 		mov	r1, r4
+ 931 017c 3C029FE5 		ldr	r0, .L106+44
+ 932 0180 FEFFFFEB 		bl	printf
+ 933 0184 7D0000EA 		b	.L63
+ 934              	.L68:
+ 935              		.loc 2 107 0
+ 936 0188 080055E3 		cmp	r5, #8
+ 937 018c 680000CA 		bgt	.L70
+ 938              		.loc 2 108 0
+ 939 0190 1830A0E3 		mov	r3, #24
+ 940 0194 950301E0 		mul	r1, r5, r3
+ 941 0198 14329FE5 		ldr	r3, .L106+32
+ 942 019c 312085E2 		add	r2, r5, #49
+ 943 01a0 0320C1E7 		strb	r2, [r1, r3]
+ 944 01a4 700000EA 		b	.L72
+ 945              	.L70:
+ 946              		.loc 2 109 0
+ 947 01a8 090055E3 		cmp	r5, #9
+ 948              		.loc 2 112 0
+ 949 01ac 1830A013 		movne	r3, #24
+ 950 01b0 95030210 		mulne	r2, r5, r3
+ 951 01b4 F8119FE5 		ldr	r1, .L106+32
+ 952              		.loc 2 110 0
+ 953 01b8 3030A003 		moveq	r3, #48
+ 954              		.loc 2 112 0
+ 955 01bc 08308312 		addne	r3, r3, #8
+ 956              		.loc 2 110 0
+ 957 01c0 D830C105 		streqb	r3, [r1, #216]
+ 958              		.loc 2 112 0
+ 959 01c4 0130C217 		strneb	r3, [r2, r1]
+ 960              	.L72:
+ 961              		.loc 2 113 0
+ 962 01c8 2030A0E3 		mov	r3, #32
+ 963              		.loc 2 114 0
+ 964 01cc 020088E2 		add	r0, r8, #2
+ 965 01d0 0420A0E1 		mov	r2, r4
+ 966 01d4 0610A0E1 		mov	r1, r6
+ 967              		.loc 2 113 0
+ 968 01d8 0130C8E5 		strb	r3, [r8, #1]
+ 969              		.loc 2 114 0
+ 970 01dc FEFFFFEB 		bl	memcpy
+ 971              		.loc 2 118 0
+ 972 01e0 043086E0 		add	r3, r6, r4
+ 973 01e4 013083E2 		add	r3, r3, #1
+ 974              		.loc 2 115 0
+ 975 01e8 0228A0E3 		mov	r2, #131072
+ 976 01ec 142088E5 		str	r2, [r8, #20]
+ 977              		.loc 2 118 0
+ 978 01f0 103088E5 		str	r3, [r8, #16]
+ 979              		.loc 2 119 0
+ 980 01f4 015085E2 		add	r5, r5, #1
+ 981 01f8 188088E2 		add	r8, r8, #24
+ 982              	.L63:
+ 983              		.loc 2 88 0
+ 984 01fc 017887E2 		add	r7, r7, #65536
+ 985 0200 020657E3 		cmp	r7, #2097152
+ 986 0204 4900001A 		bne	.L62
+ 987              	.L104:
+ 988 0208 3240A0E3 		mov	r4, #50
+ 989              	.LVL34:
+ 990              	.L76:
+ 991              	.LBE112:
+ 992              	.LBE111:
+ 334:apps/menu/main.c **** 
+ 335:apps/menu/main.c **** //	display_unset_attr(DISP_ATTR_INVERT);
+ 336:apps/menu/main.c **** 
+ 337:apps/menu/main.c **** 	locate_apps();
+ 338:apps/menu/main.c **** 
+ 339:apps/menu/main.c **** 	while (1) {
+ 340:apps/menu/main.c **** 		for (i = 0; i < 50; i++) {
+ 341:apps/menu/main.c **** 			keypad_poll();
+ 993              		.loc 2 341 0
+ 994 020c FEFFFFEB 		bl	keypad_poll
+ 342:apps/menu/main.c **** 			delay_ms(10);
+ 995              		.loc 2 342 0
+ 996 0210 0A00A0E3 		mov	r0, #10
+ 997 0214 FEFFFFEB 		bl	delay_ms
+ 343:apps/menu/main.c **** 			osmo_timers_update();
+ 998              		.loc 2 343 0
+ 999 0218 FEFFFFEB 		bl	osmo_timers_update
+ 1000              	.LBB113:
+ 1001              	.LBB114:
+ 1002              		.loc 2 213 0
+ 1003 021c A0319FE5 		ldr	r3, .L106+48
+ 1004 0220 003093E5 		ldr	r3, [r3, #0]
+ 1005 0224 FF0053E3 		cmp	r3, #255
+ 1006 0228 DF00000A 		beq	.L77
+ 1007              		.loc 2 216 0
+ 1008 022c 140053E3 		cmp	r3, #20
+ 1009 0230 03F19F97 		ldrls	pc, [pc, r3, asl #2]
+ 1010 0234 DC0000EA 		b	.L79
+ 1011              		.p2align 2
+ 1012              	.L86:
+ 1013 0238 B4020000 		.word	.L80
+ 1014 023c 8C020000 		.word	.L81
+ 1015 0240 8C020000 		.word	.L81
+ 1016 0244 8C020000 		.word	.L81
+ 1017 0248 8C020000 		.word	.L81
+ 1018 024c 8C020000 		.word	.L81
+ 1019 0250 8C020000 		.word	.L81
+ 1020 0254 8C020000 		.word	.L81
+ 1021 0258 8C020000 		.word	.L81
+ 1022 025c 8C020000 		.word	.L81
+ 1023 0260 78030000 		.word	.L79
+ 1024 0264 78030000 		.word	.L79
+ 1025 0268 78030000 		.word	.L79
+ 1026 026c 78030000 		.word	.L79
+ 1027 0270 78030000 		.word	.L79
+ 1028 0274 D8020000 		.word	.L82
+ 1029 0278 04030000 		.word	.L83
+ 1030 027c 78030000 		.word	.L79
+ 1031 0280 78030000 		.word	.L79
+ 1032 0284 4C030000 		.word	.L84
+ 1033 0288 70030000 		.word	.L85
+ 1034              	.L81:
+ 1035              		.loc 2 226 0
+ 1036 028c 011043E2 		sub	r1, r3, #1
+ 1037 0290 1C319FE5 		ldr	r3, .L106+32
+ 1038 0294 1820A0E3 		mov	r2, #24
+ 1039 0298 913223E0 		mla	r3, r1, r2, r3
+ 1040 029c 143093E5 		ldr	r3, [r3, #20]
+ 1041 02a0 000053E3 		cmp	r3, #0
+ 1042              		.loc 2 227 0
+ 1043 02a4 1C319F15 		ldrne	r3, .L106+52
+ 1044 02a8 00108315 		strne	r1, [r3, #0]
+ 1045              		.loc 2 226 0
+ 1046 02ac B200001A 		bne	.L105
+ 1047 02b0 DC0000EA 		b	.L79
+ 1048              	.L80:
+ 1049              		.loc 2 232 0
+ 1050 02b4 F8309FE5 		ldr	r3, .L106+32
+ 1051 02b8 EC3093E5 		ldr	r3, [r3, #236]
+ 1052 02bc 000053E3 		cmp	r3, #0
+ 1053 02c0 DC00000A 		beq	.L79
+ 1054              		.loc 2 233 0
+ 1055 02c4 FC309FE5 		ldr	r3, .L106+52
+ 1056 02c8 0920A0E3 		mov	r2, #9
+ 1057 02cc 002083E5 		str	r2, [r3, #0]
+ 1058              	.L105:
+ 1059              		.loc 2 234 0
+ 1060 02d0 FEFFFFEB 		bl	load_app
+ 1061 02d4 DC0000EA 		b	.L79
+ 1062              	.L82:
+ 1063              		.loc 2 238 0
+ 1064 02d8 E8009FE5 		ldr	r0, .L106+52
+ 1065 02dc 002090E5 		ldr	r2, [r0, #0]
+ 1066 02e0 000052E3 		cmp	r2, #0
+ 1067 02e4 DF00000A 		beq	.L77
+ 1068              		.loc 2 241 0
+ 1069 02e8 DC109FE5 		ldr	r1, .L106+56
+ 1070 02ec 003091E5 		ldr	r3, [r1, #0]
+ 1071              		.loc 2 240 0
+ 1072 02f0 012042E2 		sub	r2, r2, #1
+ 1073              		.loc 2 241 0
+ 1074 02f4 030052E1 		cmp	r2, r3
+ 1075              		.loc 2 240 0
+ 1076 02f8 002080E5 		str	r2, [r0, #0]
+ 1077              		.loc 2 242 0
+ 1078 02fc 002081B5 		strlt	r2, [r1, #0]
+ 1079 0300 CF0000EA 		b	.L93
+ 1080              	.L83:
+ 1081              		.loc 2 246 0
+ 1082 0304 BCC09FE5 		ldr	ip, .L106+52
+ 1083 0308 00009CE5 		ldr	r0, [ip, #0]
+ 1084 030c 1830A0E3 		mov	r3, #24
+ 1085 0310 011080E2 		add	r1, r0, #1
+ 1086 0314 910302E0 		mul	r2, r1, r3
+ 1087 0318 94309FE5 		ldr	r3, .L106+32
+ 1088 031c 0330D2E7 		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 1089 0320 000053E3 		cmp	r3, #0
+ 1090 0324 DF00000A 		beq	.L77
+ 1091              		.loc 2 249 0
+ 1092 0328 9C209FE5 		ldr	r2, .L106+56
+ 1093 032c 003092E5 		ldr	r3, [r2, #0]
+ 1094 0330 053083E2 		add	r3, r3, #5
+ 1095 0334 030051E1 		cmp	r1, r3
+ 1096              		.loc 2 250 0
+ 1097 0338 033040A2 		subge	r3, r0, #3
+ 1098              		.loc 2 248 0
+ 1099 033c 00108CE5 		str	r1, [ip, #0]
+ 1100              		.loc 2 250 0
+ 1101 0340 003082A5 		strge	r3, [r2, #0]
+ 1102              	.L93:
+ 1103              		.loc 2 251 0
+ 1104 0344 FEFFFFEB 		bl	refresh_display
+ 1105 0348 DC0000EA 		b	.L79
+ 1106              	.L84:
+ 1107              		.loc 2 254 0
+ 1108 034c 74309FE5 		ldr	r3, .L106+52
+ 1109 0350 001093E5 		ldr	r1, [r3, #0]
+ 1110 0354 58309FE5 		ldr	r3, .L106+32
+ 1111 0358 1820A0E3 		mov	r2, #24
+ 1112 035c 913223E0 		mla	r3, r1, r2, r3
+ 1113 0360 143093E5 		ldr	r3, [r3, #20]
+ 1114 0364 000053E3 		cmp	r3, #0
+ 1115 0368 DC00000A 		beq	.L79
+ 1116 036c B20000EA 		b	.L105
+ 1117              	.L85:
+ 1118              		.loc 2 258 0
+ 1119 0370 FEFFFFEB 		bl	wait_key_release
+ 1120              		.loc 2 259 0
+ 1121 0374 FEFFFFEB 		bl	twl3025_power_off
+ 1122              	.L79:
+ 1123              		.loc 2 265 0
+ 1124 0378 44309FE5 		ldr	r3, .L106+48
+ 1125 037c FF20A0E3 		mov	r2, #255
+ 1126 0380 002083E5 		str	r2, [r3, #0]
+ 1127              	.L77:
+ 1128              	.LBE114:
+ 1129              	.LBE113:
+ 1130              		.loc 2 340 0
+ 1131 0384 014054E2 		subs	r4, r4, #1
+ 1132 0388 8100001A 		bne	.L76
+ 344:apps/menu/main.c **** 			handle_key_code();
+ 345:apps/menu/main.c **** 		}
+ 346:apps/menu/main.c **** 		refresh_display();
+ 1133              		.loc 2 346 0
+ 1134 038c FEFFFFEB 		bl	refresh_display
+ 1135 0390 800000EA 		b	.L104
+ 1136              	.L107:
+ 1137              		.align	2
+ 1138              	.L106:
+ 1139 0394 00000000 		.word	phone_ack
+ 1140 0398 07000000 		.word	phone_ack+7
+ 1141 039c 00000000 		.word	hr
+ 1142 03a0 00000000 		.word	framebuffer
+ 1143 03a4 60000000 		.word	.LC3
+ 1144 03a8 A4000000 		.word	.LC4
+ 1145 03ac AC000000 		.word	.LC5
+ 1146 03b0 00000000 		.word	key_handler
+ 1147 03b4 00000000 		.word	apps
+ 1148 03b8 B8000000 		.word	.LC6
+ 1149 03bc C4000000 		.word	.LC7
+ 1150 03c0 F4000000 		.word	.LC8
+ 1151 03c4 00000000 		.word	key_code
+ 1152 03c8 00000000 		.word	cursor
+ 1153 03cc 00000000 		.word	scroll_apps
+ 1154              	.LFE86:
+ 1156              		.comm	apps,768,4
+ 1157              		.bss
+ 1158              		.align	2
+ 1159              	key_state:
+ 1160 000c 00000000 		.space	4
+ 1336              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/ccS8iRvR.s:20     .data:0000000000000000 hr
+     /tmp/ccS8iRvR.s:21     .data:0000000000000000 $d
+     /tmp/ccS8iRvR.s:27     .bss:0000000000000000 scroll_apps
+     /tmp/ccS8iRvR.s:33     .bss:0000000000000004 cursor
+     /tmp/ccS8iRvR.s:40     .data:0000000000000004 key_code
+     /tmp/ccS8iRvR.s:45     .rodata:0000000000000000 phone_ack
+     /tmp/ccS8iRvR.s:56     .text.fb_clear:0000000000000000 fb_clear
+     /tmp/ccS8iRvR.s:63     .text.fb_clear:0000000000000000 $a
+     /tmp/ccS8iRvR.s:75     .text.fb_clear:0000000000000018 $d
+     /tmp/ccS8iRvR.s:81     .text.fb_boxto:0000000000000000 fb_boxto
+     /tmp/ccS8iRvR.s:87     .text.fb_boxto:0000000000000000 $a
+     /tmp/ccS8iRvR.s:110    .text.fb_boxto:0000000000000028 $d
+     /tmp/ccS8iRvR.s:116    .text.fb_putstr:0000000000000000 fb_putstr
+     /tmp/ccS8iRvR.s:122    .text.fb_putstr:0000000000000000 $a
+     /tmp/ccS8iRvR.s:135    .text.fb_putstr:0000000000000018 $d
+     /tmp/ccS8iRvR.s:141    .text.fb_flush:0000000000000000 fb_flush
+     /tmp/ccS8iRvR.s:147    .text.fb_flush:0000000000000000 $a
+     /tmp/ccS8iRvR.s:159    .text.fb_flush:0000000000000018 $d
+     /tmp/ccS8iRvR.s:166    .text._memcmp:0000000000000000 _memcmp
+     /tmp/ccS8iRvR.s:173    .text._memcmp:0000000000000000 $a
+     /tmp/ccS8iRvR.s:214    .text.wait_key_release:0000000000000000 wait_key_release
+     /tmp/ccS8iRvR.s:220    .text.wait_key_release:0000000000000000 $a
+     /tmp/ccS8iRvR.s:242    .text.wait_key_release:0000000000000028 $d
+     /tmp/ccS8iRvR.s:1159   .bss:000000000000000c key_state
+     /tmp/ccS8iRvR.s:249    .data:0000000000000008 f.3468
+     /tmp/ccS8iRvR.s:253    .bss:0000000000000008 i.3466
+     /tmp/ccS8iRvR.s:258    .text.load_app:0000000000000000 load_app
+     /tmp/ccS8iRvR.s:264    .text.load_app:0000000000000000 $a
+     /tmp/ccS8iRvR.s:310    .text.load_app:0000000000000074 $d
+                            *COM*:0000000000000300 apps
+     /tmp/ccS8iRvR.s:319    .text.key_handler:0000000000000000 key_handler
+     /tmp/ccS8iRvR.s:327    .text.key_handler:0000000000000000 $a
+     /tmp/ccS8iRvR.s:342    .text.key_handler:0000000000000018 $d
+     /tmp/ccS8iRvR.s:356    .text.refresh_display:0000000000000000 refresh_display
+     /tmp/ccS8iRvR.s:362    .text.refresh_display:0000000000000000 $a
+     /tmp/ccS8iRvR.s:635    .text.refresh_display:000000000000014c $d
+     /tmp/ccS8iRvR.s:669    .text.main:0000000000000000 main
+     /tmp/ccS8iRvR.s:675    .text.main:0000000000000000 $a
+     /tmp/ccS8iRvR.s:1013   .text.main:0000000000000238 $d
+     /tmp/ccS8iRvR.s:1036   .text.main:000000000000028c $a
+     /tmp/ccS8iRvR.s:1139   .text.main:0000000000000394 $d
+
+UNDEFINED SYMBOLS
+framebuffer
+delay_ms
+keypad_poll
+putchar_asm
+board_init
+puts
+dump_dev_id
+calypso_clk_dump
+keypad_set_handler
+memset
+printf
+memcpy
+osmo_timers_update
+twl3025_power_off

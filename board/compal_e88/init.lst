@@ -1,0 +1,457 @@
+   1              		.file	"init.c"
+   9              	.Ltext0:
+  10              		.section	.rodata
+  13              	keymap:
+  14 0000 0D       		.byte	13
+  15 0001 0F       		.byte	15
+  16 0002 0A       		.byte	10
+  17 0003 05       		.byte	5
+  18 0004 10       		.byte	16
+  19 0005 0B       		.byte	11
+  20 0006 06       		.byte	6
+  21 0007 11       		.byte	17
+  22 0008 0C       		.byte	12
+  23 0009 07       		.byte	7
+  24 000a 12       		.byte	18
+  25 000b 08       		.byte	8
+  26 000c 0E       		.byte	14
+  27 000d 13       		.byte	19
+  28 000e 09       		.byte	9
+  29 000f 01       		.byte	1
+  30 0010 02       		.byte	2
+  31 0011 03       		.byte	3
+  32 0012 04       		.byte	4
+  33 0013 00       		.byte	0
+  34 0014 18       		.byte	24
+  35 0015 1E       		.byte	30
+  36 0016 1F       		.byte	31
+  37              		.section	.text.board_init,"ax",%progbits
+  38              		.align	2
+  39              		.global	board_init
+  41              	board_init:
+  42              	.LFB55:
+  43              		.file 1 "board/compal_e88/init.c"
+   1:board/compal_e88/init.c **** /* Initialization for the Compal E88 (Motorola C115...C123) */
+   2:board/compal_e88/init.c **** 
+   3:board/compal_e88/init.c **** /* (C) 2010 by Harald Welte <laforge@gnumonks.org>
+   4:board/compal_e88/init.c ****  *
+   5:board/compal_e88/init.c ****  * All Rights Reserved
+   6:board/compal_e88/init.c ****  *
+   7:board/compal_e88/init.c ****  * This program is free software; you can redistribute it and/or modify
+   8:board/compal_e88/init.c ****  * it under the terms of the GNU General Public License as published by
+   9:board/compal_e88/init.c ****  * the Free Software Foundation; either version 2 of the License, or
+  10:board/compal_e88/init.c ****  * (at your option) any later version.
+  11:board/compal_e88/init.c ****  *
+  12:board/compal_e88/init.c ****  * This program is distributed in the hope that it will be useful,
+  13:board/compal_e88/init.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  14:board/compal_e88/init.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  15:board/compal_e88/init.c ****  * GNU General Public License for more details.
+  16:board/compal_e88/init.c ****  *
+  17:board/compal_e88/init.c ****  * You should have received a copy of the GNU General Public License along
+  18:board/compal_e88/init.c ****  * with this program; if not, write to the Free Software Foundation, Inc.,
+  19:board/compal_e88/init.c ****  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  20:board/compal_e88/init.c ****  *
+  21:board/compal_e88/init.c ****  */
+  22:board/compal_e88/init.c **** 
+  23:board/compal_e88/init.c **** #include <stdint.h>
+  24:board/compal_e88/init.c **** #include <stdio.h>
+  25:board/compal_e88/init.c **** 
+  26:board/compal_e88/init.c **** #include <debug.h>
+  27:board/compal_e88/init.c **** #include <ctors.h>
+  28:board/compal_e88/init.c **** #include <memory.h>
+  29:board/compal_e88/init.c **** #include <board.h>
+  30:board/compal_e88/init.c **** #include <keypad.h>
+  31:board/compal_e88/init.c **** #include <console.h>
+  32:board/compal_e88/init.c **** #include <flash/cfi_flash.h>
+  33:board/compal_e88/init.c **** 
+  34:board/compal_e88/init.c **** #include <calypso/irq.h>
+  35:board/compal_e88/init.c **** #include <calypso/clock.h>
+  36:board/compal_e88/init.c **** #include <calypso/dma.h>
+  37:board/compal_e88/init.c **** #include <calypso/rtc.h>
+  38:board/compal_e88/init.c **** #include <calypso/timer.h>
+  39:board/compal_e88/init.c **** #include <uart.h>
+  40:board/compal_e88/init.c **** #include <calypso/backlight.h>
+  41:board/compal_e88/init.c **** 
+  42:board/compal_e88/init.c **** #include <comm/sercomm.h>
+  43:board/compal_e88/init.c **** #include <comm/timer.h>
+  44:board/compal_e88/init.c **** 
+  45:board/compal_e88/init.c **** #include <abb/twl3025.h>
+  46:board/compal_e88/init.c **** #include <rf/trf6151.h>
+  47:board/compal_e88/init.c **** #include <fb/framebuffer.h>
+  48:board/compal_e88/init.c **** #include <battery/compal_e88.h>
+  49:board/compal_e88/init.c **** #include "../compal/keymap.h"
+  50:board/compal_e88/init.c **** 
+  51:board/compal_e88/init.c **** #define ARMIO_LATCH_OUT 0xfffe4802
+  52:board/compal_e88/init.c **** #define IO_CNTL_REG	0xfffe4804
+  53:board/compal_e88/init.c **** #define ASIC_CONF_REG	0xfffef008
+  54:board/compal_e88/init.c **** 
+  55:board/compal_e88/init.c **** static void board_io_init(void)
+  56:board/compal_e88/init.c **** {
+  57:board/compal_e88/init.c **** 	uint16_t reg;
+  58:board/compal_e88/init.c **** 
+  59:board/compal_e88/init.c **** 	reg = readw(ASIC_CONF_REG);
+  60:board/compal_e88/init.c **** 	/* LCD Set I/O(3) / SA0 to I/O(3) mode */
+  61:board/compal_e88/init.c **** 	reg &= ~(1 << 10);
+  62:board/compal_e88/init.c **** 	/* Set function pins to I2C Mode */
+  63:board/compal_e88/init.c **** 	reg |= ((1 << 12) | (1 << 7));		/* SCL / SDA */
+  64:board/compal_e88/init.c **** 	/* TWL3025: Set SPI+RIF RX clock to rising edge */
+  65:board/compal_e88/init.c **** 	reg |= (1 << 13) | (1 << 14);
+  66:board/compal_e88/init.c **** 	writew(reg, ASIC_CONF_REG);
+  67:board/compal_e88/init.c **** 
+  68:board/compal_e88/init.c **** 	/* LCD Set I/O(3) to output mode */
+  69:board/compal_e88/init.c **** 	reg = readw(IO_CNTL_REG);
+  70:board/compal_e88/init.c **** 	reg &= ~(1 << 3);
+  71:board/compal_e88/init.c **** 	writew(reg, IO_CNTL_REG);
+  72:board/compal_e88/init.c **** 
+  73:board/compal_e88/init.c **** 	/* LCD Set I/O(3) output low */
+  74:board/compal_e88/init.c **** 	reg = readw(ARMIO_LATCH_OUT);
+  75:board/compal_e88/init.c **** 	reg &= ~(1 << 3);
+  76:board/compal_e88/init.c **** 	writew(reg, ARMIO_LATCH_OUT);
+  77:board/compal_e88/init.c **** }
+  78:board/compal_e88/init.c **** 
+  79:board/compal_e88/init.c **** void board_init(int with_irq)
+  80:board/compal_e88/init.c **** {
+  44              		.loc 1 80 0
+  45              		@ args = 0, pretend = 0, frame = 0
+  46              		@ frame_needed = 0, uses_anonymous_args = 0
+  47              	.LVL0:
+  48 0000 70402DE9 		stmfd	sp!, {r4, r5, r6, lr}
+  49              	.LCFI0:
+  81:board/compal_e88/init.c **** 	/* Configure the memory interface */
+  82:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS0, 3, CALYPSO_MEM_16bit, 1);
+  50              		.loc 1 82 0
+  51 0004 0120A0E3 		mov	r2, #1
+  52              		.loc 1 80 0
+  53 0008 0CD04DE2 		sub	sp, sp, #12
+  54              	.LCFI1:
+  55              	.LVL1:
+  56              		.loc 1 80 0
+  57 000c 0040A0E1 		mov	r4, r0
+  58              		.loc 1 82 0
+  59 0010 0230A0E1 		mov	r3, r2
+  60 0014 0000A0E3 		mov	r0, #0
+  61              	.LVL2:
+  62 0018 0310A0E3 		mov	r1, #3
+  63 001c FEFFFFEB 		bl	calypso_mem_cfg
+  83:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS1, 3, CALYPSO_MEM_16bit, 1);
+  64              		.loc 1 83 0
+  65 0020 0120A0E3 		mov	r2, #1
+  66 0024 0230A0E1 		mov	r3, r2
+  67 0028 0200A0E3 		mov	r0, #2
+  68 002c 0310A0E3 		mov	r1, #3
+  69 0030 FEFFFFEB 		bl	calypso_mem_cfg
+  84:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS2, 5, CALYPSO_MEM_16bit, 1);
+  70              		.loc 1 84 0
+  71 0034 0120A0E3 		mov	r2, #1
+  72 0038 0230A0E1 		mov	r3, r2
+  73 003c 0400A0E3 		mov	r0, #4
+  74 0040 0510A0E3 		mov	r1, #5
+  75 0044 FEFFFFEB 		bl	calypso_mem_cfg
+  85:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS3, 5, CALYPSO_MEM_16bit, 1);
+  76              		.loc 1 85 0
+  77 0048 0120A0E3 		mov	r2, #1
+  78 004c 0230A0E1 		mov	r3, r2
+  79 0050 0600A0E3 		mov	r0, #6
+  80 0054 0510A0E3 		mov	r1, #5
+  81 0058 FEFFFFEB 		bl	calypso_mem_cfg
+  86:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_CS4, 0, CALYPSO_MEM_8bit, 1);
+  82              		.loc 1 86 0
+  83 005c 0010A0E3 		mov	r1, #0
+  84 0060 0120A0E1 		mov	r2, r1
+  85 0064 0A00A0E3 		mov	r0, #10
+  86 0068 0130A0E3 		mov	r3, #1
+  87 006c FEFFFFEB 		bl	calypso_mem_cfg
+  87:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS6, 0, CALYPSO_MEM_32bit, 1);
+  88              		.loc 1 87 0
+  89 0070 0C00A0E3 		mov	r0, #12
+  90 0074 0010A0E3 		mov	r1, #0
+  91 0078 0220A0E3 		mov	r2, #2
+  92 007c 0130A0E3 		mov	r3, #1
+  93 0080 FEFFFFEB 		bl	calypso_mem_cfg
+  88:board/compal_e88/init.c **** 	calypso_mem_cfg(CALYPSO_nCS7, 0, CALYPSO_MEM_32bit, 0);
+  94              		.loc 1 88 0
+  95 0084 0010A0E3 		mov	r1, #0
+  96 0088 0130A0E1 		mov	r3, r1
+  97 008c 0800A0E3 		mov	r0, #8
+  98 0090 0220A0E3 		mov	r2, #2
+  99 0094 FEFFFFEB 		bl	calypso_mem_cfg
+  89:board/compal_e88/init.c **** 
+  90:board/compal_e88/init.c **** 	/* Set VTCXO_DIV2 = 1, configure PLL for 104 MHz and give ARM half of that */
+  91:board/compal_e88/init.c **** 	calypso_clock_set(2, CALYPSO_PLL13_104_MHZ, ARM_MCLK_DIV_2);
+ 100              		.loc 1 91 0
+ 101 0098 0200A0E3 		mov	r0, #2
+  92:board/compal_e88/init.c **** 
+  93:board/compal_e88/init.c **** 	/* Configure the RHEA bridge with some sane default values */
+  94:board/compal_e88/init.c **** 	calypso_rhea_cfg(0, 0, 0xff, 0, 1, 0, 0);
+ 102              		.loc 1 94 0
+ 103 009c 0050A0E3 		mov	r5, #0
+ 104              		.loc 1 91 0
+ 105 00a0 0020A0E1 		mov	r2, r0
+ 106 00a4 021BA0E3 		mov	r1, #2048
+ 107 00a8 FEFFFFEB 		bl	calypso_clock_set
+ 108              		.loc 1 94 0
+ 109 00ac 0160A0E3 		mov	r6, #1
+ 110 00b0 0510A0E1 		mov	r1, r5
+ 111 00b4 FF20A0E3 		mov	r2, #255
+ 112 00b8 0530A0E1 		mov	r3, r5
+ 113 00bc 0500A0E1 		mov	r0, r5
+ 114 00c0 00608DE5 		str	r6, [sp, #0]
+ 115 00c4 04508DE5 		str	r5, [sp, #4]
+ 116 00c8 08508DE5 		str	r5, [sp, #8]
+ 117 00cc FEFFFFEB 		bl	calypso_rhea_cfg
+ 118              	.LBB2:
+ 119              	.LBB3:
+ 120              		.loc 1 59 0
+ 121 00d0 E0109FE5 		ldr	r1, .L5
+ 122              		.loc 1 61 0
+ 123 00d4 E0309FE5 		ldr	r3, .L5+4
+ 124              	.LVL3:
+ 125              		.loc 1 59 0
+ 126 00d8 B020D1E1 		ldrh	r2, [r1, #0]
+ 127              		.loc 1 61 0
+ 128 00dc 033002E0 		and	r3, r2, r3
+ 129              		.loc 1 65 0
+ 130 00e0 073A83E3 		orr	r3, r3, #28672
+ 131              	.LVL4:
+ 132 00e4 803083E3 		orr	r3, r3, #128
+ 133              		.loc 1 66 0
+ 134 00e8 B030C1E1 		strh	r3, [r1, #0]	@ movhi
+ 135              		.loc 1 69 0
+ 136 00ec CC109FE5 		ldr	r1, .L5+8
+ 137              		.loc 1 70 0
+ 138 00f0 CC309FE5 		ldr	r3, .L5+12
+ 139              	.LVL5:
+ 140              		.loc 1 69 0
+ 141 00f4 B020D1E1 		ldrh	r2, [r1, #0]
+ 142              		.loc 1 70 0
+ 143 00f8 033002E0 		and	r3, r2, r3
+ 144              		.loc 1 71 0
+ 145 00fc B030C1E1 		strh	r3, [r1, #0]	@ movhi
+ 146              		.loc 1 74 0
+ 147 0100 021041E2 		sub	r1, r1, #2
+ 148 0104 B020D1E1 		ldrh	r2, [r1, #0]
+ 149              		.loc 1 75 0
+ 150 0108 B4309FE5 		ldr	r3, .L5+12
+ 151              	.LVL6:
+ 152 010c 033002E0 		and	r3, r2, r3
+ 153              	.LBE3:
+ 154              	.LBE2:
+  95:board/compal_e88/init.c **** 
+  96:board/compal_e88/init.c **** 	/* Initialize board-specific GPIO */
+  97:board/compal_e88/init.c **** 	board_io_init();
+  98:board/compal_e88/init.c **** 
+  99:board/compal_e88/init.c **** 	/* Enable bootrom mapping to route exception vectors to RAM */
+ 100:board/compal_e88/init.c **** 	calypso_bootrom(with_irq);
+ 155              		.loc 1 100 0
+ 156 0110 0400A0E1 		mov	r0, r4
+ 157              	.LBB4:
+ 158              	.LBB5:
+ 159              		.loc 1 76 0
+ 160 0114 B030C1E1 		strh	r3, [r1, #0]	@ movhi
+ 161              	.LBE5:
+ 162              	.LBE4:
+ 163              		.loc 1 100 0
+ 164 0118 FEFFFFEB 		bl	calypso_bootrom
+ 165              	.LVL7:
+ 101:board/compal_e88/init.c **** 	calypso_exceptions_install();
+ 166              		.loc 1 101 0
+ 167 011c FEFFFFEB 		bl	calypso_exceptions_install
+ 102:board/compal_e88/init.c **** 
+ 103:board/compal_e88/init.c **** 	/* Initialize interrupt controller */
+ 104:board/compal_e88/init.c **** 	if (with_irq)
+ 168              		.loc 1 104 0
+ 169 0120 050054E1 		cmp	r4, r5
+ 105:board/compal_e88/init.c **** 		irq_init();
+ 170              		.loc 1 105 0
+ 171 0124 FEFFFF1B 		blne	irq_init
+ 172              	.L2:
+ 106:board/compal_e88/init.c **** 
+ 107:board/compal_e88/init.c **** 	sercomm_bind_uart(UART_MODEM);
+ 173              		.loc 1 107 0
+ 174 0128 0600A0E1 		mov	r0, r6
+ 175 012c FEFFFFEB 		bl	sercomm_bind_uart
+ 108:board/compal_e88/init.c **** 	cons_bind_uart(UART_IRDA);
+ 109:board/compal_e88/init.c **** 
+ 110:board/compal_e88/init.c **** 	/* initialize MODEM UART to be used for sercomm */
+ 111:board/compal_e88/init.c **** 	uart_init(UART_MODEM, with_irq);
+ 176              		.loc 1 111 0
+ 177 0130 FF4004E2 		and	r4, r4, #255
+ 178              	.LVL8:
+ 179              		.loc 1 108 0
+ 180 0134 0500A0E1 		mov	r0, r5
+ 181 0138 FEFFFFEB 		bl	cons_bind_uart
+ 182              		.loc 1 111 0
+ 183 013c 0410A0E1 		mov	r1, r4
+ 184 0140 0600A0E1 		mov	r0, r6
+ 185 0144 FEFFFFEB 		bl	uart_init
+ 112:board/compal_e88/init.c **** 	uart_baudrate(UART_MODEM, UART_115200);
+ 186              		.loc 1 112 0
+ 187 0148 0600A0E1 		mov	r0, r6
+ 188 014c 0210A0E3 		mov	r1, #2
+ 189 0150 FEFFFFEB 		bl	uart_baudrate
+ 113:board/compal_e88/init.c **** 
+ 114:board/compal_e88/init.c **** 	/* Initialize IRDA UART to be used for old-school console code.
+ 115:board/compal_e88/init.c **** 	 * note: IRDA uart only accessible on C115 and C117 PCB */
+ 116:board/compal_e88/init.c **** 	uart_init(UART_IRDA, with_irq);
+ 190              		.loc 1 116 0
+ 191 0154 0500A0E1 		mov	r0, r5
+ 192 0158 0410A0E1 		mov	r1, r4
+ 193 015c FEFFFFEB 		bl	uart_init
+ 117:board/compal_e88/init.c **** 	uart_baudrate(UART_IRDA, UART_115200);
+ 194              		.loc 1 117 0
+ 195 0160 0210A0E3 		mov	r1, #2
+ 196 0164 0500A0E1 		mov	r0, r5
+ 197 0168 FEFFFFEB 		bl	uart_baudrate
+ 118:board/compal_e88/init.c **** 
+ 119:board/compal_e88/init.c **** 	/* Initialize hardware timers */
+ 120:board/compal_e88/init.c **** 	hwtimer_init();
+ 198              		.loc 1 120 0
+ 199 016c FEFFFFEB 		bl	hwtimer_init
+ 121:board/compal_e88/init.c **** 
+ 122:board/compal_e88/init.c **** 	/* Initialize DMA controller */
+ 123:board/compal_e88/init.c **** 	dma_init();
+ 200              		.loc 1 123 0
+ 201 0170 FEFFFFEB 		bl	dma_init
+ 124:board/compal_e88/init.c **** 
+ 125:board/compal_e88/init.c **** 	/* Initialize real time clock */
+ 126:board/compal_e88/init.c **** 	rtc_init();
+ 202              		.loc 1 126 0
+ 203 0174 FEFFFFEB 		bl	rtc_init
+ 127:board/compal_e88/init.c **** 
+ 128:board/compal_e88/init.c **** 	/* Initialize system timers (uses hwtimer 2) */
+ 129:board/compal_e88/init.c **** 	timer_init();
+ 204              		.loc 1 129 0
+ 205 0178 FEFFFFEB 		bl	timer_init
+ 206              	.LBB6:
+ 207              	.LBB7:
+ 208              		.file 2 "include/fb/framebuffer.h"
+   1:include/fb/framebuffer.h **** #ifndef _FB_FRAMEBUFFER_H
+   2:include/fb/framebuffer.h **** #define _FB_FRAMEBUFFER_H
+   3:include/fb/framebuffer.h **** 
+   4:include/fb/framebuffer.h **** #include <fb/font.h>
+   5:include/fb/framebuffer.h **** #include <stdint.h>
+   6:include/fb/framebuffer.h **** 
+   7:include/fb/framebuffer.h **** /* color is encoded as <special><red><green><blue> */
+   8:include/fb/framebuffer.h **** /* if a color is "special", then the RGB components most likely
+   9:include/fb/framebuffer.h ****    don't make sense. Use "special" colours when you have to
+  10:include/fb/framebuffer.h ****    mask out bits with transparency or you have to encode
+  11:include/fb/framebuffer.h ****    colours in a fixed color palette... */
+  12:include/fb/framebuffer.h **** 
+  13:include/fb/framebuffer.h **** #define FB_COLOR_WHITE		0x00ffffffU
+  14:include/fb/framebuffer.h **** #define FB_COLOR_BLACK		0x00000000U
+  15:include/fb/framebuffer.h **** #define FB_COLOR_TRANSP		0x01ffffffU
+  16:include/fb/framebuffer.h **** 
+  17:include/fb/framebuffer.h **** #define FB_COLOR_RGB(r,g,b) ((((r) & 0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff))
+  18:include/fb/framebuffer.h **** #define FB_COLOR_RED		FB_COLOR_RGB(0xff,0x00,0x00)
+  19:include/fb/framebuffer.h **** #define FB_COLOR_GREEN		FB_COLOR_RGB(0x00,0xff,0x00)
+  20:include/fb/framebuffer.h **** #define FB_COLOR_BLUE		FB_COLOR_RGB(0x00,0x00,0xff)
+  21:include/fb/framebuffer.h **** 
+  22:include/fb/framebuffer.h **** /* encode */
+  23:include/fb/framebuffer.h **** 
+  24:include/fb/framebuffer.h **** /* decode */
+  25:include/fb/framebuffer.h **** #define FB_COLOR_IS_SPECIAL(v)     (!!((v) & 0xff000000U))
+  26:include/fb/framebuffer.h **** #define FB_COLOR_TO_R(v)		(((v)>>16) & 0xff)
+  27:include/fb/framebuffer.h **** #define FB_COLOR_TO_G(v)		(((v)>> 8) & 0xff)
+  28:include/fb/framebuffer.h **** #define FB_COLOR_TO_B(v)		( (v)      & 0xff)
+  29:include/fb/framebuffer.h **** 
+  30:include/fb/framebuffer.h **** struct framebuffer {
+  31:include/fb/framebuffer.h **** 	char name[8];				// keep it short!
+  32:include/fb/framebuffer.h **** 	void (*init)();				// (re)initialize
+  33:include/fb/framebuffer.h **** 	void (*clear)();			// clear display
+  34:include/fb/framebuffer.h **** 	void (*boxto)(uint16_t x,uint16_t y);	// draw box to xy
+  35:include/fb/framebuffer.h **** 	void (*lineto)(uint16_t x,uint16_t y);	// draw line to xy
+  36:include/fb/framebuffer.h **** 	int (*putstr)(char *c,int maxwidth);	// put text in current font to fb
+  37:include/fb/framebuffer.h **** 	void (*flush)();			// flush changes
+  38:include/fb/framebuffer.h **** 
+  39:include/fb/framebuffer.h **** 	uint16_t width,height;			// width/height of fb
+  40:include/fb/framebuffer.h **** 	uint16_t cursor_x,cursor_y;		// current cursor
+  41:include/fb/framebuffer.h **** 	uint32_t fg_color,bg_color;		// current fg/bg color
+  42:include/fb/framebuffer.h **** 	enum fb_font_id font;			// current font
+  43:include/fb/framebuffer.h **** };
+  44:include/fb/framebuffer.h **** 
+  45:include/fb/framebuffer.h **** /* there is a single framebuffer, the specific driver defines
+  46:include/fb/framebuffer.h ****    the "framebuffer" symbol */
+  47:include/fb/framebuffer.h **** extern struct framebuffer *framebuffer;
+  48:include/fb/framebuffer.h **** 
+  49:include/fb/framebuffer.h **** static inline void
+  50:include/fb/framebuffer.h **** fb_init(){
+  51:include/fb/framebuffer.h **** 	framebuffer->init();
+ 209              		.loc 2 51 0
+ 210 017c 44309FE5 		ldr	r3, .L5+16
+ 211 0180 003093E5 		ldr	r3, [r3, #0]
+ 212 0184 0FE0A0E1 		mov	lr, pc
+ 213 0188 08F093E5 		ldr	pc, [r3, #8]
+ 214              	.LBE7:
+ 215              	.LBE6:
+ 130:board/compal_e88/init.c **** 
+ 131:board/compal_e88/init.c **** 	/* Initialize LCD driver (uses I2C) and backlight */
+ 132:board/compal_e88/init.c **** 	fb_init();
+ 133:board/compal_e88/init.c **** 
+ 134:board/compal_e88/init.c **** 	bl_mode_pwl(1);
+ 216              		.loc 1 134 0
+ 217 018c 0600A0E1 		mov	r0, r6
+ 218 0190 FEFFFFEB 		bl	bl_mode_pwl
+ 135:board/compal_e88/init.c **** 	bl_level(50);
+ 219              		.loc 1 135 0
+ 220 0194 3200A0E3 		mov	r0, #50
+ 221 0198 FEFFFFEB 		bl	bl_level
+ 136:board/compal_e88/init.c **** 
+ 137:board/compal_e88/init.c **** 	/* Initialize keypad driver */
+ 138:board/compal_e88/init.c **** 	keypad_init(keymap, with_irq);
+ 222              		.loc 1 138 0
+ 223 019c 0410A0E1 		mov	r1, r4
+ 224 01a0 24009FE5 		ldr	r0, .L5+20
+ 225 01a4 FEFFFFEB 		bl	keypad_init
+ 139:board/compal_e88/init.c **** 
+ 140:board/compal_e88/init.c **** 	/* Initialize ABB driver (uses SPI) */
+ 141:board/compal_e88/init.c **** 	twl3025_init();
+ 226              		.loc 1 141 0
+ 227 01a8 FEFFFFEB 		bl	twl3025_init
+ 142:board/compal_e88/init.c **** 
+ 143:board/compal_e88/init.c **** 	/* Initialize the charging controller */
+ 144:board/compal_e88/init.c **** 	battery_compal_e88_init();
+ 145:board/compal_e88/init.c **** }
+ 228              		.loc 1 145 0
+ 229 01ac 0CD08DE2 		add	sp, sp, #12
+ 230 01b0 7040BDE8 		ldmfd	sp!, {r4, r5, r6, lr}
+ 231              		.loc 1 144 0
+ 232 01b4 FEFFFFEA 		b	battery_compal_e88_init
+ 233              	.L6:
+ 234              		.align	2
+ 235              	.L5:
+ 236 01b8 08F0FEFF 		.word	-69624
+ 237 01bc FFFB0000 		.word	64511
+ 238 01c0 0448FEFF 		.word	-112636
+ 239 01c4 F7FF0000 		.word	65527
+ 240 01c8 00000000 		.word	framebuffer
+ 241 01cc 00000000 		.word	keymap
+ 242              	.LFE55:
+ 287              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 init.c
+     /tmp/cc8DDODg.s:13     .rodata:0000000000000000 keymap
+     /tmp/cc8DDODg.s:41     .text.board_init:0000000000000000 board_init
+     /tmp/cc8DDODg.s:48     .text.board_init:0000000000000000 $a
+     /tmp/cc8DDODg.s:236    .text.board_init:00000000000001b8 $d
+
+UNDEFINED SYMBOLS
+calypso_mem_cfg
+calypso_clock_set
+calypso_rhea_cfg
+calypso_bootrom
+calypso_exceptions_install
+irq_init
+sercomm_bind_uart
+cons_bind_uart
+uart_init
+uart_baudrate
+hwtimer_init
+dma_init
+rtc_init
+timer_init
+bl_mode_pwl
+bl_level
+keypad_init
+twl3025_init
+battery_compal_e88_init
+framebuffer

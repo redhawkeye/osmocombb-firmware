@@ -1,0 +1,386 @@
+   1              		.file	"rffe_dualband.c"
+   9              	.Ltext0:
+  10              		.global	system_inherent_gain
+  11              		.section	.rodata
+  14              	system_inherent_gain:
+  15 0000 47       		.byte	71
+  16              		.section	.text.rffe_mode,"ax",%progbits
+  17              		.align	2
+  18              		.global	rffe_mode
+  20              	rffe_mode:
+  21              	.LFB5:
+  22              		.file 1 "board/compal/rffe_dualband.c"
+   1:board/compal/rffe_dualband.c **** #include <stdint.h>
+   2:board/compal/rffe_dualband.c **** #include <stdio.h>
+   3:board/compal/rffe_dualband.c **** 
+   4:board/compal/rffe_dualband.c **** #include <debug.h>
+   5:board/compal/rffe_dualband.c **** #include <memory.h>
+   6:board/compal/rffe_dualband.c **** #include <rffe.h>
+   7:board/compal/rffe_dualband.c **** #include <calypso/tsp.h>
+   8:board/compal/rffe_dualband.c **** #include <rf/trf6151.h>
+   9:board/compal/rffe_dualband.c **** 
+  10:board/compal/rffe_dualband.c **** /* This is a value that has been measured on the C123 by Harald: 71dBm,
+  11:board/compal/rffe_dualband.c ****    it is the difference between the input level at the antenna and what
+  12:board/compal/rffe_dualband.c ****    the DSP reports, subtracted by the total gain of the TRF6151 */
+  13:board/compal/rffe_dualband.c **** #define SYSTEM_INHERENT_GAIN	71
+  14:board/compal/rffe_dualband.c **** 
+  15:board/compal/rffe_dualband.c **** /* describe how the RF frontend is wired on the Motorola E88 board (C117/C118/C121/C123) */
+  16:board/compal/rffe_dualband.c **** 
+  17:board/compal/rffe_dualband.c **** #define		RITA_RESET	TSPACT(0)	/* Reset of the Rita TRF6151 */
+  18:board/compal/rffe_dualband.c **** #define		PA_ENABLE	TSPACT(1)	/* Enable the Power Amplifier */
+  19:board/compal/rffe_dualband.c **** #define		TRENA		TSPACT(6)	/* Transmit Enable (Antenna Switch) */
+  20:board/compal/rffe_dualband.c **** #define		GSM_TXEN	TSPACT(8)	/* GSM (as opposed to DCS) Transmit */
+  21:board/compal/rffe_dualband.c **** 
+  22:board/compal/rffe_dualband.c **** #define		IOTA_STROBE	TSPEN(0)	/* Strobe for the Iota TSP */
+  23:board/compal/rffe_dualband.c **** #define		RITA_STROBE	TSPEN(2)	/* Strobe for the Rita TSP */
+  24:board/compal/rffe_dualband.c **** 
+  25:board/compal/rffe_dualband.c **** /* switch RF Frontend Mode */
+  26:board/compal/rffe_dualband.c **** void rffe_mode(enum gsm_band band, int tx)
+  27:board/compal/rffe_dualband.c **** {
+  23              		.loc 1 27 0
+  24              		@ args = 0, pretend = 0, frame = 0
+  25              		@ frame_needed = 0, uses_anonymous_args = 0
+  26              	.LVL0:
+  27 0000 30402DE9 		stmfd	sp!, {r4, r5, lr}
+  28              	.LCFI0:
+  29              		.loc 1 27 0
+  30 0004 0150A0E1 		mov	r5, r1
+  31 0008 0040A0E1 		mov	r4, r0
+  28:board/compal/rffe_dualband.c **** 	uint16_t tspact = tsp_act_state();
+  32              		.loc 1 28 0
+  33 000c FEFFFFEB 		bl	tsp_act_state
+  34              	.LVL1:
+  29:board/compal/rffe_dualband.c **** 
+  30:board/compal/rffe_dualband.c **** 	/* First we mask off all bits from the state cache */
+  31:board/compal/rffe_dualband.c **** 	tspact &= ~PA_ENABLE;
+  35              		.loc 1 31 0
+  36 0010 30309FE5 		ldr	r3, .L7
+  37              	.LVL2:
+  32:board/compal/rffe_dualband.c **** 	tspact |= TRENA | GSM_TXEN;	/* low-active */
+  33:board/compal/rffe_dualband.c **** 
+  34:board/compal/rffe_dualband.c **** #ifdef CONFIG_TX_ENABLE
+  35:board/compal/rffe_dualband.c **** 	/* Then we selectively set the bits on, if required */
+  36:board/compal/rffe_dualband.c **** 	if (tx) {
+  38              		.loc 1 36 0
+  39 0014 000055E3 		cmp	r5, #0
+  40              		.loc 1 31 0
+  41 0018 033000E0 		and	r3, r0, r3
+  37:board/compal/rffe_dualband.c **** 		tspact &= ~TRENA;
+  38:board/compal/rffe_dualband.c **** 		if (band == GSM_BAND_850 || band == GSM_BAND_900)
+  42              		.loc 1 38 0
+  43 001c 014044E2 		sub	r4, r4, #1
+  44              	.LVL3:
+  45              		.loc 1 37 0
+  46 0020 24209FE5 		ldr	r2, .L7+4
+  47              	.LVL4:
+  48              		.loc 1 32 0
+  49 0024 050D83E3 		orr	r0, r3, #320
+  50              	.LVL5:
+  51              		.loc 1 36 0
+  52 0028 0E00000A 		beq	.L2
+  53              		.loc 1 38 0
+  54 002c 010054E3 		cmp	r4, #1
+  55              		.loc 1 37 0
+  56 0030 022000E0 		and	r2, r0, r2
+  39:board/compal/rffe_dualband.c **** 			tspact &= ~GSM_TXEN;
+  57              		.loc 1 39 0
+  58 0034 14209F95 		ldrls	r2, .L7+8
+  59 0038 02200090 		andls	r2, r0, r2
+  40:board/compal/rffe_dualband.c **** 		tspact |= PA_ENABLE;
+  60              		.loc 1 40 0
+  61 003c 020082E3 		orr	r0, r2, #2
+  62              	.L2:
+  41:board/compal/rffe_dualband.c **** 	}
+  42:board/compal/rffe_dualband.c **** #endif /* TRANSMIT_SUPPORT */
+  43:board/compal/rffe_dualband.c **** 
+  44:board/compal/rffe_dualband.c **** 	tsp_act_update(tspact);
+  45:board/compal/rffe_dualband.c **** }
+  63              		.loc 1 45 0
+  64 0040 3040BDE8 		ldmfd	sp!, {r4, r5, lr}
+  65              		.loc 1 44 0
+  66 0044 FEFFFFEA 		b	tsp_act_update
+  67              	.LVL6:
+  68              	.L8:
+  69              		.align	2
+  70              	.L7:
+  71 0048 FDFF0000 		.word	65533
+  72 004c BFFF0000 		.word	65471
+  73 0050 BFFE0000 		.word	65215
+  74              	.LFE5:
+  76              		.section	.text.rffe_get_rx_ports,"ax",%progbits
+  77              		.align	2
+  78              		.global	rffe_get_rx_ports
+  80              	rffe_get_rx_ports:
+  81              	.LFB6:
+  46:board/compal/rffe_dualband.c **** 
+  47:board/compal/rffe_dualband.c **** /* Returns RF wiring */
+  48:board/compal/rffe_dualband.c **** uint32_t rffe_get_rx_ports(void)
+  49:board/compal/rffe_dualband.c **** {
+  82              		.loc 1 49 0
+  83              		@ args = 0, pretend = 0, frame = 0
+  84              		@ frame_needed = 0, uses_anonymous_args = 0
+  85              		@ link register save eliminated.
+  86              	.LVL7:
+  50:board/compal/rffe_dualband.c **** 	return (1 << PORT_LO) | (1 << PORT_DCS1800);
+  51:board/compal/rffe_dualband.c **** }
+  87              		.loc 1 51 0
+  88 0000 1100A0E3 		mov	r0, #17
+  89              		.loc 1 49 0
+  90              		@ lr needed for prologue
+  91              		.loc 1 51 0
+  92 0004 1EFF2FE1 		bx	lr
+  93              	.LFE6:
+  95              		.section	.text.rffe_get_tx_ports,"ax",%progbits
+  96              		.align	2
+  97              		.global	rffe_get_tx_ports
+  99              	rffe_get_tx_ports:
+ 100              	.LFB7:
+  52:board/compal/rffe_dualband.c **** 
+  53:board/compal/rffe_dualband.c **** uint32_t rffe_get_tx_ports(void)
+  54:board/compal/rffe_dualband.c **** {
+ 101              		.loc 1 54 0
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105              	.LVL8:
+  55:board/compal/rffe_dualband.c **** 	return (1 << PORT_LO) | (1 << PORT_HI);
+  56:board/compal/rffe_dualband.c **** }
+ 106              		.loc 1 56 0
+ 107 0000 0300A0E3 		mov	r0, #3
+ 108              		.loc 1 54 0
+ 109              		@ lr needed for prologue
+ 110              		.loc 1 56 0
+ 111 0004 1EFF2FE1 		bx	lr
+ 112              	.LFE7:
+ 114              		.section	.text.rffe_iq_swapped,"ax",%progbits
+ 115              		.align	2
+ 116              		.global	rffe_iq_swapped
+ 118              	rffe_iq_swapped:
+ 119              	.LFB8:
+  57:board/compal/rffe_dualband.c **** 
+  58:board/compal/rffe_dualband.c **** /* Returns need for IQ swap */
+  59:board/compal/rffe_dualband.c **** int rffe_iq_swapped(uint16_t band_arfcn, int tx)
+  60:board/compal/rffe_dualband.c **** {
+ 120              		.loc 1 60 0
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 124              	.LVL9:
+ 125 0000 0008A0E1 		mov	r0, r0, asl #16
+ 126              	.LVL10:
+  61:board/compal/rffe_dualband.c **** 	return trf6151_iq_swapped(band_arfcn, tx);
+ 127              		.loc 1 61 0
+ 128 0004 2008A0E1 		mov	r0, r0, lsr #16
+ 129              	.LVL11:
+ 130              		.loc 1 60 0
+ 131              		@ lr needed for prologue
+  62:board/compal/rffe_dualband.c **** }
+ 132              		.loc 1 62 0
+ 133              		.loc 1 61 0
+ 134 0008 FEFFFFEA 		b	trf6151_iq_swapped
+ 135              	.LVL12:
+ 136              	.LFE8:
+ 138              		.section	.text.rffe_init,"ax",%progbits
+ 139              		.align	2
+ 140              		.global	rffe_init
+ 142              	rffe_init:
+ 143              	.LFB9:
+  63:board/compal/rffe_dualband.c **** 
+  64:board/compal/rffe_dualband.c **** 
+  65:board/compal/rffe_dualband.c **** #define MCU_SW_TRACE	0xfffef00e
+  66:board/compal/rffe_dualband.c **** #define ARM_CONF_REG	0xfffef006
+  67:board/compal/rffe_dualband.c **** 
+  68:board/compal/rffe_dualband.c **** void rffe_init(void)
+  69:board/compal/rffe_dualband.c **** {
+ 144              		.loc 1 69 0
+ 145              		@ args = 0, pretend = 0, frame = 0
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+ 147              	.LVL13:
+ 148 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 149              	.LCFI1:
+  70:board/compal/rffe_dualband.c **** 	uint16_t reg;
+  71:board/compal/rffe_dualband.c **** 
+  72:board/compal/rffe_dualband.c **** 	reg = readw(ARM_CONF_REG);
+ 150              		.loc 1 72 0
+ 151 0004 40209FE5 		ldr	r2, .L17
+  73:board/compal/rffe_dualband.c **** 	reg &= ~ (1 << 5);	/* TSPACT6 I/O function, not nCS6 */
+ 152              		.loc 1 73 0
+ 153 0008 40109FE5 		ldr	r1, .L17+4
+ 154              		.loc 1 72 0
+ 155 000c B030D2E1 		ldrh	r3, [r2, #0]
+ 156              		.loc 1 73 0
+ 157 0010 013003E0 		and	r3, r3, r1
+ 158              	.LVL14:
+  74:board/compal/rffe_dualband.c **** 	writew(reg, ARM_CONF_REG);
+ 159              		.loc 1 74 0
+ 160 0014 B030C2E1 		strh	r3, [r2, #0]	@ movhi
+  75:board/compal/rffe_dualband.c **** 
+  76:board/compal/rffe_dualband.c **** 	reg = readw(MCU_SW_TRACE);
+ 161              		.loc 1 76 0
+ 162 0018 34E09FE5 		ldr	lr, .L17+8
+ 163 001c B0C0DEE1 		ldrh	ip, [lr, #0]
+  77:board/compal/rffe_dualband.c **** 	reg &= ~(1 << 5);	/* TSPACT8 I/O function, not nMREQ */
+  78:board/compal/rffe_dualband.c **** 	writew(reg, MCU_SW_TRACE);
+  79:board/compal/rffe_dualband.c **** 
+  80:board/compal/rffe_dualband.c **** 	/* Configure the TSPEN which is connected to the TWL3025 */
+  81:board/compal/rffe_dualband.c **** 	tsp_setup(IOTA_STROBE, 1, 0, 0);
+ 164              		.loc 1 81 0
+ 165 0020 0000A0E3 		mov	r0, #0
+ 166              		.loc 1 77 0
+ 167 0024 01C00CE0 		and	ip, ip, r1
+ 168              	.LVL15:
+ 169              		.loc 1 81 0
+ 170 0028 0020A0E1 		mov	r2, r0
+ 171 002c 0030A0E1 		mov	r3, r0
+ 172              	.LVL16:
+ 173 0030 0110A0E3 		mov	r1, #1
+ 174              		.loc 1 78 0
+ 175 0034 B0C0CEE1 		strh	ip, [lr, #0]	@ movhi
+ 176              		.loc 1 81 0
+ 177 0038 FEFFFFEB 		bl	tsp_setup
+ 178              	.LVL17:
+  82:board/compal/rffe_dualband.c **** 
+  83:board/compal/rffe_dualband.c **** 	trf6151_init(RITA_STROBE, RITA_RESET);
+ 179              		.loc 1 83 0
+ 180 003c 0200A0E3 		mov	r0, #2
+ 181 0040 0110A0E3 		mov	r1, #1
+  84:board/compal/rffe_dualband.c **** }
+ 182              		.loc 1 84 0
+ 183 0044 04E09DE4 		ldr	lr, [sp], #4
+ 184              		.loc 1 83 0
+ 185 0048 FEFFFFEA 		b	trf6151_init
+ 186              	.L18:
+ 187              		.align	2
+ 188              	.L17:
+ 189 004c 06F0FEFF 		.word	-69626
+ 190 0050 DFFF0000 		.word	65503
+ 191 0054 0EF0FEFF 		.word	-69618
+ 192              	.LFE9:
+ 194              		.section	.text.rffe_get_gain,"ax",%progbits
+ 195              		.align	2
+ 196              		.global	rffe_get_gain
+ 198              	rffe_get_gain:
+ 199              	.LFB10:
+  85:board/compal/rffe_dualband.c **** 
+  86:board/compal/rffe_dualband.c **** uint8_t rffe_get_gain(void)
+  87:board/compal/rffe_dualband.c **** {
+ 200              		.loc 1 87 0
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              	.LVL18:
+ 204 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 205              	.LCFI2:
+  88:board/compal/rffe_dualband.c **** 	return trf6151_get_gain();
+ 206              		.loc 1 88 0
+ 207 0004 FEFFFFEB 		bl	trf6151_get_gain
+  89:board/compal/rffe_dualband.c **** }
+ 208              		.loc 1 89 0
+ 209 0008 04F09DE4 		ldr	pc, [sp], #4
+ 210              	.LFE10:
+ 212              		.section	.text.rffe_set_gain,"ax",%progbits
+ 213              		.align	2
+ 214              		.global	rffe_set_gain
+ 216              	rffe_set_gain:
+ 217              	.LFB11:
+  90:board/compal/rffe_dualband.c **** 
+  91:board/compal/rffe_dualband.c **** void rffe_set_gain(uint8_t dbm)
+  92:board/compal/rffe_dualband.c **** {
+ 218              		.loc 1 92 0
+ 219              		@ args = 0, pretend = 0, frame = 0
+ 220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 221              		@ link register save eliminated.
+ 222              	.LVL19:
+ 223 0000 FF0000E2 		and	r0, r0, #255
+ 224              		@ lr needed for prologue
+  93:board/compal/rffe_dualband.c **** 	trf6151_set_gain(dbm);
+  94:board/compal/rffe_dualband.c **** }
+ 225              		.loc 1 94 0
+ 226              		.loc 1 93 0
+ 227 0004 FEFFFFEA 		b	trf6151_set_gain
+ 228              	.LVL20:
+ 229              	.LFE11:
+ 231              		.section	.text.rffe_compute_gain,"ax",%progbits
+ 232              		.align	2
+ 233              		.global	rffe_compute_gain
+ 235              	rffe_compute_gain:
+ 236              	.LFB12:
+  95:board/compal/rffe_dualband.c **** 
+  96:board/compal/rffe_dualband.c **** const uint8_t system_inherent_gain = SYSTEM_INHERENT_GAIN;
+  97:board/compal/rffe_dualband.c **** 
+  98:board/compal/rffe_dualband.c **** /* Given the expected input level of exp_inp dBm/8 and the target of target_bb
+  99:board/compal/rffe_dualband.c ****  * dBm8, configure the RF Frontend with the respective gain */
+ 100:board/compal/rffe_dualband.c **** void rffe_compute_gain(int16_t exp_inp, int16_t target_bb)
+ 101:board/compal/rffe_dualband.c **** {
+ 237              		.loc 1 101 0
+ 238              		@ args = 0, pretend = 0, frame = 0
+ 239              		@ frame_needed = 0, uses_anonymous_args = 0
+ 240              		@ link register save eliminated.
+ 241              	.LVL21:
+ 102:board/compal/rffe_dualband.c **** 	trf6151_compute_gain(exp_inp, target_bb);
+ 242              		.loc 1 102 0
+ 243 0000 0008A0E1 		mov	r0, r0, asl #16
+ 244              	.LVL22:
+ 245 0004 0118A0E1 		mov	r1, r1, asl #16
+ 246              	.LVL23:
+ 247 0008 4008A0E1 		mov	r0, r0, asr #16
+ 248 000c 4118A0E1 		mov	r1, r1, asr #16
+ 249              		.loc 1 101 0
+ 250              		@ lr needed for prologue
+ 103:board/compal/rffe_dualband.c **** }
+ 251              		.loc 1 103 0
+ 252              		.loc 1 102 0
+ 253 0010 FEFFFFEA 		b	trf6151_compute_gain
+ 254              	.LFE12:
+ 256              		.section	.text.rffe_rx_win_ctrl,"ax",%progbits
+ 257              		.align	2
+ 258              		.global	rffe_rx_win_ctrl
+ 260              	rffe_rx_win_ctrl:
+ 261              	.LFB13:
+ 104:board/compal/rffe_dualband.c **** 
+ 105:board/compal/rffe_dualband.c **** void rffe_rx_win_ctrl(int16_t exp_inp, int16_t target_bb)
+ 106:board/compal/rffe_dualband.c **** {
+ 262              		.loc 1 106 0
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265              		@ link register save eliminated.
+ 266              	.LVL24:
+ 267              		@ lr needed for prologue
+ 107:board/compal/rffe_dualband.c **** 	/* FIXME */
+ 108:board/compal/rffe_dualband.c **** }
+ 268              		.loc 1 108 0
+ 269 0000 1EFF2FE1 		bx	lr
+ 270              	.LFE13:
+ 384              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rffe_dualband.c
+     /tmp/ccE8gome.s:14     .rodata:0000000000000000 system_inherent_gain
+     /tmp/ccE8gome.s:20     .text.rffe_mode:0000000000000000 rffe_mode
+     /tmp/ccE8gome.s:27     .text.rffe_mode:0000000000000000 $a
+     /tmp/ccE8gome.s:71     .text.rffe_mode:0000000000000048 $d
+     /tmp/ccE8gome.s:80     .text.rffe_get_rx_ports:0000000000000000 rffe_get_rx_ports
+     /tmp/ccE8gome.s:88     .text.rffe_get_rx_ports:0000000000000000 $a
+     /tmp/ccE8gome.s:99     .text.rffe_get_tx_ports:0000000000000000 rffe_get_tx_ports
+     /tmp/ccE8gome.s:107    .text.rffe_get_tx_ports:0000000000000000 $a
+     /tmp/ccE8gome.s:118    .text.rffe_iq_swapped:0000000000000000 rffe_iq_swapped
+     /tmp/ccE8gome.s:125    .text.rffe_iq_swapped:0000000000000000 $a
+     /tmp/ccE8gome.s:142    .text.rffe_init:0000000000000000 rffe_init
+     /tmp/ccE8gome.s:148    .text.rffe_init:0000000000000000 $a
+     /tmp/ccE8gome.s:189    .text.rffe_init:000000000000004c $d
+     /tmp/ccE8gome.s:198    .text.rffe_get_gain:0000000000000000 rffe_get_gain
+     /tmp/ccE8gome.s:204    .text.rffe_get_gain:0000000000000000 $a
+     /tmp/ccE8gome.s:216    .text.rffe_set_gain:0000000000000000 rffe_set_gain
+     /tmp/ccE8gome.s:223    .text.rffe_set_gain:0000000000000000 $a
+     /tmp/ccE8gome.s:235    .text.rffe_compute_gain:0000000000000000 rffe_compute_gain
+     /tmp/ccE8gome.s:243    .text.rffe_compute_gain:0000000000000000 $a
+     /tmp/ccE8gome.s:260    .text.rffe_rx_win_ctrl:0000000000000000 rffe_rx_win_ctrl
+     /tmp/ccE8gome.s:269    .text.rffe_rx_win_ctrl:0000000000000000 $a
+
+UNDEFINED SYMBOLS
+tsp_act_state
+tsp_act_update
+trf6151_iq_swapped
+tsp_setup
+trf6151_init
+trf6151_get_gain
+trf6151_set_gain
+trf6151_compute_gain

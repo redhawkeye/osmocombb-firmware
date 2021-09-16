@@ -1,0 +1,2554 @@
+   1              		.file	"dsp.c"
+   9              	.Ltext0:
+  10              		.global	dsp_api
+  11              		.data
+  12              		.align	2
+  15              	dsp_api:
+  16 0000 A801D0FF 		.word	-3145304
+  17 0004 5000D0FF 		.word	-3145648
+  18 0008 0000D0FF 		.word	-3145728
+  19 000c 6208D0FF 		.word	-3143582
+  20 0010 00000000 		.word	0
+  21 0014 00000000 		.word	0
+  22 0018 00000000 		.space	8
+  22      00000000 
+  23              		.section	.rodata
+  24              		.align	2
+  27              	dsp_dumpcode:
+  28 0000 00100000 		.word	4096
+  29 0004 5B000000 		.word	91
+  30 0008 20000000 		.word	__compound_literal.0
+  31 000c 00000000 		.word	0
+  32 0010 00000000 		.word	0
+  33 0014 00000000 		.word	0
+  34              		.data
+  35              		.align	1
+  38              	__compound_literal.0:
+  39 0020 F869     		.short	27128
+  40 0022 2900     		.short	41
+  41 0024 0200     		.short	2
+  42 0026 1FEA     		.short	-5601
+  43 0028 1877     		.short	30488
+  44 002a 0011     		.short	4352
+  45 002c 1477     		.short	30484
+  46 002e 0000     		.short	0
+  47 0030 1277     		.short	30482
+  48 0032 0008     		.short	2048
+  49 0034 7F76     		.short	30335
+  50 0036 0100     		.short	1
+  51 0038 7F60     		.short	24703
+  52 003a FFFF     		.short	-1
+  53 003c 20F8     		.short	-2016
+  54 003e 1410     		.short	4116
+  55 0040 73F2     		.short	-3469
+  56 0042 0810     		.short	4104
+  57 0044 8276     		.short	30338
+  58 0046 0001     		.short	256
+  59 0048 7F60     		.short	24703
+  60 004a 0400     		.short	4
+  61 004c 20F8     		.short	-2016
+  62 004e 1C10     		.short	4124
+  63 0050 73F2     		.short	-3469
+  64 0052 0810     		.short	4104
+  65 0054 1472     		.short	29204
+  66 0056 0008     		.short	2048
+  67 0058 7F60     		.short	24703
+  68 005a 0200     		.short	2
+  69 005c 20F8     		.short	-2016
+  70 005e 0C10     		.short	4108
+  71 0060 7E12     		.short	4734
+  72 0062 1388     		.short	-30701
+  73 0064 7C3C     		.short	15484
+  74 0066 7D13     		.short	4989
+  75 0068 1189     		.short	-30447
+  76 006a 4CF8     		.short	-1972
+  77 006c 2810     		.short	4136
+  78 006e E2F4     		.short	-2846
+  79 0070 1577     		.short	30485
+  80 0072 1400     		.short	20
+  81 0074 3D96     		.short	-27075
+  82 0076 30FA     		.short	-1488
+  83 0078 4B10     		.short	4171
+  84 007a 896D     		.short	28041
+  85 007c 3F96     		.short	-27073
+  86 007e 30FA     		.short	-1488
+  87 0080 3F10     		.short	4159
+  88 0082 3E96     		.short	-27074
+  89 0084 95F4     		.short	-2923
+  90 0086 30F8     		.short	-2000
+  91 0088 3A10     		.short	4154
+  92 008a F847     		.short	18424
+  93 008c 1100     		.short	17
+  94 008e 927F     		.short	32658
+  95 0090 73F0     		.short	-3981
+  96 0092 0810     		.short	4104
+  97 0094 F847     		.short	18424
+  98 0096 1100     		.short	17
+  99 0098 927E     		.short	32402
+ 100 009a 73F0     		.short	-3981
+ 101 009c 0810     		.short	4104
+ 102 009e 30F8     		.short	-2000
+ 103 00a0 4610     		.short	4166
+ 104 00a2 F847     		.short	18424
+ 105 00a4 1100     		.short	17
+ 106 00a6 89E5     		.short	-6775
+ 107 00a8 73F0     		.short	-3981
+ 108 00aa 0810     		.short	4104
+ 109 00ac F847     		.short	18424
+ 110 00ae 1100     		.short	17
+ 111 00b0 98E5     		.short	-6760
+ 112 00b2 73F0     		.short	-3981
+ 113 00b4 0810     		.short	4104
+ 114 00b6 1149     		.short	18705
+ 115 00b8 1A89     		.short	-30438
+ 116 00ba 30F8     		.short	-2000
+ 117 00bc 5510     		.short	4181
+ 118 00be 72F0     		.short	-3982
+ 119 00c0 5210     		.short	4178
+ 120 00c2 74F0     		.short	-3980
+ 121 00c4 1372     		.short	29203
+ 122 00c6 73F0     		.short	-3981
+ 123 00c8 0810     		.short	4104
+ 124 00ca 72F0     		.short	-3982
+ 125 00cc 5810     		.short	4184
+ 126 00ce 74F0     		.short	-3980
+ 127 00d0 B8E4     		.short	-6984
+ 128 00d2 73F0     		.short	-3981
+ 129 00d4 0810     		.short	4104
+ 130              		.bss
+ 131              		.align	2
+ 132              	dsp_bootcode:
+ 133 0000 00000000 		.space	4
+ 134              		.data
+ 135 00d6 0000     		.align	2
+ 138              	dsp_params:
+ 139 00d8 6666     		.short	26214
+ 140 00da 0F00     		.short	15
+ 141 00dc 0C00     		.short	12
+ 142 00de 0500     		.short	5
+ 143 00e0 0400     		.short	4
+ 144 00e2 0270     		.short	28674
+ 145 00e4 0100     		.short	1
+ 146 00e6 0E00     		.short	14
+ 147 00e8 0000     		.short	0
+ 148 00ea 0000     		.short	0
+ 149 00ec 0000     		.short	0
+ 150 00ee 0000     		.short	0
+ 151 00f0 1800     		.short	24
+ 152 00f2 1600     		.short	22
+ 153 00f4 2801     		.short	296
+ 154 00f6 1E00     		.short	30
+ 155 00f8 3333     		.short	13107
+ 156 00fa F628     		.short	10486
+ 157 00fc FF7F     		.short	32767
+ 158 00fe 0044     		.short	17408
+ 159 0100 0068     		.short	26624
+ 160 0102 B84E     		.short	20152
+ 161 0104 C01E     		.short	7872
+ 162 0106 FCFF     		.short	-4
+ 163 0108 C01E     		.short	7872
+ 164 010a 8C16     		.short	5772
+ 165 010c C01E     		.short	7872
+ 166 010e 3500     		.short	53
+ 167 0110 84FC     		.short	-892
+ 168 0112 D000     		.short	208
+ 169 0114 1000     		.short	16
+ 170 0116 4000     		.short	64
+ 171 0118 FA00     		.short	250
+ 172 011a 0A00     		.short	10
+ 173 011c FBFF     		.short	-5
+ 174 011e 6419     		.short	6500
+ 175 0120 6419     		.short	6500
+ 176 0122 3C0A     		.short	2620
+ 177 0124 740E     		.short	3700
+ 178 0126 B600     		.short	182
+ 179 0128 B8F9     		.short	-1608
+ 180 012a 3500     		.short	53
+ 181 012c FCFF     		.short	-4
+ 182 012e 401F     		.short	8000
+ 183 0130 401F     		.short	8000
+ 184 0132 AA11     		.short	4522
+ 185 0134 6419     		.short	6500
+ 186 0136 AE00     		.short	174
+ 187 0138 92FC     		.short	-878
+ 188 013a 3500     		.short	53
+ 189 013c 0F00     		.short	15
+ 190 013e E202     		.short	738
+ 191 0140 A406     		.short	1700
+ 192 0142 6300     		.short	99
+ 193 0144 2500     		.short	37
+ 194 0146 5801     		.short	344
+ 195 0148 3507     		.short	1845
+ 196 014a 7F08     		.short	2175
+ 197 014c 8A00     		.short	138
+ 198 014e 0F00     		.short	15
+ 199 0150 E202     		.short	738
+ 200 0152 CE04     		.short	1230
+ 201 0154 6300     		.short	99
+ 202 0156 2A12     		.short	4650
+ 203 0158 007C     		.short	31744
+ 204 015a 0F00     		.short	15
+ 205 015c 1700     		.short	23
+ 206 015e 8700     		.short	135
+ 207 0160 BF02     		.short	703
+ 208 0162 9C09     		.short	2460
+ 209 0164 9601     		.short	406
+ 210 0166 C814     		.short	5320
+ 211 0168 0000     		.short	0
+ 212 016a 0800     		.short	8
+ 213 016c 503F     		.short	16208
+ 214 016e 0040     		.short	16384
+ 215 0170 0500     		.short	5
+ 216 0172 0800     		.short	8
+ 217 0174 0000     		.short	0
+ 218 0176 00000000 		.space	134
+ 218      00000000 
+ 218      00000000 
+ 218      00000000 
+ 218      00000000 
+ 219              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 220              		.align	2
+ 221              	.LC0:
+ 222 0000 44535020 		.ascii	"DSP Download Status: 0x%04x\012\000"
+ 222      446F776E 
+ 222      6C6F6164 
+ 222      20537461 
+ 222      7475733A 
+ 223 001d 000000   		.align	2
+ 224              	.LC1:
+ 225 0020 44535020 		.ascii	"DSP API Version: 0x%04x 0x%04x\012\000"
+ 225      41504920 
+ 225      56657273 
+ 225      696F6E3A 
+ 225      20307825 
+ 226              		.section	.text.dsp_dump_version,"ax",%progbits
+ 227              		.align	2
+ 228              		.global	dsp_dump_version
+ 230              	dsp_dump_version:
+ 231              	.LFB14:
+ 232              		.file 1 "calypso/dsp.c"
+   1:calypso/dsp.c **** #define DEBUG
+   2:calypso/dsp.c **** /* Driver for the Calypso integrated DSP */
+   3:calypso/dsp.c **** 
+   4:calypso/dsp.c **** /* (C) 2010 by Harald Welte <laforge@gnumonks.org>
+   5:calypso/dsp.c ****  *
+   6:calypso/dsp.c ****  * All Rights Reserved
+   7:calypso/dsp.c ****  *
+   8:calypso/dsp.c ****  * This program is free software; you can redistribute it and/or modify
+   9:calypso/dsp.c ****  * it under the terms of the GNU General Public License as published by
+  10:calypso/dsp.c ****  * the Free Software Foundation; either version 2 of the License, or
+  11:calypso/dsp.c ****  * (at your option) any later version.
+  12:calypso/dsp.c ****  *
+  13:calypso/dsp.c ****  * This program is distributed in the hope that it will be useful,
+  14:calypso/dsp.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  15:calypso/dsp.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  16:calypso/dsp.c ****  * GNU General Public License for more details.
+  17:calypso/dsp.c ****  *
+  18:calypso/dsp.c ****  * You should have received a copy of the GNU General Public License along
+  19:calypso/dsp.c ****  * with this program; if not, write to the Free Software Foundation, Inc.,
+  20:calypso/dsp.c ****  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  21:calypso/dsp.c ****  *
+  22:calypso/dsp.c ****  */
+  23:calypso/dsp.c **** 
+  24:calypso/dsp.c **** #include <stdint.h>
+  25:calypso/dsp.c **** #include <stdio.h>
+  26:calypso/dsp.c **** 
+  27:calypso/dsp.c **** #include <debug.h>
+  28:calypso/dsp.c **** #include <delay.h>
+  29:calypso/dsp.c **** #include <memory.h>
+  30:calypso/dsp.c **** #include <calypso/clock.h>
+  31:calypso/dsp.c **** #include <calypso/dsp.h>
+  32:calypso/dsp.c **** #include <calypso/dsp_api.h>
+  33:calypso/dsp.c **** #include <calypso/tpu.h>
+  34:calypso/dsp.c **** 
+  35:calypso/dsp.c **** #include <abb/twl3025.h>
+  36:calypso/dsp.c **** 
+  37:calypso/dsp.c **** #include <osmocom/gsm/gsm_utils.h>
+  38:calypso/dsp.c **** 
+  39:calypso/dsp.c **** 
+  40:calypso/dsp.c **** #define REG_API_CONTROL		0xfffe0000
+  41:calypso/dsp.c **** #define APIC_R_SMODE_HOM	(1 << 1)	/* API is configured in HOM mode */
+  42:calypso/dsp.c **** #define APIC_R_HINT		(1 << 3)	/* Host processor interrupt (DSP->MCU) */
+  43:calypso/dsp.c **** #define APIC_W_DSPINT		(1 << 2)	/* ARM issues interrupt to DSP */
+  44:calypso/dsp.c **** 
+  45:calypso/dsp.c **** #define REG_API_WS		0xfffff902	/* Number of wait states for ARM access to API memory */
+  46:calypso/dsp.c **** #define REG_ARM_RHEA_CTL	0xfffff904	/* Write buffer bypassing */
+  47:calypso/dsp.c **** #define REG_EXT_RHEA_CTL	0xfffff906	/* Some timeout */
+  48:calypso/dsp.c **** 
+  49:calypso/dsp.c **** #define API_SIZE		0x2000U		/* in words */
+  50:calypso/dsp.c **** 
+  51:calypso/dsp.c **** #define BASE_API_RAM		0xffd00000	/* Base address of API RAM from ARM point of view */
+  52:calypso/dsp.c **** 
+  53:calypso/dsp.c **** #define DSP_BASE_API		0x0800		/* Base address of API RAM for DSP */
+  54:calypso/dsp.c **** #define DSP_BASE_API_MIRROR	0xe000		/* Base address of API RAM for DSP (API boot mirror) */
+  55:calypso/dsp.c **** #define DSP_START		0x7000		/* DSP Start address */
+  56:calypso/dsp.c **** 
+  57:calypso/dsp.c **** /* Boot loader */
+  58:calypso/dsp.c **** #define BL_CMD_STATUS		(BASE_API_RAM + 0x0ffe)	/* Status / Command var    */
+  59:calypso/dsp.c **** #define BL_ADDR_LO		(BASE_API_RAM + 0x0ffc)	/* Address (16 lsbs)       */
+  60:calypso/dsp.c **** #define BL_ADDR_HI		(BASE_API_RAM + 0x0ff8)	/* Address (ext page bits) */
+  61:calypso/dsp.c **** #define BL_SIZE			(BASE_API_RAM + 0x0ffa) /* Size                    */
+  62:calypso/dsp.c **** 
+  63:calypso/dsp.c **** #define BL_MAX_BLOCK_SIZE	0x7F0			/* Maximum size of copied block */
+  64:calypso/dsp.c **** 
+  65:calypso/dsp.c **** 	/* Possible values for the download status */
+  66:calypso/dsp.c **** #define BL_STATUS_NA		0
+  67:calypso/dsp.c **** #define BL_STATUS_IDLE		1
+  68:calypso/dsp.c **** #define BL_CMD_COPY_BLOCK	2
+  69:calypso/dsp.c **** #define BL_CMD_COPY_MODE	4
+  70:calypso/dsp.c **** 
+  71:calypso/dsp.c **** #define BL_MODE_PROG_WRITE	0
+  72:calypso/dsp.c **** #define BL_MODE_DATA_WRITE	1
+  73:calypso/dsp.c **** #define BL_MODE_PROG_READ	2
+  74:calypso/dsp.c **** #define BL_MODE_DATA_READ	3
+  75:calypso/dsp.c **** #define BL_MODE_PROM_READ	4
+  76:calypso/dsp.c **** #define BL_MODE_DROM_READ	5
+  77:calypso/dsp.c **** 
+  78:calypso/dsp.c **** 
+  79:calypso/dsp.c **** struct dsp_section {
+  80:calypso/dsp.c **** 	uint32_t addr;		/* addr for DSP  */
+  81:calypso/dsp.c **** 	uint32_t size;		/* size in words */
+  82:calypso/dsp.c **** 	const uint16_t *data;
+  83:calypso/dsp.c **** };
+  84:calypso/dsp.c **** 
+  85:calypso/dsp.c **** #include "dsp_params.c"
+  86:calypso/dsp.c **** #include "dsp_bootcode.c"
+  87:calypso/dsp.c **** #include "dsp_dumpcode.c"
+  88:calypso/dsp.c **** 
+  89:calypso/dsp.c **** struct dsp_api dsp_api = {
+  90:calypso/dsp.c **** 	.ndb	= (T_NDB_MCU_DSP *) BASE_API_NDB,
+  91:calypso/dsp.c **** 	.db_r	= (T_DB_DSP_TO_MCU *) BASE_API_R_PAGE_0,
+  92:calypso/dsp.c **** 	.db_w	= (T_DB_MCU_TO_DSP *) BASE_API_W_PAGE_0,
+  93:calypso/dsp.c **** 	.param	= (T_PARAM_MCU_DSP *) BASE_API_PARAM,
+  94:calypso/dsp.c **** 	.r_page	= 0,
+  95:calypso/dsp.c **** 	.w_page = 0,
+  96:calypso/dsp.c **** };
+  97:calypso/dsp.c **** 
+  98:calypso/dsp.c **** 
+  99:calypso/dsp.c **** void dsp_dump_version(void)
+ 100:calypso/dsp.c **** {
+ 233              		.loc 1 100 0
+ 234              		@ args = 0, pretend = 0, frame = 0
+ 235              		@ frame_needed = 0, uses_anonymous_args = 0
+ 236              	.LVL0:
+ 237 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 238              	.LCFI0:
+ 101:calypso/dsp.c **** 	printf("DSP Download Status: 0x%04x\n", readw(BL_CMD_STATUS));
+ 239              		.loc 1 101 0
+ 240 0004 24309FE5 		ldr	r3, .L3
+ 241 0008 24009FE5 		ldr	r0, .L3+4
+ 242 000c B010D3E1 		ldrh	r1, [r3, #0]
+ 243 0010 FEFFFFEB 		bl	printf
+ 102:calypso/dsp.c **** 	printf("DSP API Version: 0x%04x 0x%04x\n",
+ 244              		.loc 1 102 0
+ 245 0014 1C309FE5 		ldr	r3, .L3+8
+ 246 0018 003093E5 		ldr	r3, [r3, #0]
+ 247 001c 18009FE5 		ldr	r0, .L3+12
+ 248 0020 BE20D3E1 		ldrh	r2, [r3, #14]
+ 249 0024 BC10D3E1 		ldrh	r1, [r3, #12]
+ 103:calypso/dsp.c **** 		dsp_api.ndb->d_version_number1, dsp_api.ndb->d_version_number2);
+ 104:calypso/dsp.c **** }
+ 250              		.loc 1 104 0
+ 251 0028 04E09DE4 		ldr	lr, [sp], #4
+ 252              		.loc 1 102 0
+ 253 002c FEFFFFEA 		b	printf
+ 254              	.L4:
+ 255              		.align	2
+ 256              	.L3:
+ 257 0030 FE0FD0FF 		.word	-3141634
+ 258 0034 00000000 		.word	.LC0
+ 259 0038 00000000 		.word	dsp_api
+ 260 003c 20000000 		.word	.LC1
+ 261              	.LFE14:
+ 263              		.section	.text.dsp_upload_sections_api,"ax",%progbits
+ 264              		.align	2
+ 266              	dsp_upload_sections_api:
+ 267              	.LFB18:
+ 105:calypso/dsp.c **** 
+ 106:calypso/dsp.c **** static void dsp_bl_wait_ready(void)
+ 107:calypso/dsp.c **** {
+ 108:calypso/dsp.c **** 	while (readw(BL_CMD_STATUS) != BL_STATUS_IDLE);
+ 109:calypso/dsp.c **** }
+ 110:calypso/dsp.c **** 
+ 111:calypso/dsp.c **** static void dsp_bl_start_at(uint16_t addr)
+ 112:calypso/dsp.c **** {
+ 113:calypso/dsp.c **** 	writew(0, BL_ADDR_HI);
+ 114:calypso/dsp.c **** 	writew(addr, BL_ADDR_LO);
+ 115:calypso/dsp.c **** 	writew(0, BL_SIZE);
+ 116:calypso/dsp.c **** 	writew(BL_CMD_COPY_BLOCK, BL_CMD_STATUS);
+ 117:calypso/dsp.c **** }
+ 118:calypso/dsp.c **** 
+ 119:calypso/dsp.c **** static int dsp_bl_upload_sections(const struct dsp_section *sec)
+ 120:calypso/dsp.c **** {
+ 121:calypso/dsp.c **** 	/* Make sure the bootloader is ready */
+ 122:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 123:calypso/dsp.c **** 
+ 124:calypso/dsp.c **** 	/* Set mode */
+ 125:calypso/dsp.c **** 	writew(BL_MODE_DATA_WRITE, BASE_API_RAM);
+ 126:calypso/dsp.c **** 	writew(BL_CMD_COPY_MODE, BL_CMD_STATUS);
+ 127:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 128:calypso/dsp.c **** 
+ 129:calypso/dsp.c **** 	/* Scan all sections */
+ 130:calypso/dsp.c **** 	for (; sec->data; sec++) {
+ 131:calypso/dsp.c **** 		volatile uint16_t *api = (volatile uint16_t *)BASE_API_RAM;
+ 132:calypso/dsp.c **** 		unsigned int i;
+ 133:calypso/dsp.c **** 
+ 134:calypso/dsp.c **** 		if (sec->size > BL_MAX_BLOCK_SIZE)
+ 135:calypso/dsp.c **** 			return -1; /* not supported for now */
+ 136:calypso/dsp.c **** 
+ 137:calypso/dsp.c **** 		/* Copy data to API */
+ 138:calypso/dsp.c **** 		for (i=0; i<sec->size; i++)
+ 139:calypso/dsp.c **** 			api[i] = sec->data[i];
+ 140:calypso/dsp.c **** 
+ 141:calypso/dsp.c **** 		/* Issue DRAM write */
+ 142:calypso/dsp.c **** 		writew(sec->addr >> 16, BL_ADDR_HI);
+ 143:calypso/dsp.c **** 		writew(sec->addr & 0xffff, BL_ADDR_LO);
+ 144:calypso/dsp.c **** 		writew(sec->size, BL_SIZE);
+ 145:calypso/dsp.c **** 		writew(BL_CMD_COPY_BLOCK, BL_CMD_STATUS);
+ 146:calypso/dsp.c **** 
+ 147:calypso/dsp.c **** 		/* Wait for completion */
+ 148:calypso/dsp.c **** 		dsp_bl_wait_ready();
+ 149:calypso/dsp.c **** 	}
+ 150:calypso/dsp.c **** 
+ 151:calypso/dsp.c **** 	return 0;
+ 152:calypso/dsp.c **** }
+ 153:calypso/dsp.c **** 
+ 154:calypso/dsp.c **** static int dsp_upload_sections_api(const struct dsp_section *sec, uint16_t dsp_base_api)
+ 155:calypso/dsp.c **** {
+ 268              		.loc 1 155 0
+ 269              		@ args = 0, pretend = 0, frame = 0
+ 270              		@ frame_needed = 0, uses_anonymous_args = 0
+ 271              	.LVL1:
+ 272 0000 30402DE9 		stmfd	sp!, {r4, r5, lr}
+ 273              	.LCFI1:
+ 274              		.loc 1 155 0
+ 275 0004 0118A0E1 		mov	r1, r1, asl #16
+ 276              	.LVL2:
+ 277 0008 0040A0E1 		mov	r4, r0
+ 278 000c 2118A0E1 		mov	r1, r1, lsr #16
+ 279              	.LVL3:
+ 280 0010 1A0000EA 		b	.L6
+ 281              	.LVL4:
+ 282              	.L7:
+ 283              	.LBB2:
+ 156:calypso/dsp.c **** 	for (; sec->data; sec++) {
+ 157:calypso/dsp.c **** 		unsigned int i;
+ 158:calypso/dsp.c **** 		volatile uint16_t *dptr;
+ 159:calypso/dsp.c **** 
+ 160:calypso/dsp.c **** 		if (sec->addr & ~((1<<16)-1))	/* 64k max addr */
+ 284              		.loc 1 160 0
+ 285 0014 00C094E5 		ldr	ip, [r4, #0]
+ 286              	.LVL5:
+ 287 0018 2CE8A0E1 		mov	lr, ip, lsr #16
+ 288 001c 0EE8A0E1 		mov	lr, lr, asl #16
+ 289 0020 00005EE3 		cmp	lr, #0
+ 290 0024 1E00001A 		bne	.L8
+ 161:calypso/dsp.c **** 			return -1;
+ 162:calypso/dsp.c **** 		if (sec->addr < dsp_base_api)
+ 291              		.loc 1 162 0
+ 292 0028 01005CE1 		cmp	ip, r1
+ 293 002c 1E00003A 		bcc	.L8
+ 163:calypso/dsp.c **** 			return -1;
+ 164:calypso/dsp.c **** 		if ((sec->addr + sec->size) > (dsp_base_api + API_SIZE))
+ 294              		.loc 1 164 0
+ 295 0030 045094E5 		ldr	r5, [r4, #4]
+ 296 0034 022A81E2 		add	r2, r1, #8192
+ 297              	.LVL6:
+ 298 0038 05308CE0 		add	r3, ip, r5
+ 299 003c 020053E1 		cmp	r3, r2
+ 300 0040 1E00008A 		bhi	.L8
+ 165:calypso/dsp.c **** 			return -1;
+ 166:calypso/dsp.c **** 
+ 167:calypso/dsp.c **** 		dptr = (volatile uint16_t *)(BASE_API_RAM + ((sec->addr - dsp_base_api) * sizeof(uint16_t)));
+ 301              		.loc 1 167 0
+ 302 0044 0C3061E0 		rsb	r3, r1, ip
+ 303 0048 8330A0E1 		mov	r3, r3, asl #1
+ 304 004c 03C643E2 		sub	ip, r3, #3145728
+ 305              	.LVL7:
+ 306 0050 0E20A0E1 		mov	r2, lr
+ 307              	.LVL8:
+ 308 0054 160000EA 		b	.L12
+ 309              	.L13:
+ 168:calypso/dsp.c **** 		for (i=0; i<sec->size; i++)
+ 169:calypso/dsp.c **** 			*dptr++ = sec->data[i];
+ 310              		.loc 1 169 0
+ 311 0058 B230D0E0 		ldrh	r3, [r0], #2
+ 312 005c B230CCE0 		strh	r3, [ip], #2	@ movhi
+ 313              	.L12:
+ 314              		.loc 1 168 0
+ 315 0060 050052E1 		cmp	r2, r5
+ 316 0064 012082E2 		add	r2, r2, #1
+ 317 0068 1400003A 		bcc	.L13
+ 318              	.LBE2:
+ 319              		.loc 1 156 0
+ 320 006c 0C4084E2 		add	r4, r4, #12
+ 321              	.LVL9:
+ 322              	.L6:
+ 323 0070 080094E5 		ldr	r0, [r4, #8]
+ 324 0074 000050E3 		cmp	r0, #0
+ 325 0078 0300001A 		bne	.L7
+ 326 007c 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 327              	.LVL10:
+ 328              	.L8:
+ 329 0080 0000E0E3 		mvn	r0, #0
+ 170:calypso/dsp.c **** 	}
+ 171:calypso/dsp.c **** 
+ 172:calypso/dsp.c **** 	/* FIXME need eioio or wb ? */
+ 173:calypso/dsp.c **** 
+ 174:calypso/dsp.c **** 	return 0;
+ 175:calypso/dsp.c **** }
+ 330              		.loc 1 175 0
+ 331 0084 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 332              	.LFE18:
+ 334              		.section	.text.dsp_api_memset,"ax",%progbits
+ 335              		.align	2
+ 336              		.global	dsp_api_memset
+ 338              	dsp_api_memset:
+ 339              	.LFB21:
+ 176:calypso/dsp.c **** 
+ 177:calypso/dsp.c **** static void dsp_pre_boot(const struct dsp_section *bootcode)
+ 178:calypso/dsp.c **** {
+ 179:calypso/dsp.c **** 	dputs("Assert DSP into Reset\n");
+ 180:calypso/dsp.c **** 	calypso_reset_set(RESET_DSP, 1);
+ 181:calypso/dsp.c **** 
+ 182:calypso/dsp.c **** 	if (bootcode) {
+ 183:calypso/dsp.c **** 		dputs("Loading initial DSP bootcode (API boot mode)\n");
+ 184:calypso/dsp.c **** 		dsp_upload_sections_api(bootcode, DSP_BASE_API_MIRROR);
+ 185:calypso/dsp.c **** 
+ 186:calypso/dsp.c **** 		writew(BL_STATUS_NA, BL_CMD_STATUS);
+ 187:calypso/dsp.c **** 	} else
+ 188:calypso/dsp.c **** 		delay_ms(10);
+ 189:calypso/dsp.c **** 
+ 190:calypso/dsp.c **** 	dputs("Releasing DSP from Reset\n");
+ 191:calypso/dsp.c **** 	calypso_reset_set(RESET_DSP, 0);
+ 192:calypso/dsp.c **** 
+ 193:calypso/dsp.c **** 	/* Wait 10 us */
+ 194:calypso/dsp.c **** 	delay_ms(100);
+ 195:calypso/dsp.c **** 
+ 196:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 197:calypso/dsp.c **** }
+ 198:calypso/dsp.c **** 
+ 199:calypso/dsp.c **** static void dsp_set_params(int16_t *param_tab, int param_size)
+ 200:calypso/dsp.c **** {
+ 201:calypso/dsp.c **** 	int i;
+ 202:calypso/dsp.c **** 	int16_t *param_ptr = (int16_t *) BASE_API_PARAM;
+ 203:calypso/dsp.c **** 
+ 204:calypso/dsp.c **** 	/* Start DSP up to bootloader */
+ 205:calypso/dsp.c **** 	dsp_pre_boot(dsp_bootcode);
+ 206:calypso/dsp.c **** 
+ 207:calypso/dsp.c **** 	/* FIXME: Implement Patch download, if any */
+ 208:calypso/dsp.c **** 
+ 209:calypso/dsp.c **** 	dputs("Setting some dsp_api.ndb values\n");
+ 210:calypso/dsp.c **** 	dsp_api.ndb->d_background_enable = 0;
+ 211:calypso/dsp.c **** 	dsp_api.ndb->d_background_abort = 0;
+ 212:calypso/dsp.c **** 	dsp_api.ndb->d_background_state = 0;
+ 213:calypso/dsp.c **** 	dsp_api.ndb->d_debug_ptr = 0x0074;
+ 214:calypso/dsp.c **** 	dsp_api.ndb->d_debug_bk = 0x0001;
+ 215:calypso/dsp.c **** 	dsp_api.ndb->d_pll_config = 0x154; //C_PLL_CONFIG;
+ 216:calypso/dsp.c **** 	dsp_api.ndb->p_debug_buffer = 0x17ff; //C_DEBUG_BUFFER_ADD;
+ 217:calypso/dsp.c **** 	dsp_api.ndb->d_debug_buffer_size = 7; //C_DEBUG_BUFFER_SIZE;
+ 218:calypso/dsp.c **** 	dsp_api.ndb->d_debug_trace_type = 0; //C_DEBUG_TRACE_TYPE;
+ 219:calypso/dsp.c **** 	dsp_api.ndb->d_dsp_state = 3; //C_DSP_IDLE3;
+ 220:calypso/dsp.c **** 	dsp_api.ndb->d_audio_gain_ul = 0;
+ 221:calypso/dsp.c **** 	dsp_api.ndb->d_audio_gain_dl = 0;
+ 222:calypso/dsp.c **** 	dsp_api.ndb->d_es_level_api = 0x5213;
+ 223:calypso/dsp.c **** 	dsp_api.ndb->d_mu_api = 0x5000;
+ 224:calypso/dsp.c **** 
+ 225:calypso/dsp.c **** 	dputs("Setting API NDB parameters\n");
+ 226:calypso/dsp.c **** 	for (i = 0; i < param_size; i ++)
+ 227:calypso/dsp.c **** 		*param_ptr++ = param_tab[i];
+ 228:calypso/dsp.c **** 	
+ 229:calypso/dsp.c **** 	dsp_dump_version();
+ 230:calypso/dsp.c **** 
+ 231:calypso/dsp.c **** 	dputs("Finishing download phase\n");
+ 232:calypso/dsp.c **** 	dsp_bl_start_at(DSP_START);
+ 233:calypso/dsp.c **** 
+ 234:calypso/dsp.c **** 	dsp_dump_version();
+ 235:calypso/dsp.c **** }
+ 236:calypso/dsp.c **** 
+ 237:calypso/dsp.c **** void dsp_api_memset(uint16_t *ptr, int octets)
+ 238:calypso/dsp.c **** {
+ 340              		.loc 1 238 0
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 0, uses_anonymous_args = 0
+ 343              		@ link register save eliminated.
+ 344              	.LVL11:
+ 345 0000 00C0A0E3 		mov	ip, #0
+ 346              		@ lr needed for prologue
+ 347 0004 020000EA 		b	.L19
+ 348              	.LVL12:
+ 349              	.L20:
+ 239:calypso/dsp.c **** 	uint16_t i;
+ 240:calypso/dsp.c **** 	for (i = 0; i < octets / sizeof(uint16_t); i++)
+ 241:calypso/dsp.c **** 		*ptr++ = 0;
+ 350              		.loc 1 241 0
+ 351 0008 0030A0E3 		mov	r3, #0	@ movhi
+ 352 000c B23040E1 		strh	r3, [r0, #-2]	@ movhi
+ 353              	.LVL13:
+ 354              	.L19:
+ 355              		.loc 1 240 0
+ 356 0010 0C28A0E1 		mov	r2, ip, asl #16
+ 357 0014 A130A0E1 		mov	r3, r1, lsr #1
+ 358 0018 220853E1 		cmp	r3, r2, lsr #16
+ 359              	.LVL14:
+ 360 001c 020080E2 		add	r0, r0, #2
+ 361 0020 01C08CE2 		add	ip, ip, #1
+ 362 0024 0000008A 		bhi	.L20
+ 242:calypso/dsp.c **** }
+ 363              		.loc 1 242 0
+ 364 0028 1EFF2FE1 		bx	lr
+ 365              	.LFE21:
+ 367              		.section	.text.dsp_memcpy_to_api,"ax",%progbits
+ 368              		.align	2
+ 369              		.global	dsp_memcpy_to_api
+ 371              	dsp_memcpy_to_api:
+ 372              	.LFB22:
+ 243:calypso/dsp.c **** 
+ 244:calypso/dsp.c **** /* memcpy from RAM to DSP API, 16 bits by 16 bits. If odd byte count, last word will
+ 245:calypso/dsp.c ****  * be zero filled */
+ 246:calypso/dsp.c **** void dsp_memcpy_to_api(volatile uint16_t *dsp_buf, const uint8_t *mcu_buf, int n, int be)
+ 247:calypso/dsp.c **** {
+ 373              		.loc 1 247 0
+ 374              		@ args = 0, pretend = 0, frame = 0
+ 375              		@ frame_needed = 0, uses_anonymous_args = 0
+ 376              	.LVL15:
+ 248:calypso/dsp.c **** 	int odd, i;
+ 249:calypso/dsp.c **** 
+ 250:calypso/dsp.c **** 	odd = n & 1;
+ 251:calypso/dsp.c **** 	n >>= 1;
+ 252:calypso/dsp.c **** 
+ 253:calypso/dsp.c **** 	if (be) {
+ 377              		.loc 1 253 0
+ 378 0000 000053E3 		cmp	r3, #0
+ 379              		.loc 1 247 0
+ 380 0004 10402DE9 		stmfd	sp!, {r4, lr}
+ 381              	.LCFI2:
+ 382              		.loc 1 253 0
+ 383 0008 03C0A001 		moveq	ip, r3
+ 384              	.LVL16:
+ 385              		.loc 1 251 0
+ 386 000c C2E0A0E1 		mov	lr, r2, asr #1
+ 387              	.LVL17:
+ 388              		.loc 1 250 0
+ 389 0010 014002E2 		and	r4, r2, #1
+ 390              	.LVL18:
+ 391              		.loc 1 253 0
+ 392 0014 00C0A013 		movne	ip, #0
+ 393              	.LVL19:
+ 394 0018 0B00001A 		bne	.L27
+ 395 001c 180000EA 		b	.L26
+ 396              	.LVL20:
+ 397              	.L28:
+ 398              	.LBB3:
+ 254:calypso/dsp.c **** 		for (i=0; i<n; i++) {
+ 255:calypso/dsp.c **** 			uint16_t w;
+ 256:calypso/dsp.c **** 			w  = *(mcu_buf++) << 8;
+ 399              		.loc 1 256 0
+ 400 0020 0020D1E5 		ldrb	r2, [r1, #0]	@ zero_extendqisi2
+ 401              	.LVL21:
+ 257:calypso/dsp.c **** 			w |= *(mcu_buf++);
+ 402              		.loc 1 257 0
+ 403 0024 0130D1E5 		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+ 404              	.LVL22:
+ 405 0028 023483E1 		orr	r3, r3, r2, asl #8
+ 406              	.LVL23:
+ 258:calypso/dsp.c **** 			*(dsp_buf++) = w;
+ 407              		.loc 1 258 0
+ 408 002c B230C0E0 		strh	r3, [r0], #2	@ movhi
+ 409              		.loc 1 257 0
+ 410 0030 021081E2 		add	r1, r1, #2
+ 411              	.LVL24:
+ 412              	.L27:
+ 413              	.LBE3:
+ 414              		.loc 1 254 0
+ 415 0034 0E005CE1 		cmp	ip, lr
+ 416 0038 01C08CE2 		add	ip, ip, #1
+ 417 003c 060000BA 		blt	.L28
+ 259:calypso/dsp.c **** 		}
+ 260:calypso/dsp.c **** 		if (odd)
+ 418              		.loc 1 260 0
+ 419 0040 000054E3 		cmp	r4, #0
+ 261:calypso/dsp.c **** 			*dsp_buf = *mcu_buf << 8;
+ 420              		.loc 1 261 0
+ 421 0044 0030D115 		ldrneb	r3, [r1, #0]	@ zero_extendqisi2
+ 422              	.LVL25:
+ 423 0048 0334A011 		movne	r3, r3, asl #8
+ 424              		.loc 1 260 0
+ 425 004c 1080BD08 		ldmeqfd	sp!, {r4, pc}
+ 426 0050 1E0000EA 		b	.L36
+ 427              	.LVL26:
+ 428              	.L32:
+ 429              	.LBB4:
+ 262:calypso/dsp.c **** 	} else {
+ 263:calypso/dsp.c **** 		for (i=0; i<n; i++) {
+ 264:calypso/dsp.c **** 			uint16_t w;
+ 265:calypso/dsp.c **** 			w  = *(mcu_buf++);
+ 266:calypso/dsp.c **** 			w |= *(mcu_buf++) << 8;
+ 430              		.loc 1 266 0
+ 431 0054 0030D1E5 		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 432              	.LVL27:
+ 433 0058 0120D1E5 		ldrb	r2, [r1, #1]	@ zero_extendqisi2
+ 434              	.LVL28:
+ 435 005c 023483E1 		orr	r3, r3, r2, asl #8
+ 436              	.LVL29:
+ 267:calypso/dsp.c **** 			*(dsp_buf++) = w;
+ 437              		.loc 1 267 0
+ 438 0060 B230C0E0 		strh	r3, [r0], #2	@ movhi
+ 439              		.loc 1 266 0
+ 440 0064 021081E2 		add	r1, r1, #2
+ 441              	.LVL30:
+ 442              	.L26:
+ 443              	.LVL31:
+ 444              	.LBE4:
+ 445              		.loc 1 263 0
+ 446 0068 0E005CE1 		cmp	ip, lr
+ 447 006c 01C08CE2 		add	ip, ip, #1
+ 448 0070 130000BA 		blt	.L32
+ 268:calypso/dsp.c **** 		}
+ 269:calypso/dsp.c **** 		if (odd)
+ 449              		.loc 1 269 0
+ 450 0074 000054E3 		cmp	r4, #0
+ 451 0078 1080BD08 		ldmeqfd	sp!, {r4, pc}
+ 270:calypso/dsp.c **** 			*dsp_buf = *mcu_buf;
+ 452              		.loc 1 270 0
+ 453 007c 0030D1E5 		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 454              	.LVL32:
+ 455              	.L36:
+ 456 0080 B030C0E1 		strh	r3, [r0, #0]	@ movhi
+ 457 0084 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 458              	.LFE22:
+ 460              		.section	.text.dsp_memcpy_from_api,"ax",%progbits
+ 461              		.align	2
+ 462              		.global	dsp_memcpy_from_api
+ 464              	dsp_memcpy_from_api:
+ 465              	.LFB23:
+ 271:calypso/dsp.c **** 	}
+ 272:calypso/dsp.c **** }
+ 273:calypso/dsp.c **** 
+ 274:calypso/dsp.c **** /* memcpy from DSP API to RAM, accessing API 16 bits word at a time */
+ 275:calypso/dsp.c **** void dsp_memcpy_from_api(uint8_t *mcu_buf, const volatile uint16_t *dsp_buf, int n, int be)
+ 276:calypso/dsp.c **** {
+ 466              		.loc 1 276 0
+ 467              		@ args = 0, pretend = 0, frame = 0
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469              	.LVL33:
+ 277:calypso/dsp.c **** 	int odd, i;
+ 278:calypso/dsp.c **** 
+ 279:calypso/dsp.c **** 	odd = n & 1;
+ 280:calypso/dsp.c **** 	n >>= 1;
+ 281:calypso/dsp.c **** 
+ 282:calypso/dsp.c **** 	if (be) {
+ 470              		.loc 1 282 0
+ 471 0000 000053E3 		cmp	r3, #0
+ 472              		.loc 1 276 0
+ 473 0004 10402DE9 		stmfd	sp!, {r4, lr}
+ 474              	.LCFI3:
+ 475              		.loc 1 282 0
+ 476 0008 03C0A001 		moveq	ip, r3
+ 477              	.LVL34:
+ 478              		.loc 1 280 0
+ 479 000c C2E0A0E1 		mov	lr, r2, asr #1
+ 480              	.LVL35:
+ 481              		.loc 1 279 0
+ 482 0010 014002E2 		and	r4, r2, #1
+ 483              	.LVL36:
+ 484              		.loc 1 282 0
+ 485 0014 00C0A013 		movne	ip, #0
+ 486              	.LVL37:
+ 487 0018 0D00001A 		bne	.L41
+ 488 001c 190000EA 		b	.L40
+ 489              	.LVL38:
+ 490              	.L42:
+ 491              	.LBB5:
+ 283:calypso/dsp.c **** 		for (i=0; i<n; i++) {
+ 284:calypso/dsp.c **** 			uint16_t w = *(dsp_buf++);
+ 492              		.loc 1 284 0
+ 493 0020 B230D1E0 		ldrh	r3, [r1], #2
+ 494              	.LVL39:
+ 495 0024 0338A0E1 		mov	r3, r3, asl #16
+ 285:calypso/dsp.c **** 			*(mcu_buf++) = w >> 8;
+ 496              		.loc 1 285 0
+ 497 0028 232CA0E1 		mov	r2, r3, lsr #24
+ 498              	.LVL40:
+ 499              		.loc 1 284 0
+ 500 002c 2338A0E1 		mov	r3, r3, lsr #16
+ 501              	.LVL41:
+ 502              		.loc 1 285 0
+ 503 0030 0020C0E5 		strb	r2, [r0, #0]
+ 286:calypso/dsp.c **** 			*(mcu_buf++) = w;
+ 504              		.loc 1 286 0
+ 505 0034 0130C0E5 		strb	r3, [r0, #1]
+ 506 0038 020080E2 		add	r0, r0, #2
+ 507              	.LVL42:
+ 508              	.L41:
+ 509              	.LBE5:
+ 510              		.loc 1 283 0
+ 511 003c 0E005CE1 		cmp	ip, lr
+ 512 0040 01C08CE2 		add	ip, ip, #1
+ 513 0044 060000BA 		blt	.L42
+ 287:calypso/dsp.c **** 		}
+ 288:calypso/dsp.c **** 		if (odd)
+ 514              		.loc 1 288 0
+ 515 0048 000054E3 		cmp	r4, #0
+ 289:calypso/dsp.c **** 			*mcu_buf = *(dsp_buf++) >> 8;
+ 516              		.loc 1 289 0
+ 517 004c B030D111 		ldrneh	r3, [r1, #0]
+ 518              	.LVL43:
+ 519 0050 2334A011 		movne	r3, r3, lsr #8
+ 520              		.loc 1 288 0
+ 521 0054 1080BD08 		ldmeqfd	sp!, {r4, pc}
+ 522 0058 1F0000EA 		b	.L50
+ 523              	.LVL44:
+ 524              	.L46:
+ 525              	.LBB6:
+ 290:calypso/dsp.c **** 	} else {
+ 291:calypso/dsp.c **** 		for (i=0; i<n; i++) {
+ 292:calypso/dsp.c **** 			uint16_t w = *(dsp_buf++);
+ 526              		.loc 1 292 0
+ 527 005c B220D1E0 		ldrh	r2, [r1], #2
+ 528              	.LVL45:
+ 293:calypso/dsp.c **** 			*(mcu_buf++) = w;
+ 294:calypso/dsp.c **** 			*(mcu_buf++) = w >> 8;
+ 529              		.loc 1 294 0
+ 530 0060 2234A0E1 		mov	r3, r2, lsr #8
+ 531              	.LVL46:
+ 532 0064 0130C0E5 		strb	r3, [r0, #1]
+ 533              		.loc 1 293 0
+ 534 0068 0220C0E4 		strb	r2, [r0], #2
+ 535              	.LVL47:
+ 536              	.L40:
+ 537              	.LVL48:
+ 538              	.LBE6:
+ 539              		.loc 1 291 0
+ 540 006c 0E005CE1 		cmp	ip, lr
+ 541 0070 01C08CE2 		add	ip, ip, #1
+ 542 0074 150000BA 		blt	.L46
+ 295:calypso/dsp.c **** 		}
+ 296:calypso/dsp.c **** 		if (odd)
+ 543              		.loc 1 296 0
+ 544 0078 000054E3 		cmp	r4, #0
+ 545 007c 1080BD08 		ldmeqfd	sp!, {r4, pc}
+ 297:calypso/dsp.c **** 			*mcu_buf = *(dsp_buf++);
+ 546              		.loc 1 297 0
+ 547 0080 B030D1E1 		ldrh	r3, [r1, #0]
+ 548              	.LVL49:
+ 549              	.L50:
+ 550 0084 0030C0E5 		strb	r3, [r0, #0]
+ 551 0088 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 552              	.LFE23:
+ 554              		.section	.text.dsp_end_scenario,"ax",%progbits
+ 555              		.align	2
+ 556              		.global	dsp_end_scenario
+ 558              	dsp_end_scenario:
+ 559              	.LFB29:
+ 298:calypso/dsp.c **** 	}
+ 299:calypso/dsp.c **** }
+ 300:calypso/dsp.c **** 
+ 301:calypso/dsp.c **** static void dsp_audio_init(void)
+ 302:calypso/dsp.c **** {
+ 303:calypso/dsp.c **** 	T_NDB_MCU_DSP *ndb = dsp_api.ndb;
+ 304:calypso/dsp.c **** 	uint8_t i;
+ 305:calypso/dsp.c **** 
+ 306:calypso/dsp.c **** 	ndb->d_vbctrl1  = ABB_VAL_T(VBCTRL1, 0x00B); 	/* VULSWITCH=0, VDLAUX=1, VDLEAR=1 */
+ 307:calypso/dsp.c **** 	ndb->d_vbctrl2	= ABB_VAL_T(VBCTRL2, 0x000); 	/* MICBIASEL=0, VDLHSO=0, MICAUX=0 */
+ 308:calypso/dsp.c **** 
+ 309:calypso/dsp.c **** 	/*
+ 310:calypso/dsp.c **** 	 * TODO: the following two settings are used to control
+ 311:calypso/dsp.c **** 	 * the volume and uplink/downlink/sidetone gain. Make them
+ 312:calypso/dsp.c **** 	 * adjustable by the user.
+ 313:calypso/dsp.c **** 	 */
+ 314:calypso/dsp.c **** 
+ 315:calypso/dsp.c **** 	ndb->d_vbuctrl	= ABB_VAL_T(VBUCTRL, 0x009);	/* Uplink gain amp 3dB, Sidetone gain -5dB */
+ 316:calypso/dsp.c **** 	ndb->d_vbdctrl	= ABB_VAL_T(VBDCTRL, 0x066);	/* Downlink gain amp 0dB, Volume control -6 dB */
+ 317:calypso/dsp.c **** 
+ 318:calypso/dsp.c **** 	ndb->d_toneskb_init = 0;			/* MCU/DSP audio task com. register */
+ 319:calypso/dsp.c **** 	ndb->d_toneskb_status = 0;			/* MCU/DSP audio task com. register */
+ 320:calypso/dsp.c **** 
+ 321:calypso/dsp.c **** 	ndb->d_shiftul = 0x100;
+ 322:calypso/dsp.c **** 	ndb->d_shiftdl = 0x100;
+ 323:calypso/dsp.c **** 
+ 324:calypso/dsp.c **** 	ndb->d_melo_osc_used    = 0;
+ 325:calypso/dsp.c **** 	ndb->d_melo_osc_active  = 0;
+ 326:calypso/dsp.c **** 
+ 327:calypso/dsp.c **** #define SC_END_OSCILLATOR_MASK        0xfffe
+ 328:calypso/dsp.c **** 
+ 329:calypso/dsp.c **** 	ndb->a_melo_note0[0] = SC_END_OSCILLATOR_MASK;
+ 330:calypso/dsp.c **** 	ndb->a_melo_note1[0] = SC_END_OSCILLATOR_MASK;
+ 331:calypso/dsp.c **** 	ndb->a_melo_note2[0] = SC_END_OSCILLATOR_MASK;
+ 332:calypso/dsp.c **** 	ndb->a_melo_note3[0] = SC_END_OSCILLATOR_MASK;
+ 333:calypso/dsp.c **** 	ndb->a_melo_note4[0] = SC_END_OSCILLATOR_MASK;
+ 334:calypso/dsp.c **** 	ndb->a_melo_note5[0] = SC_END_OSCILLATOR_MASK;
+ 335:calypso/dsp.c **** 	ndb->a_melo_note6[0] = SC_END_OSCILLATOR_MASK;
+ 336:calypso/dsp.c **** 	ndb->a_melo_note7[0] = SC_END_OSCILLATOR_MASK;
+ 337:calypso/dsp.c **** 
+ 338:calypso/dsp.c **** #define MAX_FIR_COEF  31
+ 339:calypso/dsp.c **** 
+ 340:calypso/dsp.c **** 	/* Initialize the FIR as an all band pass */
+ 341:calypso/dsp.c **** 	dsp_api.param->a_fir31_downlink[0] = 0x4000;
+ 342:calypso/dsp.c **** 	dsp_api.param->a_fir31_uplink[0]   = 0x4000;
+ 343:calypso/dsp.c **** 	for (i = 1; i < MAX_FIR_COEF; i++)
+ 344:calypso/dsp.c **** 	{
+ 345:calypso/dsp.c **** 		dsp_api.param->a_fir31_downlink[i]  = 0;
+ 346:calypso/dsp.c **** 		dsp_api.param->a_fir31_uplink[i]    = 0;
+ 347:calypso/dsp.c **** 	}
+ 348:calypso/dsp.c **** 
+ 349:calypso/dsp.c **** #define B_GSM_ONLY	((1L <<  13) | (1L <<  11))	/* GSM normal mode */
+ 350:calypso/dsp.c **** #define B_BT_CORDLESS	(1L <<  12)			/* Bluetooth cordless mode */
+ 351:calypso/dsp.c **** #define B_BT_HEADSET	(1L <<  14)			/* Bluetooth headset mode */
+ 352:calypso/dsp.c **** 
+ 353:calypso/dsp.c **** 		/* Bit set by the MCU to close the loop between the audio UL and DL path. */
+ 354:calypso/dsp.c **** 		/* This features is used to find the FIR coefficient. */
+ 355:calypso/dsp.c **** #define B_FIR_LOOP	(1L <<  1)
+ 356:calypso/dsp.c **** 
+ 357:calypso/dsp.c **** 	/* Reset the FIR loopback and the audio mode */
+ 358:calypso/dsp.c **** 	ndb->d_audio_init &= ~(B_FIR_LOOP | B_GSM_ONLY | B_BT_HEADSET | B_BT_CORDLESS);
+ 359:calypso/dsp.c **** 
+ 360:calypso/dsp.c **** 	/* Set the GSM mode  */
+ 361:calypso/dsp.c **** 	ndb->d_audio_init |= (B_GSM_ONLY);
+ 362:calypso/dsp.c **** 
+ 363:calypso/dsp.c **** 	ndb->d_aec_ctrl = 0;
+ 364:calypso/dsp.c **** 
+ 365:calypso/dsp.c **** 	/* DSP background task through pending task queue */
+ 366:calypso/dsp.c **** 	dsp_api.param->d_gsm_bgd_mgt = 0;
+ 367:calypso/dsp.c **** 
+ 368:calypso/dsp.c **** 	ndb->d_audio_compressor_ctrl = 0x0401;
+ 369:calypso/dsp.c **** 
+ 370:calypso/dsp.c **** #define NO_MELODY_SELECTED    (0)
+ 371:calypso/dsp.c **** 
+ 372:calypso/dsp.c **** 	ndb->d_melody_selection = NO_MELODY_SELECTED;
+ 373:calypso/dsp.c **** }
+ 374:calypso/dsp.c **** 
+ 375:calypso/dsp.c **** static void dsp_ndb_init(void)
+ 376:calypso/dsp.c **** {
+ 377:calypso/dsp.c **** 	T_NDB_MCU_DSP *ndb = dsp_api.ndb;
+ 378:calypso/dsp.c **** 	uint8_t i;
+ 379:calypso/dsp.c **** 
+ 380:calypso/dsp.c **** 	#define APCDEL_DOWN     (2+0)   // minimum value: 2
+ 381:calypso/dsp.c **** 	#define APCDEL_UP       (6+3+1) // minimum value: 6
+ 382:calypso/dsp.c **** 
+ 383:calypso/dsp.c **** 	/* load APC ramp: set to "no ramp" so that there will be no output if
+ 384:calypso/dsp.c **** 	 * not properly initialised at some other place. */
+ 385:calypso/dsp.c **** 	for (i = 0; i < 16; i++)
+ 386:calypso/dsp.c **** 		dsp_api.ndb->a_ramp[i] = ABB_VAL(APCRAM, ABB_RAMP_VAL(0, 0));
+ 387:calypso/dsp.c **** 
+ 388:calypso/dsp.c **** 	/* Iota registers values will be programmed at 1st DSP communication interrupt */
+ 389:calypso/dsp.c **** 
+ 390:calypso/dsp.c **** 	/* Enable f_tx delay of 400000 cyc DEBUG */
+ 391:calypso/dsp.c **** 	ndb->d_debug1 	= ABB_VAL_T(0, 0x000);
+ 392:calypso/dsp.c **** 	ndb->d_afcctladd= ABB_VAL_T(AFCCTLADD, 0x000);  // Value at reset
+ 393:calypso/dsp.c **** 	ndb->d_vbuctrl	= ABB_VAL_T(VBUCTRL, 0x0C9);	// Uplink gain amp 0dB, Sidetone gain to mute
+ 394:calypso/dsp.c **** 	ndb->d_vbdctrl	= ABB_VAL_T(VBDCTRL, 0x006);	// Downlink gain amp 0dB, Volume control 0 dB
+ 395:calypso/dsp.c **** 	ndb->d_bbctrl	= ABB_VAL_T(BBCTRL,  0x2C1);	// value at reset
+ 396:calypso/dsp.c **** 	ndb->d_bulgcal	= ABB_VAL_T(BULGCAL, 0x000);	// value at reset
+ 397:calypso/dsp.c **** 	ndb->d_apcoff	= ABB_VAL_T(APCOFF,  0x040);	// value at reset
+ 398:calypso/dsp.c **** 	ndb->d_bulioff	= ABB_VAL_T(BULIOFF, 0x0FF);	// value at reset
+ 399:calypso/dsp.c **** 	ndb->d_bulqoff	= ABB_VAL_T(BULQOFF, 0x0FF);	// value at reset
+ 400:calypso/dsp.c **** 	ndb->d_dai_onoff= ABB_VAL_T(APCOFF,  0x000);	// value at reset
+ 401:calypso/dsp.c **** 	ndb->d_auxdac	= ABB_VAL_T(AUXDAC,  0x000);	// value at reset
+ 402:calypso/dsp.c **** 	ndb->d_vbctrl1  = ABB_VAL_T(VBCTRL1, 0x00B); 	// VULSWITCH=0, VDLAUX=1, VDLEAR=1.
+ 403:calypso/dsp.c **** 	ndb->d_vbctrl2	= ABB_VAL_T(VBCTRL2, 0x000); 	// MICBIASEL=0, VDLHSO=0, MICAUX=0
+ 404:calypso/dsp.c **** 
+ 405:calypso/dsp.c **** 	/* APCDEL will be initialized on rach only */
+ 406:calypso/dsp.c **** 	ndb->d_apcdel1	= ABB_VAL_T(APCDEL1, ((APCDEL_DOWN-2) << 5) | (APCDEL_UP-6));
+ 407:calypso/dsp.c **** 	ndb->d_apcdel2	= ABB_VAL_T(APCDEL2, 0x000);
+ 408:calypso/dsp.c **** 
+ 409:calypso/dsp.c **** 	ndb->d_fb_mode	= 1;		/* mode 1 FCCH burst detection */
+ 410:calypso/dsp.c **** 	ndb->d_fb_det	= 0;		/* we have not yet detected a FB */
+ 411:calypso/dsp.c **** 	ndb->a_cd[0]	= (1<<B_FIRE1);	/* CCCH/SACCH downlink */
+ 412:calypso/dsp.c **** 	ndb->a_dd_0[0]	= 0;
+ 413:calypso/dsp.c **** 	ndb->a_dd_0[2]	= 0xffff;
+ 414:calypso/dsp.c **** 	ndb->a_dd_1[0]	= 0;
+ 415:calypso/dsp.c **** 	ndb->a_dd_1[2]	= 0xffff;
+ 416:calypso/dsp.c **** 	ndb->a_du_0[0]	= 0;
+ 417:calypso/dsp.c **** 	ndb->a_du_0[2]	= 0xffff;
+ 418:calypso/dsp.c **** 	ndb->a_du_1[0]	= 0;
+ 419:calypso/dsp.c **** 	ndb->a_du_1[2]	= 0xffff;
+ 420:calypso/dsp.c **** 	ndb->a_fd[0]	= (1<<B_FIRE1);
+ 421:calypso/dsp.c **** 	ndb->a_fd[2]	= 0xffff;
+ 422:calypso/dsp.c **** 	ndb->d_a5mode	= 0;
+ 423:calypso/dsp.c **** 	ndb->d_tch_mode	= 0x0800; /* Set ABB model to Iota */
+ 424:calypso/dsp.c **** 
+ 425:calypso/dsp.c **** 	#define GUARD_BITS 8 // 11 or 9 for TSM30, 7 for Freerunner
+ 426:calypso/dsp.c **** 	ndb->d_tch_mode |= (((GUARD_BITS - 4) & 0x000F) << 7); //Bit 7..10: guard bits
+ 427:calypso/dsp.c **** 
+ 428:calypso/dsp.c **** 	ndb->a_sch26[0]	= (1<<B_SCH_CRC);
+ 429:calypso/dsp.c **** 
+ 430:calypso/dsp.c **** 	/* Interrupt RIF transmit if FIFO <= threshold with threshold == 0 */
+ 431:calypso/dsp.c **** 	/* MCM = 1, XRST = 0, CLKX_AUTO=1, TXM=1, NCLK_EN=1, NCLK13_EN=1,
+ 432:calypso/dsp.c **** 	 * THRESHOLD = 0, DIV_CLK = 0 (13MHz) */
+ 433:calypso/dsp.c **** 	ndb->d_spcx_rif	= 0x179;
+ 434:calypso/dsp.c **** 
+ 435:calypso/dsp.c **** 	/* Init audio related parameters */
+ 436:calypso/dsp.c **** 	dsp_audio_init();
+ 437:calypso/dsp.c **** }
+ 438:calypso/dsp.c **** 
+ 439:calypso/dsp.c **** static void dsp_db_init(void)
+ 440:calypso/dsp.c **** {
+ 441:calypso/dsp.c **** 	dsp_api_memset((uint16_t *)BASE_API_W_PAGE_0, sizeof(T_DB_MCU_TO_DSP));
+ 442:calypso/dsp.c **** 	dsp_api_memset((uint16_t *)BASE_API_W_PAGE_1, sizeof(T_DB_MCU_TO_DSP));
+ 443:calypso/dsp.c **** 	dsp_api_memset((uint16_t *)BASE_API_R_PAGE_0, sizeof(T_DB_DSP_TO_MCU));
+ 444:calypso/dsp.c **** 	dsp_api_memset((uint16_t *)BASE_API_R_PAGE_1, sizeof(T_DB_DSP_TO_MCU));
+ 445:calypso/dsp.c **** }
+ 446:calypso/dsp.c **** 
+ 447:calypso/dsp.c **** void dsp_power_on(void)
+ 448:calypso/dsp.c **** {
+ 449:calypso/dsp.c **** 	/* probably a good idea to initialize the whole API area to a known value */
+ 450:calypso/dsp.c **** 	dsp_api_memset((uint16_t *)BASE_API_RAM, API_SIZE * 2); // size is in words
+ 451:calypso/dsp.c **** 
+ 452:calypso/dsp.c **** 	dsp_set_params((int16_t *)&dsp_params, sizeof(dsp_params)/2);
+ 453:calypso/dsp.c **** 	dsp_ndb_init();
+ 454:calypso/dsp.c **** 	dsp_db_init();
+ 455:calypso/dsp.c **** 	dsp_api.frame_ctr = 0;
+ 456:calypso/dsp.c **** 	dsp_api.r_page = dsp_api.w_page = dsp_api.r_page_used = 0;
+ 457:calypso/dsp.c **** }
+ 458:calypso/dsp.c **** 
+ 459:calypso/dsp.c **** /* test for frequency burst detection */
+ 460:calypso/dsp.c **** #define REG_INT_STAT 0xffff1004
+ 461:calypso/dsp.c **** static void wait_for_frame_irq(void)
+ 462:calypso/dsp.c **** {
+ 463:calypso/dsp.c **** 	//puts("Waiting for Frame Interrupt");
+ 464:calypso/dsp.c **** 	//while (readb(REG_INT_STAT) & 1)
+ 465:calypso/dsp.c **** 	while (readb((void *)0xffff1000) & (1<<4))
+ 466:calypso/dsp.c **** 	;//	putchar('.');
+ 467:calypso/dsp.c **** 	//puts("Done!\n");
+ 468:calypso/dsp.c **** }
+ 469:calypso/dsp.c **** 
+ 470:calypso/dsp.c **** void dsp_end_scenario(void)
+ 471:calypso/dsp.c **** {
+ 560              		.loc 1 471 0
+ 561              		@ args = 0, pretend = 0, frame = 0
+ 562              		@ frame_needed = 0, uses_anonymous_args = 0
+ 563              	.LVL50:
+ 564 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 565              	.LCFI4:
+ 472:calypso/dsp.c **** 	/* FIXME: we don't yet deal with the MISC_TASK */
+ 473:calypso/dsp.c **** 
+ 474:calypso/dsp.c **** 	/* End the DSP Scenario */
+ 475:calypso/dsp.c **** 	dsp_api.ndb->d_dsp_page = B_GSM_TASK | dsp_api.w_page;
+ 566              		.loc 1 475 0
+ 567 0004 28109FE5 		ldr	r1, .L53
+ 568 0008 143091E5 		ldr	r3, [r1, #20]
+ 569 000c 000091E5 		ldr	r0, [r1, #0]
+ 570 0010 022083E3 		orr	r2, r3, #2
+ 476:calypso/dsp.c **** 	dsp_api.w_page ^= 1;
+ 571              		.loc 1 476 0
+ 572 0014 013023E2 		eor	r3, r3, #1
+ 573              		.loc 1 475 0
+ 574 0018 B020C0E1 		strh	r2, [r0, #0]	@ movhi
+ 575              		.loc 1 476 0
+ 576 001c 143081E5 		str	r3, [r1, #20]
+ 477:calypso/dsp.c **** 
+ 478:calypso/dsp.c **** 	/* Tell TPU to generate a FRAME interrupt to the DSP */
+ 479:calypso/dsp.c **** 	tpu_dsp_frameirq_enable();
+ 577              		.loc 1 479 0
+ 578 0020 FEFFFFEB 		bl	tpu_dsp_frameirq_enable
+ 480:calypso/dsp.c **** 	tpu_frame_irq_en(1, 1);
+ 579              		.loc 1 480 0
+ 580 0024 0100A0E3 		mov	r0, #1
+ 581 0028 0010A0E1 		mov	r1, r0
+ 481:calypso/dsp.c **** }
+ 582              		.loc 1 481 0
+ 583 002c 04E09DE4 		ldr	lr, [sp], #4
+ 584              		.loc 1 480 0
+ 585 0030 FEFFFFEA 		b	tpu_frame_irq_en
+ 586              	.L54:
+ 587              		.align	2
+ 588              	.L53:
+ 589 0034 00000000 		.word	dsp_api
+ 590              	.LFE29:
+ 592              		.section	.text.dsp_load_rx_task,"ax",%progbits
+ 593              		.align	2
+ 594              		.global	dsp_load_rx_task
+ 596              	dsp_load_rx_task:
+ 597              	.LFB30:
+ 482:calypso/dsp.c **** 
+ 483:calypso/dsp.c **** void dsp_load_rx_task(uint16_t task, uint8_t burst_id, uint8_t tsc)
+ 484:calypso/dsp.c **** {
+ 598              		.loc 1 484 0
+ 599              		@ args = 0, pretend = 0, frame = 0
+ 600              		@ frame_needed = 0, uses_anonymous_args = 0
+ 601              		@ link register save eliminated.
+ 602              	.LVL51:
+ 485:calypso/dsp.c **** 	dsp_api.db_w->d_task_d = task;
+ 603              		.loc 1 485 0
+ 604 0000 20309FE5 		ldr	r3, .L57
+ 605 0004 08C093E5 		ldr	ip, [r3, #8]
+ 486:calypso/dsp.c **** 	dsp_api.db_w->d_burst_d = burst_id;
+ 487:calypso/dsp.c **** 	dsp_api.db_w->d_ctrl_system |= tsc & 0x7;
+ 606              		.loc 1 487 0
+ 607 0008 B032DCE1 		ldrh	r3, [ip, #32]
+ 608 000c 072002E2 		and	r2, r2, #7
+ 609              	.LVL52:
+ 610 0010 023083E1 		orr	r3, r3, r2
+ 611              		.loc 1 484 0
+ 612 0014 FF1001E2 		and	r1, r1, #255
+ 613              		@ lr needed for prologue
+ 614              		.loc 1 487 0
+ 615 0018 B032CCE1 		strh	r3, [ip, #32]	@ movhi
+ 616              		.loc 1 485 0
+ 617 001c B000CCE1 		strh	r0, [ip, #0]	@ movhi
+ 618              		.loc 1 486 0
+ 619 0020 B210CCE1 		strh	r1, [ip, #2]	@ movhi
+ 488:calypso/dsp.c **** }
+ 620              		.loc 1 488 0
+ 621 0024 1EFF2FE1 		bx	lr
+ 622              	.L58:
+ 623              		.align	2
+ 624              	.L57:
+ 625 0028 00000000 		.word	dsp_api
+ 626              	.LFE30:
+ 628              		.section	.text.dsp_load_tx_task,"ax",%progbits
+ 629              		.align	2
+ 630              		.global	dsp_load_tx_task
+ 632              	dsp_load_tx_task:
+ 633              	.LFB31:
+ 489:calypso/dsp.c **** 
+ 490:calypso/dsp.c **** void dsp_load_tx_task(uint16_t task, uint8_t burst_id, uint8_t tsc)
+ 491:calypso/dsp.c **** {
+ 634              		.loc 1 491 0
+ 635              		@ args = 0, pretend = 0, frame = 0
+ 636              		@ frame_needed = 0, uses_anonymous_args = 0
+ 637              		@ link register save eliminated.
+ 638              	.LVL53:
+ 492:calypso/dsp.c **** 	dsp_api.db_w->d_task_u = task;
+ 639              		.loc 1 492 0
+ 640 0000 20309FE5 		ldr	r3, .L61
+ 641 0004 08C093E5 		ldr	ip, [r3, #8]
+ 493:calypso/dsp.c **** 	dsp_api.db_w->d_burst_u = burst_id;
+ 494:calypso/dsp.c **** 	dsp_api.db_w->d_ctrl_system |= tsc & 0x7;
+ 642              		.loc 1 494 0
+ 643 0008 B032DCE1 		ldrh	r3, [ip, #32]
+ 644 000c 072002E2 		and	r2, r2, #7
+ 645              	.LVL54:
+ 646 0010 023083E1 		orr	r3, r3, r2
+ 647              		.loc 1 491 0
+ 648 0014 FF1001E2 		and	r1, r1, #255
+ 649              		@ lr needed for prologue
+ 650              		.loc 1 494 0
+ 651 0018 B032CCE1 		strh	r3, [ip, #32]	@ movhi
+ 652              		.loc 1 492 0
+ 653 001c B400CCE1 		strh	r0, [ip, #4]	@ movhi
+ 654              		.loc 1 493 0
+ 655 0020 B610CCE1 		strh	r1, [ip, #6]	@ movhi
+ 495:calypso/dsp.c **** }
+ 656              		.loc 1 495 0
+ 657 0024 1EFF2FE1 		bx	lr
+ 658              	.L62:
+ 659              		.align	2
+ 660              	.L61:
+ 661 0028 00000000 		.word	dsp_api
+ 662              	.LFE31:
+ 664              		.global	__umodsi3
+ 665              		.section	.text.dsp_load_tch_param,"ax",%progbits
+ 666              		.align	2
+ 667              		.global	dsp_load_tch_param
+ 669              	dsp_load_tch_param:
+ 670              	.LFB32:
+ 496:calypso/dsp.c **** 
+ 497:calypso/dsp.c **** /* no AMR yet */
+ 498:calypso/dsp.c **** void dsp_load_tch_param(struct gsm_time *next_time,
+ 499:calypso/dsp.c ****                         uint8_t chan_mode, uint8_t chan_type, uint8_t chan_sub,
+ 500:calypso/dsp.c ****                         uint8_t tch_loop, uint8_t sync_tch, uint8_t tn)
+ 501:calypso/dsp.c **** {
+ 671              		.loc 1 501 0
+ 672              		@ args = 12, pretend = 0, frame = 0
+ 673              		@ frame_needed = 0, uses_anonymous_args = 0
+ 674              	.LVL55:
+ 675 0000 F0402DE9 		stmfd	sp!, {r4, r5, r6, r7, lr}
+ 676              	.LCFI5:
+ 677              		.loc 1 501 0
+ 678 0004 01C0A0E1 		mov	ip, r1
+ 679 0008 FFE002E2 		and	lr, r2, #255
+ 680 000c FFC00CE2 		and	ip, ip, #255
+ 681 0010 FF4003E2 		and	r4, r3, #255
+ 682 0014 1820DDE5 		ldrb	r2, [sp, #24]	@ zero_extendqisi2
+ 683              	.LVL56:
+ 502:calypso/dsp.c **** 	uint16_t d_ctrl_tch;
+ 503:calypso/dsp.c **** 	uint16_t fn, a5fn0, a5fn1;
+ 504:calypso/dsp.c **** 
+ 505:calypso/dsp.c **** 	/* d_ctrl_tch
+ 506:calypso/dsp.c **** 	   ----------
+ 507:calypso/dsp.c **** 	    bit [0..3]   -> b_chan_mode
+ 508:calypso/dsp.c **** 	    bit [4..7]   -> b_chan_type
+ 509:calypso/dsp.c **** 	    bit [8]      -> b_sync_tch_ul
+ 510:calypso/dsp.c **** 	    bit [9]      -> b_sync_tch_dl
+ 511:calypso/dsp.c **** 	    bit [10]     -> b_stop_tch_ul
+ 512:calypso/dsp.c **** 	    bit [11]     -> b_stop_tch_dl
+ 513:calypso/dsp.c **** 	    bit [12..14] -> b_tch_loop
+ 514:calypso/dsp.c **** 	    bit [15]     -> b_subchannel */
+ 515:calypso/dsp.c **** 	d_ctrl_tch = (chan_mode  << B_CHAN_MODE) |
+ 684              		.loc 1 515 0
+ 685 0018 0EC28CE1 		orr	ip, ip, lr, asl #4
+ 686 001c 84C78CE1 		orr	ip, ip, r4, asl #15
+ 687              		.loc 1 501 0
+ 688 0020 1430DDE5 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
+ 689              	.LVL57:
+ 690              		.loc 1 515 0
+ 691 0024 02C48CE1 		orr	ip, ip, r2, asl #8
+ 692 0028 82C48CE1 		orr	ip, ip, r2, asl #9
+ 693 002c 03C68CE1 		orr	ip, ip, r3, asl #12
+ 694              		.loc 1 501 0
+ 695 0030 1C309DE5 		ldr	r3, [sp, #28]
+ 696              		.loc 1 515 0
+ 697 0034 0CC8A0E1 		mov	ip, ip, asl #16
+ 516:calypso/dsp.c **** 		     (chan_type  << B_CHAN_TYPE)  |
+ 517:calypso/dsp.c **** 		     (chan_sub   << B_SUBCHANNEL) |
+ 518:calypso/dsp.c **** 		     (sync_tch   << B_SYNC_TCH_UL) |
+ 519:calypso/dsp.c **** 		     (sync_tch   << B_SYNC_TCH_DL) |
+ 520:calypso/dsp.c **** 		     (tch_loop   << B_TCH_LOOP);
+ 521:calypso/dsp.c **** 
+ 522:calypso/dsp.c **** 	/* used for ciphering and TCH traffic */
+ 523:calypso/dsp.c **** 
+ 524:calypso/dsp.c **** 	/* d_fn
+ 525:calypso/dsp.c **** 	   ----
+ 526:calypso/dsp.c **** 
+ 527:calypso/dsp.c **** 	   for TCH_F:
+ 528:calypso/dsp.c **** 	     bit [0..7]  -> b_fn_report = (fn - (tn * 13) + 104) % 104)
+ 529:calypso/dsp.c **** 	     bit [8..15] -> b_fn_sid    = (fn % 104)
+ 530:calypso/dsp.c **** 
+ 531:calypso/dsp.c **** 	   for TCH_H:
+ 532:calypso/dsp.c **** 	                    tn_report = (tn & ~1) | subchannel
+ 533:calypso/dsp.c **** 	     bit [0..7]  -> b_fn_report = (fn - tn_report * 13) + 104) % 104)
+ 534:calypso/dsp.c **** 	     bit [8..15] -> b_fn_sid    = (fn % 104)
+ 535:calypso/dsp.c **** 
+ 536:calypso/dsp.c **** 	   for other: irrelevant
+ 537:calypso/dsp.c **** 	 */
+ 538:calypso/dsp.c **** 
+ 539:calypso/dsp.c **** 	if (chan_type == TCH_F) {
+ 698              		.loc 1 539 0
+ 699 0038 01005EE3 		cmp	lr, #1
+ 700              		.loc 1 501 0
+ 701 003c 0060A0E1 		mov	r6, r0
+ 540:calypso/dsp.c **** 		fn = ((next_time->fn - (tn * 13) + 104) % 104) |
+ 702              		.loc 1 540 0
+ 703 0040 6810A0E3 		mov	r1, #104
+ 704              	.LVL58:
+ 705              		.loc 1 515 0
+ 706 0044 2C78A0E1 		mov	r7, ip, lsr #16
+ 707              	.LVL59:
+ 708              		.loc 1 501 0
+ 709 0048 FF0003E2 		and	r0, r3, #255
+ 710              	.LVL60:
+ 711              		.loc 1 539 0
+ 712 004c 1800001A 		bne	.L64
+ 713              	.LVL61:
+ 714              		.loc 1 540 0
+ 715 0050 0D30A0E3 		mov	r3, #13
+ 716 0054 930000E0 		mul	r0, r3, r0
+ 717              	.LVL62:
+ 718 0058 005096E5 		ldr	r5, [r6, #0]
+ 719 005c 050060E0 		rsb	r0, r0, r5
+ 720 0060 010080E0 		add	r0, r0, r1
+ 721 0064 230000EA 		b	.L70
+ 722              	.LVL63:
+ 723              	.L64:
+ 724              	.LBB7:
+ 541:calypso/dsp.c **** 		     ((next_time->fn % 104) << 8);
+ 542:calypso/dsp.c **** 	} else if (chan_type == TCH_H) {
+ 543:calypso/dsp.c **** 		uint8_t tn_report = (tn & ~1) | chan_sub;
+ 544:calypso/dsp.c **** 		fn = ((next_time->fn - (tn_report * 13) + 104) % 104) |
+ 725              		.loc 1 544 0
+ 726 0068 FE3003E2 		and	r3, r3, #254
+ 727              	.LBE7:
+ 728              		.loc 1 542 0
+ 729 006c 02005EE3 		cmp	lr, #2
+ 730              	.LBB8:
+ 731              		.loc 1 544 0
+ 732 0070 040083E1 		orr	r0, r3, r4
+ 733              	.LVL64:
+ 734 0074 6810A0E3 		mov	r1, #104
+ 735              	.LBE8:
+ 736              		.loc 1 542 0
+ 737 0078 0040A0E3 		mov	r4, #0
+ 738              	.LVL65:
+ 739 007c 2B00001A 		bne	.L66
+ 740              	.LBB9:
+ 741              		.loc 1 544 0
+ 742 0080 0D30A0E3 		mov	r3, #13
+ 743 0084 930000E0 		mul	r0, r3, r0
+ 744 0088 005096E5 		ldr	r5, [r6, #0]
+ 745 008c 050060E0 		rsb	r0, r0, r5
+ 746 0090 680080E2 		add	r0, r0, #104
+ 747              	.LVL66:
+ 748              	.L70:
+ 749 0094 FEFFFFEB 		bl	__umodsi3
+ 750              	.LVL67:
+ 751 0098 6810A0E3 		mov	r1, #104
+ 752 009c 0040A0E1 		mov	r4, r0
+ 753              	.LVL68:
+ 754 00a0 0500A0E1 		mov	r0, r5
+ 755 00a4 FEFFFFEB 		bl	__umodsi3
+ 756 00a8 004484E1 		orr	r4, r4, r0, asl #8
+ 757 00ac 0448A0E1 		mov	r4, r4, asl #16
+ 758 00b0 2448A0E1 		mov	r4, r4, lsr #16
+ 759              	.LVL69:
+ 760              	.L66:
+ 761              	.LBE9:
+ 545:calypso/dsp.c **** 		     ((next_time->fn % 104) << 8);
+ 546:calypso/dsp.c **** 	} else {
+ 547:calypso/dsp.c **** 		/* irrelevant */
+ 548:calypso/dsp.c **** 		fn = 0;
+ 549:calypso/dsp.c **** 	}
+ 550:calypso/dsp.c **** 
+ 551:calypso/dsp.c **** 	/* a_a5fn
+ 552:calypso/dsp.c **** 	   ------
+ 553:calypso/dsp.c **** 	     byte[0] bit [0..4]  -> T2
+ 554:calypso/dsp.c **** 	     byte[0] bit [5..10] -> T3
+ 555:calypso/dsp.c **** 	     byte[1] bit [0..10] -> T1 */
+ 556:calypso/dsp.c **** 
+ 557:calypso/dsp.c **** 	a5fn0 = ((uint16_t)next_time->t3 << 5) |
+ 558:calypso/dsp.c **** 	         (uint16_t)next_time->t2;
+ 559:calypso/dsp.c **** 	a5fn1 =  (uint16_t)next_time->t1;
+ 560:calypso/dsp.c **** 
+ 561:calypso/dsp.c **** 	dsp_api.db_w->d_fn        = fn;         /* Fn_sid & Fn_report  */
+ 762              		.loc 1 561 0
+ 763 00b4 24309FE5 		ldr	r3, .L71
+ 764              		.loc 1 557 0
+ 765 00b8 0710D6E5 		ldrb	r1, [r6, #7]	@ zero_extendqisi2
+ 766 00bc 0620D6E5 		ldrb	r2, [r6, #6]	@ zero_extendqisi2
+ 767              		.loc 1 559 0
+ 768 00c0 B400D6E1 		ldrh	r0, [r6, #4]
+ 769              	.LVL70:
+ 770              		.loc 1 561 0
+ 771 00c4 083093E5 		ldr	r3, [r3, #8]
+ 772              		.loc 1 557 0
+ 773 00c8 812282E1 		orr	r2, r2, r1, asl #5
+ 774              	.LVL71:
+ 562:calypso/dsp.c **** 	dsp_api.db_w->a_a5fn[0]   = a5fn0;      /* ciphering FN part 1 */
+ 563:calypso/dsp.c **** 	dsp_api.db_w->a_a5fn[1]   = a5fn1;      /* ciphering FN part 2 */
+ 564:calypso/dsp.c **** 	dsp_api.db_w->d_ctrl_tch  = d_ctrl_tch; /* Channel config.     */
+ 775              		.loc 1 564 0
+ 776 00cc B271C3E1 		strh	r7, [r3, #18]	@ movhi
+ 777              		.loc 1 561 0
+ 778 00d0 B041C3E1 		strh	r4, [r3, #16]	@ movhi
+ 779              		.loc 1 562 0
+ 780 00d4 B821C3E1 		strh	r2, [r3, #24]	@ movhi
+ 781              		.loc 1 563 0
+ 782 00d8 BA01C3E1 		strh	r0, [r3, #26]	@ movhi
+ 565:calypso/dsp.c **** }
+ 783              		.loc 1 565 0
+ 784 00dc F080BDE8 		ldmfd	sp!, {r4, r5, r6, r7, pc}
+ 785              	.L72:
+ 786              		.align	2
+ 787              	.L71:
+ 788 00e0 00000000 		.word	dsp_api
+ 789              	.LFE32:
+ 791              		.section	.text.dsp_load_ciph_param,"ax",%progbits
+ 792              		.align	2
+ 793              		.global	dsp_load_ciph_param
+ 795              	dsp_load_ciph_param:
+ 796              	.LFB33:
+ 566:calypso/dsp.c **** 
+ 567:calypso/dsp.c **** void dsp_load_ciph_param(int mode, uint8_t *key)
+ 568:calypso/dsp.c **** {
+ 797              		.loc 1 568 0
+ 798              		@ args = 0, pretend = 0, frame = 0
+ 799              		@ frame_needed = 0, uses_anonymous_args = 0
+ 800              		@ link register save eliminated.
+ 801              	.LVL72:
+ 569:calypso/dsp.c **** 	dsp_api.ndb->d_a5mode = mode;
+ 802              		.loc 1 569 0
+ 803 0000 68309FE5 		ldr	r3, .L77
+ 804 0004 00C093E5 		ldr	ip, [r3, #0]
+ 805 0008 64309FE5 		ldr	r3, .L77+4
+ 570:calypso/dsp.c **** 
+ 571:calypso/dsp.c **** 	if (!mode || !key)
+ 806              		.loc 1 571 0
+ 807 000c 000051E3 		cmp	r1, #0
+ 808 0010 00005013 		cmpne	r0, #0
+ 809              		.loc 1 568 0
+ 810              		@ lr needed for prologue
+ 811              		.loc 1 569 0
+ 812 0014 B3008CE1 		strh	r0, [ip, r3]	@ movhi
+ 813              		.loc 1 571 0
+ 814 0018 1EFF2F01 		bxeq	lr
+ 572:calypso/dsp.c **** 		return;
+ 573:calypso/dsp.c **** 
+ 574:calypso/dsp.c **** 		/* key is expected in the same format as in RSL
+ 575:calypso/dsp.c **** 		 * Encryption information IE. So we need to load the
+ 576:calypso/dsp.c **** 		 * bytes backward in A5 unit */
+ 577:calypso/dsp.c **** 	dsp_api.ndb->a_kc[0] = (uint16_t)key[7] | ((uint16_t)key[6] << 8);
+ 815              		.loc 1 577 0
+ 816 001c 0620D1E5 		ldrb	r2, [r1, #6]	@ zero_extendqisi2
+ 817 0020 0730D1E5 		ldrb	r3, [r1, #7]	@ zero_extendqisi2
+ 818 0024 023483E1 		orr	r3, r3, r2, asl #8
+ 819 0028 48209FE5 		ldr	r2, .L77+8
+ 820 002c B2308CE1 		strh	r3, [ip, r2]	@ movhi
+ 578:calypso/dsp.c **** 	dsp_api.ndb->a_kc[1] = (uint16_t)key[5] | ((uint16_t)key[4] << 8);
+ 821              		.loc 1 578 0
+ 822 0030 0420D1E5 		ldrb	r2, [r1, #4]	@ zero_extendqisi2
+ 823 0034 0530D1E5 		ldrb	r3, [r1, #5]	@ zero_extendqisi2
+ 824 0038 023483E1 		orr	r3, r3, r2, asl #8
+ 825 003c 2D2EA0E3 		mov	r2, #720
+ 826 0040 B2308CE1 		strh	r3, [ip, r2]	@ movhi
+ 579:calypso/dsp.c **** 	dsp_api.ndb->a_kc[2] = (uint16_t)key[3] | ((uint16_t)key[2] << 8);
+ 827              		.loc 1 579 0
+ 828 0044 0220D1E5 		ldrb	r2, [r1, #2]	@ zero_extendqisi2
+ 829 0048 0330D1E5 		ldrb	r3, [r1, #3]	@ zero_extendqisi2
+ 830 004c 023483E1 		orr	r3, r3, r2, asl #8
+ 831 0050 24209FE5 		ldr	r2, .L77+12
+ 832 0054 B2308CE1 		strh	r3, [ip, r2]	@ movhi
+ 580:calypso/dsp.c **** 	dsp_api.ndb->a_kc[3] = (uint16_t)key[1] | ((uint16_t)key[0] << 8);
+ 833              		.loc 1 580 0
+ 834 0058 0020D1E5 		ldrb	r2, [r1, #0]	@ zero_extendqisi2
+ 835 005c 0130D1E5 		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+ 836 0060 023483E1 		orr	r3, r3, r2, asl #8
+ 837 0064 B52FA0E3 		mov	r2, #724
+ 838 0068 B2308CE1 		strh	r3, [ip, r2]	@ movhi
+ 839 006c 1EFF2FE1 		bx	lr
+ 840              	.L78:
+ 841              		.align	2
+ 842              	.L77:
+ 843 0070 00000000 		.word	dsp_api
+ 844 0074 CE010000 		.word	462
+ 845 0078 CE020000 		.word	718
+ 846 007c D2020000 		.word	722
+ 847              	.LFE33:
+ 849              		.section	.rodata.str1.4
+ 850              		.align	2
+ 851              	.LC2:
+ 852 0040 64737020 		.ascii	"dsp page          : %u\012\000"
+ 852      70616765 
+ 852      20202020 
+ 852      20202020 
+ 852      20203A20 
+ 853              		.align	2
+ 854              	.LC3:
+ 855 0058 64737020 		.ascii	"dsp code version  : 0x%04x\012\000"
+ 855      636F6465 
+ 855      20766572 
+ 855      73696F6E 
+ 855      20203A20 
+ 856              		.align	2
+ 857              	.LC4:
+ 858 0074 64737020 		.ascii	"dsp checksum      : 0x%04x\012\000"
+ 858      63686563 
+ 858      6B73756D 
+ 858      20202020 
+ 858      20203A20 
+ 859              		.align	2
+ 860              	.LC5:
+ 861 0090 64737020 		.ascii	"dsp patch version : 0x%04x\012\000"
+ 861      70617463 
+ 861      68207665 
+ 861      7273696F 
+ 861      6E203A20 
+ 862              		.section	.text.dsp_dump_csum,"ax",%progbits
+ 863              		.align	2
+ 865              	dsp_dump_csum:
+ 866              	.LFB34:
+ 581:calypso/dsp.c **** }
+ 582:calypso/dsp.c **** 
+ 583:calypso/dsp.c **** #define SC_CHKSUM_VER     (BASE_API_W_PAGE_0 + (2 * (0x08DB - 0x800)))
+ 584:calypso/dsp.c **** static void dsp_dump_csum(void)
+ 585:calypso/dsp.c **** {
+ 867              		.loc 1 585 0
+ 868              		@ args = 0, pretend = 0, frame = 0
+ 869              		@ frame_needed = 0, uses_anonymous_args = 0
+ 870              	.LVL73:
+ 871 0000 10402DE9 		stmfd	sp!, {r4, lr}
+ 872              	.LCFI6:
+ 586:calypso/dsp.c **** 	printf("dsp page          : %u\n", dsp_api.ndb->d_dsp_page);
+ 873              		.loc 1 586 0
+ 874 0004 40409FE5 		ldr	r4, .L81
+ 875 0008 003094E5 		ldr	r3, [r4, #0]
+ 876 000c 3C009FE5 		ldr	r0, .L81+4
+ 877 0010 B010D3E1 		ldrh	r1, [r3, #0]
+ 878 0014 FEFFFFEB 		bl	printf
+ 587:calypso/dsp.c **** 	printf("dsp code version  : 0x%04x\n", dsp_api.db_r->a_pm[0]);
+ 879              		.loc 1 587 0
+ 880 0018 043094E5 		ldr	r3, [r4, #4]
+ 881 001c 30009FE5 		ldr	r0, .L81+8
+ 882 0020 B811D3E1 		ldrh	r1, [r3, #24]
+ 883 0024 FEFFFFEB 		bl	printf
+ 588:calypso/dsp.c **** 	printf("dsp checksum      : 0x%04x\n", dsp_api.db_r->a_pm[1]);
+ 884              		.loc 1 588 0
+ 885 0028 043094E5 		ldr	r3, [r4, #4]
+ 886 002c 24009FE5 		ldr	r0, .L81+12
+ 887 0030 BA11D3E1 		ldrh	r1, [r3, #26]
+ 888 0034 FEFFFFEB 		bl	printf
+ 589:calypso/dsp.c **** 	printf("dsp patch version : 0x%04x\n", readw(SC_CHKSUM_VER));
+ 889              		.loc 1 589 0
+ 890 0038 1C309FE5 		ldr	r3, .L81+16
+ 891 003c 1C009FE5 		ldr	r0, .L81+20
+ 892 0040 B010D3E1 		ldrh	r1, [r3, #0]
+ 590:calypso/dsp.c **** }
+ 893              		.loc 1 590 0
+ 894 0044 1040BDE8 		ldmfd	sp!, {r4, lr}
+ 895              		.loc 1 589 0
+ 896 0048 FEFFFFEA 		b	printf
+ 897              	.L82:
+ 898              		.align	2
+ 899              	.L81:
+ 900 004c 00000000 		.word	dsp_api
+ 901 0050 40000000 		.word	.LC2
+ 902 0054 58000000 		.word	.LC3
+ 903 0058 74000000 		.word	.LC4
+ 904 005c B601D0FF 		.word	-3145290
+ 905 0060 90000000 		.word	.LC5
+ 906              	.LFE34:
+ 908              		.section	.text.dsp_checksum_task,"ax",%progbits
+ 909              		.align	2
+ 910              		.global	dsp_checksum_task
+ 912              	dsp_checksum_task:
+ 913              	.LFB35:
+ 591:calypso/dsp.c **** 
+ 592:calypso/dsp.c **** void dsp_checksum_task(void)
+ 593:calypso/dsp.c **** {
+ 914              		.loc 1 593 0
+ 915              		@ args = 0, pretend = 0, frame = 0
+ 916              		@ frame_needed = 0, uses_anonymous_args = 0
+ 917              	.LVL74:
+ 918 0000 04E02DE5 		str	lr, [sp, #-4]!
+ 919              	.LCFI7:
+ 594:calypso/dsp.c **** 	dsp_dump_csum();
+ 920              		.loc 1 594 0
+ 921 0004 FEFFFFEB 		bl	dsp_dump_csum
+ 595:calypso/dsp.c **** 	dsp_api.db_w->d_task_md = CHECKSUM_DSP_TASK;
+ 922              		.loc 1 595 0
+ 923 0008 30309FE5 		ldr	r3, .L89
+ 596:calypso/dsp.c **** 	dsp_api.ndb->d_fb_mode = 1;
+ 924              		.loc 1 596 0
+ 925 000c 002093E5 		ldr	r2, [r3, #0]
+ 926              		.loc 1 595 0
+ 927 0010 083093E5 		ldr	r3, [r3, #8]
+ 928 0014 2110A0E3 		mov	r1, #33	@ movhi
+ 929 0018 B810C3E1 		strh	r1, [r3, #8]	@ movhi
+ 930              		.loc 1 596 0
+ 931 001c 0130A0E3 		mov	r3, #1	@ movhi
+ 932 0020 BA34C2E1 		strh	r3, [r2, #74]	@ movhi
+ 597:calypso/dsp.c **** 
+ 598:calypso/dsp.c **** 	dsp_end_scenario();
+ 933              		.loc 1 598 0
+ 934 0024 FEFFFFEB 		bl	dsp_end_scenario
+ 935              	.L84:
+ 936              	.LBB10:
+ 937              	.LBB11:
+ 938              		.loc 1 465 0
+ 939 0028 14309FE5 		ldr	r3, .L89+4
+ 940 002c 0030D3E5 		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 941 0030 100013E3 		tst	r3, #16
+ 942 0034 0800001A 		bne	.L84
+ 943              	.LBE11:
+ 944              	.LBE10:
+ 599:calypso/dsp.c **** 
+ 600:calypso/dsp.c **** 	wait_for_frame_irq();
+ 601:calypso/dsp.c **** 
+ 602:calypso/dsp.c **** 	dsp_dump_csum();
+ 603:calypso/dsp.c **** }
+ 945              		.loc 1 603 0
+ 946 0038 04E09DE4 		ldr	lr, [sp], #4
+ 947              		.loc 1 602 0
+ 948 003c FEFFFFEA 		b	dsp_dump_csum
+ 949              	.L90:
+ 950              		.align	2
+ 951              	.L89:
+ 952 0040 00000000 		.word	dsp_api
+ 953 0044 0010FFFF 		.word	-61440
+ 954              	.LFE35:
+ 956              		.section	.text.dsp_load_apc_dac,"ax",%progbits
+ 957              		.align	2
+ 958              		.global	dsp_load_apc_dac
+ 960              	dsp_load_apc_dac:
+ 961              	.LFB36:
+ 604:calypso/dsp.c **** 
+ 605:calypso/dsp.c **** #define L1D_AUXAPC              0x0012
+ 606:calypso/dsp.c **** #define L1D_APCRAM              0x0014
+ 607:calypso/dsp.c **** 
+ 608:calypso/dsp.c **** void dsp_load_apc_dac(uint16_t apc)
+ 609:calypso/dsp.c **** {
+ 962              		.loc 1 609 0
+ 963              		@ args = 0, pretend = 0, frame = 0
+ 964              		@ frame_needed = 0, uses_anonymous_args = 0
+ 965              		@ link register save eliminated.
+ 966              	.LVL75:
+ 610:calypso/dsp.c **** 	dsp_api.db_w->d_power_ctl = (apc << 6) | L1D_AUXAPC;
+ 967              		.loc 1 610 0
+ 968 0000 14309FE5 		ldr	r3, .L93
+ 969              		.loc 1 609 0
+ 970 0004 0008A0E1 		mov	r0, r0, asl #16
+ 971              	.LVL76:
+ 972              		.loc 1 610 0
+ 973 0008 083093E5 		ldr	r3, [r3, #8]
+ 974 000c 2005A0E1 		mov	r0, r0, lsr #10
+ 975 0010 120080E3 		orr	r0, r0, #18
+ 976              		.loc 1 609 0
+ 977              		@ lr needed for prologue
+ 978              		.loc 1 610 0
+ 979 0014 BC01C3E1 		strh	r0, [r3, #28]	@ movhi
+ 611:calypso/dsp.c **** }
+ 980              		.loc 1 611 0
+ 981 0018 1EFF2FE1 		bx	lr
+ 982              	.L94:
+ 983              		.align	2
+ 984              	.L93:
+ 985 001c 00000000 		.word	dsp_api
+ 986              	.LFE36:
+ 988              		.section	.rodata.str1.4
+ 989              		.align	2
+ 990              	.LC6:
+ 991 00ac 41737365 		.ascii	"Assert DSP into Reset\012\000"
+ 991      72742044 
+ 991      53502069 
+ 991      6E746F20 
+ 991      52657365 
+ 992 00c3 00       		.align	2
+ 993              	.LC7:
+ 994 00c4 4C6F6164 		.ascii	"Loading initial DSP bootcode (API boot mode)\012\000"
+ 994      696E6720 
+ 994      696E6974 
+ 994      69616C20 
+ 994      44535020 
+ 995 00f2 0000     		.align	2
+ 996              	.LC8:
+ 997 00f4 52656C65 		.ascii	"Releasing DSP from Reset\012\000"
+ 997      6173696E 
+ 997      67204453 
+ 997      50206672 
+ 997      6F6D2052 
+ 998              		.section	.text.dsp_pre_boot,"ax",%progbits
+ 999              		.align	2
+ 1001              	dsp_pre_boot:
+ 1002              	.LFB19:
+ 1003              		.loc 1 178 0
+ 1004              		@ args = 0, pretend = 0, frame = 0
+ 1005              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1006              	.LVL77:
+ 1007 0000 10402DE9 		stmfd	sp!, {r4, lr}
+ 1008              	.LCFI8:
+ 1009              		.loc 1 178 0
+ 1010 0004 0040A0E1 		mov	r4, r0
+ 1011              		.loc 1 179 0
+ 1012 0008 70009FE5 		ldr	r0, .L104
+ 1013              	.LVL78:
+ 1014 000c FEFFFFEB 		bl	puts
+ 1015              		.loc 1 180 0
+ 1016 0010 0200A0E3 		mov	r0, #2
+ 1017 0014 0110A0E3 		mov	r1, #1
+ 1018 0018 FEFFFFEB 		bl	calypso_reset_set
+ 1019              		.loc 1 182 0
+ 1020 001c 000054E3 		cmp	r4, #0
+ 1021 0020 1000000A 		beq	.L96
+ 1022              		.loc 1 183 0
+ 1023 0024 58009FE5 		ldr	r0, .L104+4
+ 1024 0028 FEFFFFEB 		bl	puts
+ 1025              		.loc 1 184 0
+ 1026 002c 0400A0E1 		mov	r0, r4
+ 1027 0030 0E1AA0E3 		mov	r1, #57344
+ 1028 0034 FEFFFFEB 		bl	dsp_upload_sections_api
+ 1029              		.loc 1 186 0
+ 1030 0038 48309FE5 		ldr	r3, .L104+8
+ 1031 003c 0020A0E3 		mov	r2, #0	@ movhi
+ 1032 0040 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1033 0044 120000EA 		b	.L98
+ 1034              	.L96:
+ 1035              		.loc 1 188 0
+ 1036 0048 0A00A0E3 		mov	r0, #10
+ 1037 004c FEFFFFEB 		bl	delay_ms
+ 1038              	.L98:
+ 1039              		.loc 1 190 0
+ 1040 0050 34009FE5 		ldr	r0, .L104+12
+ 1041 0054 FEFFFFEB 		bl	puts
+ 1042              		.loc 1 191 0
+ 1043 0058 0200A0E3 		mov	r0, #2
+ 1044 005c 0010A0E3 		mov	r1, #0
+ 1045 0060 FEFFFFEB 		bl	calypso_reset_set
+ 1046              		.loc 1 194 0
+ 1047 0064 6400A0E3 		mov	r0, #100
+ 1048 0068 FEFFFFEB 		bl	delay_ms
+ 1049              	.L99:
+ 1050              	.LBB12:
+ 1051              	.LBB13:
+ 1052              		.loc 1 108 0
+ 1053 006c 14309FE5 		ldr	r3, .L104+8
+ 1054 0070 B030D3E1 		ldrh	r3, [r3, #0]
+ 1055 0074 010053E3 		cmp	r3, #1
+ 1056 0078 1900001A 		bne	.L99
+ 1057              	.LBE13:
+ 1058              	.LBE12:
+ 1059              		.loc 1 197 0
+ 1060 007c 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 1061              	.L105:
+ 1062              		.align	2
+ 1063              	.L104:
+ 1064 0080 AC000000 		.word	.LC6
+ 1065 0084 C4000000 		.word	.LC7
+ 1066 0088 FE0FD0FF 		.word	-3141634
+ 1067 008c F4000000 		.word	.LC8
+ 1068              	.LFE19:
+ 1070              		.section	.rodata.str1.4
+ 1071 010e 0000     		.align	2
+ 1072              	.LC9:
+ 1073 0110 52656769 		.ascii	"Registers\000"
+ 1073      73746572 
+ 1073      7300
+ 1074 011a 0000     		.align	2
+ 1075              	.LC10:
+ 1076 011c 44524F4D 		.ascii	"DROM\000"
+ 1076      00
+ 1077 0121 000000   		.align	2
+ 1078              	.LC11:
+ 1079 0124 5044524F 		.ascii	"PDROM\000"
+ 1079      4D00
+ 1080 012a 0000     		.align	2
+ 1081              	.LC12:
+ 1082 012c 50524F4D 		.ascii	"PROM0\000"
+ 1082      3000
+ 1083 0132 0000     		.align	2
+ 1084              	.LC13:
+ 1085 0134 50524F4D 		.ascii	"PROM1\000"
+ 1085      3100
+ 1086 013a 0000     		.align	2
+ 1087              	.LC14:
+ 1088 013c 50524F4D 		.ascii	"PROM2\000"
+ 1088      3200
+ 1089 0142 0000     		.align	2
+ 1090              	.LC15:
+ 1091 0144 50524F4D 		.ascii	"PROM3\000"
+ 1091      3300
+ 1092              		.section	.rodata
+ 1093              		.align	2
+ 1096              	dr.2461:
+ 1097 0018 10010000 		.word	.LC9
+ 1098 001c 00000000 		.word	0
+ 1099 0020 60000000 		.word	96
+ 1100 0024 03000000 		.word	3
+ 1101 0028 1C010000 		.word	.LC10
+ 1102 002c 00900000 		.word	36864
+ 1103 0030 00500000 		.word	20480
+ 1104 0034 05000000 		.word	5
+ 1105 0038 24010000 		.word	.LC11
+ 1106 003c 00E00000 		.word	57344
+ 1107 0040 00200000 		.word	8192
+ 1108 0044 05000000 		.word	5
+ 1109 0048 2C010000 		.word	.LC12
+ 1110 004c 00700000 		.word	28672
+ 1111 0050 00700000 		.word	28672
+ 1112 0054 04000000 		.word	4
+ 1113 0058 34010000 		.word	.LC13
+ 1114 005c 00800100 		.word	98304
+ 1115 0060 00800000 		.word	32768
+ 1116 0064 04000000 		.word	4
+ 1117 0068 3C010000 		.word	.LC14
+ 1118 006c 00800200 		.word	163840
+ 1119 0070 00800000 		.word	32768
+ 1120 0074 04000000 		.word	4
+ 1121 0078 44010000 		.word	.LC15
+ 1122 007c 00800300 		.word	229376
+ 1123 0080 00200000 		.word	8192
+ 1124 0084 04000000 		.word	4
+ 1125 0088 00000000 		.word	0
+ 1126 008c 00000000 		.word	0
+ 1127 0090 00000000 		.word	0
+ 1128 0094 FFFFFFFF 		.word	-1
+ 1129              		.section	.rodata.str1.4
+ 1130 014a 0000     		.align	2
+ 1131              	.LC16:
+ 1132 014c 44535020 		.ascii	"DSP bootloader version 0x%04x\012\000"
+ 1132      626F6F74 
+ 1132      6C6F6164 
+ 1132      65722076 
+ 1132      65727369 
+ 1133 016b 00       		.align	2
+ 1134              	.LC17:
+ 1135 016c 44535020 		.ascii	"DSP dump: %s [%05x-%05x]\012\000"
+ 1135      64756D70 
+ 1135      3A202573 
+ 1135      205B2530 
+ 1135      35782D25 
+ 1136 0186 0000     		.align	2
+ 1137              	.LC18:
+ 1138 0188 25303578 		.ascii	"%05x : \000"
+ 1138      203A2000 
+ 1139              		.align	2
+ 1140              	.LC19:
+ 1141 0190 25303468 		.ascii	"%04hx%c\000"
+ 1141      78256300 
+ 1142              		.align	2
+ 1143              	.LC20:
+ 1144 0198 0A00     		.ascii	"\012\000"
+ 1145              		.section	.text.dsp_dump,"ax",%progbits
+ 1146              		.align	2
+ 1147              		.global	dsp_dump
+ 1149              	dsp_dump:
+ 1150              	.LFB38:
+ 612:calypso/dsp.c **** 
+ 613:calypso/dsp.c **** 
+ 614:calypso/dsp.c **** static void _dsp_dump_range(uint32_t addr, uint32_t size, int mode)
+ 615:calypso/dsp.c **** {
+ 616:calypso/dsp.c **** 	uint32_t bs;
+ 617:calypso/dsp.c **** 
+ 618:calypso/dsp.c **** 	/* Mode selection */
+ 619:calypso/dsp.c **** 	writew(mode, BASE_API_RAM);
+ 620:calypso/dsp.c **** 	writew(BL_CMD_COPY_MODE, BL_CMD_STATUS);
+ 621:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 622:calypso/dsp.c **** 
+ 623:calypso/dsp.c **** 	/* Block by block dump */
+ 624:calypso/dsp.c **** 	while (size) {
+ 625:calypso/dsp.c **** 		volatile uint16_t *api = (volatile uint16_t *)BASE_API_RAM;
+ 626:calypso/dsp.c **** 
+ 627:calypso/dsp.c **** 		bs = (size > BL_MAX_BLOCK_SIZE) ? BL_MAX_BLOCK_SIZE : size;
+ 628:calypso/dsp.c **** 		size -= bs;
+ 629:calypso/dsp.c **** 
+ 630:calypso/dsp.c **** 		writew(addr >> 16, BL_ADDR_HI);
+ 631:calypso/dsp.c **** 		writew(addr & 0xffff, BL_ADDR_LO);
+ 632:calypso/dsp.c **** 		writew(bs, BL_SIZE);
+ 633:calypso/dsp.c **** 		writew(BL_CMD_COPY_BLOCK, BL_CMD_STATUS);
+ 634:calypso/dsp.c **** 
+ 635:calypso/dsp.c **** 		dsp_bl_wait_ready();
+ 636:calypso/dsp.c **** 
+ 637:calypso/dsp.c **** 		while (bs--) {
+ 638:calypso/dsp.c **** 			/* FIXME workaround: small delay to prevent overflowing
+ 639:calypso/dsp.c **** 			 * the sercomm buffer */
+ 640:calypso/dsp.c **** 			delay_ms(2);
+ 641:calypso/dsp.c **** 			if ((addr&15)==0)
+ 642:calypso/dsp.c **** 				printf("%05x : ", addr);
+ 643:calypso/dsp.c **** 			printf("%04hx%c", *api++, ((addr&15)==15)?'\n':' ');
+ 644:calypso/dsp.c **** 			addr++;
+ 645:calypso/dsp.c **** 		}
+ 646:calypso/dsp.c **** 	};
+ 647:calypso/dsp.c **** 	puts("\n");
+ 648:calypso/dsp.c **** }
+ 649:calypso/dsp.c **** 
+ 650:calypso/dsp.c **** void dsp_dump(void)
+ 651:calypso/dsp.c **** {
+ 1151              		.loc 1 651 0
+ 1152              		@ args = 0, pretend = 0, frame = 0
+ 1153              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1154              	.LVL79:
+ 1155 0000 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 1156              	.LCFI9:
+ 652:calypso/dsp.c **** 	static const struct {
+ 653:calypso/dsp.c **** 		const char *name;
+ 654:calypso/dsp.c **** 		uint32_t addr;
+ 655:calypso/dsp.c **** 		uint32_t size;
+ 656:calypso/dsp.c **** 		int mode;
+ 657:calypso/dsp.c **** 	} dr[] = {
+ 658:calypso/dsp.c **** 		{ "Registers",	0x00000, 0x0060, BL_MODE_DATA_READ },
+ 659:calypso/dsp.c **** 		{ "DROM",	0x09000, 0x5000, BL_MODE_DROM_READ },
+ 660:calypso/dsp.c **** 		{ "PDROM",	0x0e000, 0x2000, BL_MODE_DROM_READ },
+ 661:calypso/dsp.c **** 		{ "PROM0",	0x07000, 0x7000, BL_MODE_PROM_READ },
+ 662:calypso/dsp.c **** 		{ "PROM1",	0x18000, 0x8000, BL_MODE_PROM_READ },
+ 663:calypso/dsp.c **** 		{ "PROM2",	0x28000, 0x8000, BL_MODE_PROM_READ },
+ 664:calypso/dsp.c **** 		{ "PROM3",	0x38000, 0x2000, BL_MODE_PROM_READ },
+ 665:calypso/dsp.c **** 		{ NULL, 0, 0, -1 }
+ 666:calypso/dsp.c **** 	};
+ 667:calypso/dsp.c **** 
+ 668:calypso/dsp.c **** 	int i;
+ 669:calypso/dsp.c **** 
+ 670:calypso/dsp.c **** 	/* Start DSP up to bootloader */
+ 671:calypso/dsp.c **** 	dsp_pre_boot(dsp_bootcode);
+ 1157              		.loc 1 671 0
+ 1158 0004 98319FE5 		ldr	r3, .L137
+ 1159 0008 000093E5 		ldr	r0, [r3, #0]
+ 1160 000c FEFFFFEB 		bl	dsp_pre_boot
+ 672:calypso/dsp.c **** 
+ 673:calypso/dsp.c **** 	/* Load and execute our dump code in the DSP */
+ 674:calypso/dsp.c **** 	dsp_upload_sections_api(dsp_dumpcode, DSP_BASE_API);
+ 1161              		.loc 1 674 0
+ 1162 0010 90019FE5 		ldr	r0, .L137+4
+ 1163 0014 021BA0E3 		mov	r1, #2048
+ 1164 0018 FEFFFFEB 		bl	dsp_upload_sections_api
+ 1165              	.LBB14:
+ 1166              	.LBB15:
+ 1167              		.loc 1 113 0
+ 1168 001c 88319FE5 		ldr	r3, .L137+8
+ 1169 0020 0020A0E3 		mov	r2, #0	@ movhi
+ 1170 0024 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1171              		.loc 1 114 0
+ 1172 0028 043083E2 		add	r3, r3, #4
+ 1173 002c 012AA0E3 		mov	r2, #4096	@ movhi
+ 1174 0030 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1175              		.loc 1 115 0
+ 1176 0034 023043E2 		sub	r3, r3, #2
+ 1177 0038 0020A0E3 		mov	r2, #0	@ movhi
+ 1178 003c B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1179              		.loc 1 116 0
+ 1180 0040 043083E2 		add	r3, r3, #4
+ 1181 0044 0220A0E3 		mov	r2, #2	@ movhi
+ 1182 0048 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1183              	.L107:
+ 1184              	.LBE15:
+ 1185              	.LBE14:
+ 1186              	.LBB16:
+ 1187              	.LBB17:
+ 1188              		.loc 1 108 0
+ 1189 004c 5C219FE5 		ldr	r2, .L137+12
+ 1190 0050 B030D2E1 		ldrh	r3, [r2, #0]
+ 1191 0054 010053E3 		cmp	r3, #1
+ 1192 0058 1100001A 		bne	.L107
+ 1193              	.LBE17:
+ 1194              	.LBE16:
+ 675:calypso/dsp.c **** 	dsp_bl_start_at(DSP_DUMPCODE_START);
+ 676:calypso/dsp.c **** 
+ 677:calypso/dsp.c **** 		/* our dump code actually simulates the boot loader
+ 678:calypso/dsp.c **** 		 * but with added read commands */
+ 679:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 680:calypso/dsp.c **** 
+ 681:calypso/dsp.c **** 	/* Test the 'version' command */
+ 682:calypso/dsp.c **** 	writew(0xffff, BL_CMD_STATUS);
+ 1195              		.loc 1 682 0
+ 1196 005c 0030E0E3 		mvn	r3, #0	@ movhi
+ 1197 0060 B030C2E1 		strh	r3, [r2, #0]	@ movhi
+ 1198              	.L109:
+ 1199              	.LBB18:
+ 1200              	.LBB19:
+ 1201              		.loc 1 108 0
+ 1202 0064 44319FE5 		ldr	r3, .L137+12
+ 1203 0068 B030D3E1 		ldrh	r3, [r3, #0]
+ 1204 006c 010053E3 		cmp	r3, #1
+ 1205 0070 1700001A 		bne	.L109
+ 1206              	.LBE19:
+ 1207              	.LBE18:
+ 683:calypso/dsp.c **** 	dsp_bl_wait_ready();
+ 684:calypso/dsp.c **** 	printf("DSP bootloader version 0x%04x\n", readw(BASE_API_RAM));
+ 1208              		.loc 1 684 0
+ 1209 0074 38319FE5 		ldr	r3, .L137+16
+ 1210 0078 38019FE5 		ldr	r0, .L137+20
+ 1211 007c B010D3E1 		ldrh	r1, [r3, #0]
+ 1212 0080 FEFFFFEB 		bl	printf
+ 1213 0084 30A19FE5 		ldr	sl, .L137+24
+ 1214 0088 630000EA 		b	.L111
+ 1215              	.LVL80:
+ 1216              	.L112:
+ 685:calypso/dsp.c **** 
+ 686:calypso/dsp.c **** 	/* Dump each range */
+ 687:calypso/dsp.c **** 	for (i=0; dr[i].name; i++) {
+ 688:calypso/dsp.c **** 		printf("DSP dump: %s [%05x-%05x]\n", dr[i].name,
+ 1217              		.loc 1 688 0
+ 1218              	.LVL81:
+ 1219 008c 30009AE9 		ldmib	sl, {r4, r5}	@ phole ldm
+ 1220 0090 053084E0 		add	r3, r4, r5
+ 1221 0094 013043E2 		sub	r3, r3, #1
+ 1222 0098 0420A0E1 		mov	r2, r4
+ 1223 009c 1C019FE5 		ldr	r0, .L137+28
+ 1224 00a0 FEFFFFEB 		bl	printf
+ 1225              	.LBB20:
+ 1226              	.LBB21:
+ 1227              		.loc 1 619 0
+ 1228 00a4 BC20DAE1 		ldrh	r2, [sl, #12]
+ 1229 00a8 04319FE5 		ldr	r3, .L137+16
+ 1230 00ac B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1231              		.loc 1 620 0
+ 1232 00b0 F8309FE5 		ldr	r3, .L137+12
+ 1233 00b4 0420A0E3 		mov	r2, #4	@ movhi
+ 1234 00b8 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1235              	.LBE21:
+ 1236              	.LBE20:
+ 689:calypso/dsp.c **** 			dr[i].addr, dr[i].addr+dr[i].size-1);
+ 690:calypso/dsp.c **** 		_dsp_dump_range(dr[i].addr, dr[i].size, dr[i].mode);
+ 1237              		.loc 1 690 0
+ 1238 00bc 0460A0E1 		mov	r6, r4
+ 1239 00c0 0580A0E1 		mov	r8, r5
+ 1240              	.L113:
+ 1241              	.LBB22:
+ 1242              	.LBB23:
+ 1243              	.LBB24:
+ 1244              	.LBB25:
+ 1245              		.loc 1 108 0
+ 1246 00c4 E4309FE5 		ldr	r3, .L137+12
+ 1247 00c8 B030D3E1 		ldrh	r3, [r3, #0]
+ 1248 00cc 010053E3 		cmp	r3, #1
+ 1249 00d0 5E00000A 		beq	.L136
+ 1250 00d4 2F0000EA 		b	.L113
+ 1251              	.LVL82:
+ 1252              	.L115:
+ 1253              	.LBE25:
+ 1254              	.LBE24:
+ 1255              	.LBB26:
+ 1256              		.loc 1 630 0
+ 1257 00d8 CC309FE5 		ldr	r3, .L137+8
+ 1258              		.loc 1 627 0
+ 1259 00dc 7F0E58E3 		cmp	r8, #2032
+ 1260 00e0 0870A031 		movcc	r7, r8
+ 1261 00e4 7F7EA023 		movcs	r7, #2032
+ 1262              		.loc 1 631 0
+ 1263 00e8 0628A0E1 		mov	r2, r6, asl #16
+ 1264              		.loc 1 630 0
+ 1265 00ec 2618A0E1 		mov	r1, r6, lsr #16
+ 1266 00f0 B010C3E1 		strh	r1, [r3, #0]	@ movhi
+ 1267              		.loc 1 631 0
+ 1268 00f4 2228A0E1 		mov	r2, r2, lsr #16
+ 1269 00f8 043083E2 		add	r3, r3, #4
+ 1270              		.loc 1 632 0
+ 1271 00fc 0708A0E1 		mov	r0, r7, asl #16
+ 1272              		.loc 1 631 0
+ 1273 0100 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1274              		.loc 1 632 0
+ 1275 0104 2008A0E1 		mov	r0, r0, lsr #16
+ 1276 0108 023043E2 		sub	r3, r3, #2
+ 1277 010c B000C3E1 		strh	r0, [r3, #0]	@ movhi
+ 1278              		.loc 1 633 0
+ 1279 0110 0220A0E3 		mov	r2, #2	@ movhi
+ 1280 0114 043083E2 		add	r3, r3, #4
+ 1281 0118 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1282              		.loc 1 628 0
+ 1283 011c 088067E0 		rsb	r8, r7, r8
+ 1284              	.L116:
+ 1285              	.LBB27:
+ 1286              	.LBB28:
+ 1287              		.loc 1 108 0
+ 1288 0120 88309FE5 		ldr	r3, .L137+12
+ 1289 0124 B030D3E1 		ldrh	r3, [r3, #0]
+ 1290 0128 010053E3 		cmp	r3, #1
+ 1291 012c 4600001A 		bne	.L116
+ 1292 0130 7C909FE5 		ldr	r9, .L137+16
+ 1293 0134 0640A0E1 		mov	r4, r6
+ 1294 0138 590000EA 		b	.L118
+ 1295              	.L119:
+ 1296              	.LBE28:
+ 1297              	.LBE27:
+ 1298              		.loc 1 640 0
+ 1299 013c FEFFFFEB 		bl	delay_ms
+ 1300              		.loc 1 641 0
+ 1301 0140 0F5014E2 		ands	r5, r4, #15
+ 1302              		.loc 1 642 0
+ 1303 0144 0410A0E1 		mov	r1, r4
+ 1304 0148 74009FE5 		ldr	r0, .L137+32
+ 1305              		.loc 1 644 0
+ 1306 014c 014084E2 		add	r4, r4, #1
+ 1307              		.loc 1 641 0
+ 1308              		.loc 1 642 0
+ 1309 0150 FEFFFF0B 		bleq	printf
+ 1310              	.LVL83:
+ 1311              	.L120:
+ 1312              		.loc 1 643 0
+ 1313 0154 0F0055E3 		cmp	r5, #15
+ 1314 0158 B210D9E0 		ldrh	r1, [r9], #2
+ 1315 015c 2020A013 		movne	r2, #32
+ 1316 0160 0A20A003 		moveq	r2, #10
+ 1317 0164 5C009FE5 		ldr	r0, .L137+36
+ 1318 0168 FEFFFFEB 		bl	printf
+ 1319              	.L118:
+ 1320              		.loc 1 637 0
+ 1321 016c 073086E0 		add	r3, r6, r7
+ 1322 0170 030054E1 		cmp	r4, r3
+ 1323              		.loc 1 640 0
+ 1324 0174 0200A0E3 		mov	r0, #2
+ 1325              		.loc 1 637 0
+ 1326 0178 4D00001A 		bne	.L119
+ 1327 017c 0460A0E1 		mov	r6, r4
+ 1328              	.L136:
+ 1329              	.LBE26:
+ 1330              		.loc 1 624 0
+ 1331 0180 000058E3 		cmp	r8, #0
+ 1332 0184 3400001A 		bne	.L115
+ 1333              		.loc 1 647 0
+ 1334 0188 3C009FE5 		ldr	r0, .L137+40
+ 1335 018c FEFFFFEB 		bl	puts
+ 1336 0190 10A08AE2 		add	sl, sl, #16
+ 1337              	.L111:
+ 1338              	.LBE23:
+ 1339              	.LBE22:
+ 1340              		.loc 1 687 0
+ 1341 0194 00109AE5 		ldr	r1, [sl, #0]
+ 1342 0198 000051E3 		cmp	r1, #0
+ 1343 019c 2100001A 		bne	.L112
+ 691:calypso/dsp.c **** 	}
+ 692:calypso/dsp.c **** }
+ 1344              		.loc 1 692 0
+ 1345 01a0 F087BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 1346              	.L138:
+ 1347              		.align	2
+ 1348              	.L137:
+ 1349 01a4 00000000 		.word	dsp_bootcode
+ 1350 01a8 00000000 		.word	dsp_dumpcode
+ 1351 01ac F80FD0FF 		.word	-3141640
+ 1352 01b0 FE0FD0FF 		.word	-3141634
+ 1353 01b4 0000D0FF 		.word	-3145728
+ 1354 01b8 4C010000 		.word	.LC16
+ 1355 01bc 18000000 		.word	dr.2461
+ 1356 01c0 6C010000 		.word	.LC17
+ 1357 01c4 88010000 		.word	.LC18
+ 1358 01c8 90010000 		.word	.LC19
+ 1359 01cc 98010000 		.word	.LC20
+ 1360              	.LFE38:
+ 1362              		.section	.rodata.str1.4
+ 1363 019a 0000     		.align	2
+ 1364              	.LC21:
+ 1365 019c 53657474 		.ascii	"Setting some dsp_api.ndb values\012\000"
+ 1365      696E6720 
+ 1365      736F6D65 
+ 1365      20647370 
+ 1365      5F617069 
+ 1366 01bd 000000   		.align	2
+ 1367              	.LC22:
+ 1368 01c0 53657474 		.ascii	"Setting API NDB parameters\012\000"
+ 1368      696E6720 
+ 1368      41504920 
+ 1368      4E444220 
+ 1368      70617261 
+ 1369              		.align	2
+ 1370              	.LC23:
+ 1371 01dc 46696E69 		.ascii	"Finishing download phase\012\000"
+ 1371      7368696E 
+ 1371      6720646F 
+ 1371      776E6C6F 
+ 1371      61642070 
+ 1372 01f6 0000     		.section	.text.dsp_power_on,"ax",%progbits
+ 1373              		.align	2
+ 1374              		.global	dsp_power_on
+ 1376              	dsp_power_on:
+ 1377              	.LFB27:
+ 1378              		.loc 1 448 0
+ 1379              		@ args = 0, pretend = 0, frame = 0
+ 1380              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1381              	.LVL84:
+ 1382 0000 10402DE9 		stmfd	sp!, {r4, lr}
+ 1383              	.LCFI10:
+ 1384              		.loc 1 450 0
+ 1385 0004 0119A0E3 		mov	r1, #16384
+ 1386 0008 FC029FE5 		ldr	r0, .L153
+ 1387 000c FEFFFFEB 		bl	dsp_api_memset
+ 1388              	.LBB29:
+ 1389              	.LBB30:
+ 1390              		.loc 1 205 0
+ 1391 0010 F8329FE5 		ldr	r3, .L153+4
+ 1392 0014 000093E5 		ldr	r0, [r3, #0]
+ 1393 0018 FEFFFFEB 		bl	dsp_pre_boot
+ 1394              		.loc 1 209 0
+ 1395 001c F0029FE5 		ldr	r0, .L153+8
+ 1396 0020 FEFFFFEB 		bl	puts
+ 1397              		.loc 1 210 0
+ 1398 0024 EC329FE5 		ldr	r3, .L153+12
+ 1399 0028 003093E5 		ldr	r3, [r3, #0]
+ 1400 002c 0000A0E3 		mov	r0, #0	@ movhi
+ 1401 0030 5B2FA0E3 		mov	r2, #364
+ 1402 0034 B20083E1 		strh	r0, [r3, r2]	@ movhi
+ 1403              		.loc 1 211 0
+ 1404 0038 022082E2 		add	r2, r2, #2
+ 1405 003c B20083E1 		strh	r0, [r3, r2]	@ movhi
+ 1406              		.loc 1 212 0
+ 1407 0040 022082E2 		add	r2, r2, #2
+ 1408 0044 B20083E1 		strh	r0, [r3, r2]	@ movhi
+ 1409              		.loc 1 216 0
+ 1410 0048 3A2BE0E3 		mvn	r2, #59392
+ 1411 004c B621C3E1 		strh	r2, [r3, #22]	@ movhi
+ 1412              		.loc 1 222 0
+ 1413 0050 C4229FE5 		ldr	r2, .L153+16
+ 1414              		.loc 1 223 0
+ 1415 0054 051AA0E3 		mov	r1, #20480	@ movhi
+ 1416              		.loc 1 222 0
+ 1417 0058 B229C3E1 		strh	r2, [r3, #146]	@ movhi
+ 1418              		.loc 1 223 0
+ 1419 005c B419C3E1 		strh	r1, [r3, #148]	@ movhi
+ 1420              		.loc 1 213 0
+ 1421 0060 7420A0E3 		mov	r2, #116	@ movhi
+ 1422              		.loc 1 214 0
+ 1423 0064 0100A0E3 		mov	r0, #1	@ movhi
+ 1424              		.loc 1 215 0
+ 1425 0068 551FA0E3 		mov	r1, #340	@ movhi
+ 1426              		.loc 1 213 0
+ 1427 006c B021C3E1 		strh	r2, [r3, #16]	@ movhi
+ 1428              		.loc 1 214 0
+ 1429 0070 B201C3E1 		strh	r0, [r3, #18]	@ movhi
+ 1430              		.loc 1 217 0
+ 1431 0074 0720A0E3 		mov	r2, #7	@ movhi
+ 1432              		.loc 1 218 0
+ 1433 0078 0000A0E3 		mov	r0, #0	@ movhi
+ 1434              		.loc 1 215 0
+ 1435 007c B411C3E1 		strh	r1, [r3, #20]	@ movhi
+ 1436              		.loc 1 219 0
+ 1437 0080 0310A0E3 		mov	r1, #3	@ movhi
+ 1438              		.loc 1 217 0
+ 1439 0084 B821C3E1 		strh	r2, [r3, #24]	@ movhi
+ 1440              		.loc 1 218 0
+ 1441 0088 BA01C3E1 		strh	r0, [r3, #26]	@ movhi
+ 1442              		.loc 1 219 0
+ 1443 008c BC11C3E1 		strh	r1, [r3, #28]	@ movhi
+ 1444              		.loc 1 220 0
+ 1445 0090 BE05C3E1 		strh	r0, [r3, #94]	@ movhi
+ 1446              		.loc 1 221 0
+ 1447 0094 B006C3E1 		strh	r0, [r3, #96]	@ movhi
+ 1448              		.loc 1 225 0
+ 1449 0098 80029FE5 		ldr	r0, .L153+20
+ 1450 009c FEFFFFEB 		bl	puts
+ 1451 00a0 7C129FE5 		ldr	r1, .L153+24
+ 1452 00a4 7C229FE5 		ldr	r2, .L153+28
+ 1453              	.LVL85:
+ 1454              	.L140:
+ 1455              		.loc 1 227 0
+ 1456 00a8 B230D1E0 		ldrh	r3, [r1], #2
+ 1457 00ac B230C2E0 		strh	r3, [r2], #2	@ movhi
+ 1458              		.loc 1 226 0
+ 1459 00b0 74329FE5 		ldr	r3, .L153+32
+ 1460 00b4 030052E1 		cmp	r2, r3
+ 1461 00b8 2800001A 		bne	.L140
+ 1462              		.loc 1 229 0
+ 1463 00bc FEFFFFEB 		bl	dsp_dump_version
+ 1464              	.LVL86:
+ 1465              		.loc 1 231 0
+ 1466 00c0 68029FE5 		ldr	r0, .L153+36
+ 1467 00c4 FEFFFFEB 		bl	puts
+ 1468              	.LBB31:
+ 1469              	.LBB32:
+ 1470              		.loc 1 113 0
+ 1471 00c8 64329FE5 		ldr	r3, .L153+40
+ 1472 00cc 0000A0E3 		mov	r0, #0	@ movhi
+ 1473 00d0 B000C3E1 		strh	r0, [r3, #0]	@ movhi
+ 1474              		.loc 1 114 0
+ 1475 00d4 071AA0E3 		mov	r1, #28672	@ movhi
+ 1476 00d8 043083E2 		add	r3, r3, #4
+ 1477 00dc B010C3E1 		strh	r1, [r3, #0]	@ movhi
+ 1478              		.loc 1 115 0
+ 1479 00e0 023043E2 		sub	r3, r3, #2
+ 1480 00e4 B000C3E1 		strh	r0, [r3, #0]	@ movhi
+ 1481              		.loc 1 116 0
+ 1482 00e8 0220A0E3 		mov	r2, #2	@ movhi
+ 1483 00ec 043083E2 		add	r3, r3, #4
+ 1484 00f0 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 1485              	.LBE32:
+ 1486              	.LBE31:
+ 1487              		.loc 1 234 0
+ 1488 00f4 FEFFFFEB 		bl	dsp_dump_version
+ 1489              	.LBE30:
+ 1490              	.LBE29:
+ 1491              	.LBB33:
+ 1492              	.LBB34:
+ 1493              		.loc 1 377 0
+ 1494 00f8 18329FE5 		ldr	r3, .L153+12
+ 1495 00fc 002093E5 		ldr	r2, [r3, #0]
+ 1496              	.LVL87:
+ 1497 0100 10C0A0E3 		mov	ip, #16
+ 1498 0104 0210A0E1 		mov	r1, r2
+ 1499              	.L142:
+ 1500              		.loc 1 386 0
+ 1501 0108 01304CE2 		sub	r3, ip, #1
+ 1502              		.loc 1 385 0
+ 1503 010c FFC013E2 		ands	ip, r3, #255
+ 1504              		.loc 1 386 0
+ 1505 0110 1400A0E3 		mov	r0, #20	@ movhi
+ 1506 0114 773FA0E3 		mov	r3, #476
+ 1507 0118 B30081E1 		strh	r0, [r1, r3]	@ movhi
+ 1508 011c 021081E2 		add	r1, r1, #2
+ 1509              		.loc 1 385 0
+ 1510 0120 4000001A 		bne	.L142
+ 1511              		.loc 1 395 0
+ 1512 0124 0C329FE5 		ldr	r3, .L153+44
+ 1513 0128 B634C2E1 		strh	r3, [r2, #70]	@ movhi
+ 1514              		.loc 1 397 0
+ 1515 012c 08329FE5 		ldr	r3, .L153+48
+ 1516 0130 BA33C2E1 		strh	r3, [r2, #58]	@ movhi
+ 1517              		.loc 1 398 0
+ 1518 0134 04329FE5 		ldr	r3, .L153+52
+ 1519 0138 BC33C2E1 		strh	r3, [r2, #60]	@ movhi
+ 1520              		.loc 1 399 0
+ 1521 013c 023083E2 		add	r3, r3, #2
+ 1522 0140 BE33C2E1 		strh	r3, [r2, #62]	@ movhi
+ 1523              		.loc 1 402 0
+ 1524 0144 F8319FE5 		ldr	r3, .L153+56
+ 1525 0148 B434C2E1 		strh	r3, [r2, #68]	@ movhi
+ 1526              		.loc 1 406 0
+ 1527 014c 733F43E2 		sub	r3, r3, #460
+ 1528              		.loc 1 411 0
+ 1529 0150 4010A0E3 		mov	r1, #64	@ movhi
+ 1530              		.loc 1 406 0
+ 1531 0154 B833C2E1 		strh	r3, [r2, #56]	@ movhi
+ 1532              		.loc 1 411 0
+ 1533 0158 F73083E2 		add	r3, r3, #247
+ 1534 015c B31082E1 		strh	r1, [r2, r3]	@ movhi
+ 1535              		.loc 1 412 0
+ 1536 0160 3C3083E2 		add	r3, r3, #60
+ 1537              		.loc 1 413 0
+ 1538 0164 0000E0E3 		mvn	r0, #0	@ movhi
+ 1539              		.loc 1 412 0
+ 1540 0168 B3C082E1 		strh	ip, [r2, r3]	@ movhi
+ 1541              		.loc 1 413 0
+ 1542 016c 043083E2 		add	r3, r3, #4
+ 1543 0170 B30082E1 		strh	r0, [r2, r3]	@ movhi
+ 1544              		.loc 1 414 0
+ 1545 0174 4D3F43E2 		sub	r3, r3, #308
+ 1546 0178 B3C082E1 		strh	ip, [r2, r3]	@ movhi
+ 1547              		.loc 1 415 0
+ 1548 017c 043083E2 		add	r3, r3, #4
+ 1549 0180 B30082E1 		strh	r0, [r2, r3]	@ movhi
+ 1550              		.loc 1 416 0
+ 1551 0184 653F83E2 		add	r3, r3, #404
+ 1552 0188 B3C082E1 		strh	ip, [r2, r3]	@ movhi
+ 1553              		.loc 1 417 0
+ 1554 018c 043083E2 		add	r3, r3, #4
+ 1555 0190 B30082E1 		strh	r0, [r2, r3]	@ movhi
+ 1556              		.loc 1 418 0
+ 1557 0194 173E43E2 		sub	r3, r3, #368
+ 1558 0198 B3C082E1 		strh	ip, [r2, r3]	@ movhi
+ 1559              		.loc 1 419 0
+ 1560 019c 043083E2 		add	r3, r3, #4
+ 1561 01a0 B30082E1 		strh	r0, [r2, r3]	@ movhi
+ 1562              		.loc 1 420 0
+ 1563 01a4 E23083E2 		add	r3, r3, #226
+ 1564 01a8 B31082E1 		strh	r1, [r2, r3]	@ movhi
+ 1565              		.loc 1 421 0
+ 1566 01ac 043083E2 		add	r3, r3, #4
+ 1567 01b0 B30082E1 		strh	r0, [r2, r3]	@ movhi
+ 1568              		.loc 1 422 0
+ 1569 01b4 503043E2 		sub	r3, r3, #80
+ 1570 01b8 B3C082E1 		strh	ip, [r2, r3]	@ movhi
+ 1571              		.loc 1 433 0
+ 1572 01bc 553043E2 		sub	r3, r3, #85
+ 1573 01c0 B430C2E1 		strh	r3, [r2, #4]	@ movhi
+ 1574              	.LBB35:
+ 1575              	.LBB36:
+ 1576              		.loc 1 315 0
+ 1577 01c4 D63083E2 		add	r3, r3, #214
+ 1578 01c8 B433C2E1 		strh	r3, [r2, #52]	@ movhi
+ 1579              		.loc 1 316 0
+ 1580 01cc 74319FE5 		ldr	r3, .L153+60
+ 1581 01d0 B633C2E1 		strh	r3, [r2, #54]	@ movhi
+ 1582              	.LBE36:
+ 1583              	.LBE35:
+ 1584              		.loc 1 392 0
+ 1585 01d4 2B30A0E3 		mov	r3, #43	@ movhi
+ 1586 01d8 B233C2E1 		strh	r3, [r2, #50]	@ movhi
+ 1587              		.loc 1 401 0
+ 1588 01dc 1930A0E3 		mov	r3, #25	@ movhi
+ 1589              		.loc 1 391 0
+ 1590 01e0 0110A0E3 		mov	r1, #1	@ movhi
+ 1591              		.loc 1 396 0
+ 1592 01e4 1D00A0E3 		mov	r0, #29	@ movhi
+ 1593              		.loc 1 401 0
+ 1594 01e8 B234C2E1 		strh	r3, [r2, #66]	@ movhi
+ 1595              		.loc 1 426 0
+ 1596 01ec 0A3CA0E3 		mov	r3, #2560	@ movhi
+ 1597              		.loc 1 391 0
+ 1598 01f0 B810C2E1 		strh	r1, [r2, #8]	@ movhi
+ 1599              		.loc 1 396 0
+ 1600 01f4 B003C2E1 		strh	r0, [r2, #48]	@ movhi
+ 1601              		.loc 1 400 0
+ 1602 01f8 1710A0E3 		mov	r1, #23	@ movhi
+ 1603              		.loc 1 407 0
+ 1604 01fc 3500A0E3 		mov	r0, #53	@ movhi
+ 1605              		.loc 1 426 0
+ 1606 0200 B630C2E1 		strh	r3, [r2, #6]	@ movhi
+ 1607              	.LBB37:
+ 1608              	.LBB38:
+ 1609              		.loc 1 341 0
+ 1610 0204 0C319FE5 		ldr	r3, .L153+12
+ 1611              	.LBE38:
+ 1612              	.LBE37:
+ 1613              		.loc 1 400 0
+ 1614 0208 B014C2E1 		strh	r1, [r2, #64]	@ movhi
+ 1615              		.loc 1 403 0
+ 1616 020c BE12C2E1 		strh	r1, [r2, #46]	@ movhi
+ 1617              		.loc 1 407 0
+ 1618 0210 BC02C2E1 		strh	r0, [r2, #44]	@ movhi
+ 1619              		.loc 1 409 0
+ 1620 0214 0110A0E3 		mov	r1, #1	@ movhi
+ 1621              		.loc 1 428 0
+ 1622 0218 010CA0E3 		mov	r0, #256	@ movhi
+ 1623              		.loc 1 409 0
+ 1624 021c BA14C2E1 		strh	r1, [r2, #74]	@ movhi
+ 1625              		.loc 1 428 0
+ 1626 0220 B405C2E1 		strh	r0, [r2, #84]	@ movhi
+ 1627              	.LBB39:
+ 1628              	.LBB40:
+ 1629              		.loc 1 321 0
+ 1630 0224 011CA0E3 		mov	r1, #256	@ movhi
+ 1631              	.LBE40:
+ 1632              	.LBE39:
+ 1633              		.loc 1 410 0
+ 1634 0228 B8C4C2E1 		strh	ip, [r2, #72]	@ movhi
+ 1635              	.LBB41:
+ 1636              	.LBB42:
+ 1637              		.loc 1 318 0
+ 1638 022c B8C6C2E1 		strh	ip, [r2, #104]	@ movhi
+ 1639              		.loc 1 319 0
+ 1640 0230 BAC6C2E1 		strh	ip, [r2, #106]	@ movhi
+ 1641              		.loc 1 341 0
+ 1642 0234 0C0093E5 		ldr	r0, [r3, #12]
+ 1643              		.loc 1 321 0
+ 1644 0238 BE18C2E1 		strh	r1, [r2, #142]	@ movhi
+ 1645              		.loc 1 329 0
+ 1646 023c 0130E0E3 		mvn	r3, #1	@ movhi
+ 1647              		.loc 1 322 0
+ 1648 0240 BC18C2E1 		strh	r1, [r2, #140]	@ movhi
+ 1649              		.loc 1 341 0
+ 1650 0244 0119A0E3 		mov	r1, #16384	@ movhi
+ 1651              		.loc 1 325 0
+ 1652 0248 B8C9C2E1 		strh	ip, [r2, #152]	@ movhi
+ 1653              		.loc 1 324 0
+ 1654 024c B6C9C2E1 		strh	ip, [r2, #150]	@ movhi
+ 1655              		.loc 1 329 0
+ 1656 0250 BA39C2E1 		strh	r3, [r2, #154]	@ movhi
+ 1657              		.loc 1 330 0
+ 1658 0254 B23AC2E1 		strh	r3, [r2, #162]	@ movhi
+ 1659              		.loc 1 331 0
+ 1660 0258 BA3AC2E1 		strh	r3, [r2, #170]	@ movhi
+ 1661              		.loc 1 332 0
+ 1662 025c B23BC2E1 		strh	r3, [r2, #178]	@ movhi
+ 1663              		.loc 1 333 0
+ 1664 0260 BA3BC2E1 		strh	r3, [r2, #186]	@ movhi
+ 1665              		.loc 1 334 0
+ 1666 0264 B23CC2E1 		strh	r3, [r2, #194]	@ movhi
+ 1667              		.loc 1 335 0
+ 1668 0268 BA3CC2E1 		strh	r3, [r2, #202]	@ movhi
+ 1669              		.loc 1 336 0
+ 1670 026c B23DC2E1 		strh	r3, [r2, #210]	@ movhi
+ 1671              		.loc 1 342 0
+ 1672 0270 1E40A0E3 		mov	r4, #30
+ 1673              		.loc 1 341 0
+ 1674 0274 B41EC0E1 		strh	r1, [r0, #228]	@ movhi
+ 1675              		.loc 1 342 0
+ 1676 0278 B61AC0E1 		strh	r1, [r0, #166]	@ movhi
+ 1677 027c 0010A0E1 		mov	r1, r0
+ 1678              	.L144:
+ 1679              		.loc 1 346 0
+ 1680 0280 013044E2 		sub	r3, r4, #1
+ 1681              		.loc 1 343 0
+ 1682 0284 FF4013E2 		ands	r4, r3, #255
+ 1683              		.loc 1 345 0
+ 1684 0288 0030A0E3 		mov	r3, #0	@ movhi
+ 1685 028c B63EC1E1 		strh	r3, [r1, #230]	@ movhi
+ 1686              		.loc 1 346 0
+ 1687 0290 B83AC1E1 		strh	r3, [r1, #168]	@ movhi
+ 1688 0294 021081E2 		add	r1, r1, #2
+ 1689              		.loc 1 343 0
+ 1690 0298 9E00001A 		bne	.L144
+ 1691              		.loc 1 361 0
+ 1692 029c B436D2E1 		ldrh	r3, [r2, #100]
+ 1693 02a0 1E3BC3E3 		bic	r3, r3, #30720
+ 1694 02a4 0230C3E3 		bic	r3, r3, #2
+ 1695 02a8 0A3B83E3 		orr	r3, r3, #10240
+ 1696 02ac B436C2E1 		strh	r3, [r2, #100]	@ movhi
+ 1697              		.loc 1 368 0
+ 1698 02b0 94309FE5 		ldr	r3, .L153+64
+ 1699              		.loc 1 363 0
+ 1700 02b4 B049C2E1 		strh	r4, [r2, #144]	@ movhi
+ 1701              	.LBE42:
+ 1702              	.LBE41:
+ 1703              	.LBE34:
+ 1704              	.LBE33:
+ 1705              	.LBB43:
+ 1706              		.loc 1 441 0
+ 1707 02b8 2410A0E3 		mov	r1, #36
+ 1708              	.LBE43:
+ 1709              	.LBB44:
+ 1710              	.LBB45:
+ 1711              	.LBB46:
+ 1712              	.LBB47:
+ 1713              		.loc 1 366 0
+ 1714 02bc BC49C0E1 		strh	r4, [r0, #156]	@ movhi
+ 1715              		.loc 1 368 0
+ 1716 02c0 B236C2E1 		strh	r3, [r2, #98]	@ movhi
+ 1717              		.loc 1 372 0
+ 1718 02c4 BA4DC2E1 		strh	r4, [r2, #218]	@ movhi
+ 1719              	.LBE47:
+ 1720              	.LBE46:
+ 1721              	.LBE45:
+ 1722              	.LBE44:
+ 1723              	.LBB48:
+ 1724              		.loc 1 441 0
+ 1725 02c8 3C009FE5 		ldr	r0, .L153
+ 1726 02cc FEFFFFEB 		bl	dsp_api_memset
+ 1727              	.LVL88:
+ 1728              		.loc 1 442 0
+ 1729 02d0 78009FE5 		ldr	r0, .L153+68
+ 1730 02d4 2410A0E3 		mov	r1, #36
+ 1731 02d8 FEFFFFEB 		bl	dsp_api_memset
+ 1732              		.loc 1 443 0
+ 1733 02dc 70009FE5 		ldr	r0, .L153+72
+ 1734 02e0 2810A0E3 		mov	r1, #40
+ 1735 02e4 FEFFFFEB 		bl	dsp_api_memset
+ 1736              		.loc 1 444 0
+ 1737 02e8 68009FE5 		ldr	r0, .L153+76
+ 1738 02ec 2810A0E3 		mov	r1, #40
+ 1739 02f0 FEFFFFEB 		bl	dsp_api_memset
+ 1740              	.LBE48:
+ 1741              		.loc 1 455 0
+ 1742 02f4 1C309FE5 		ldr	r3, .L153+12
+ 1743              		.loc 1 456 0
+ 1744 02f8 104083E5 		str	r4, [r3, #16]
+ 1745              		.loc 1 455 0
+ 1746 02fc 1C4083E5 		str	r4, [r3, #28]
+ 1747              		.loc 1 456 0
+ 1748 0300 184083E5 		str	r4, [r3, #24]
+ 1749 0304 144083E5 		str	r4, [r3, #20]
+ 1750              		.loc 1 457 0
+ 1751 0308 1080BDE8 		ldmfd	sp!, {r4, pc}
+ 1752              	.L154:
+ 1753              		.align	2
+ 1754              	.L153:
+ 1755 030c 0000D0FF 		.word	-3145728
+ 1756 0310 00000000 		.word	dsp_bootcode
+ 1757 0314 9C010000 		.word	.LC21
+ 1758 0318 00000000 		.word	dsp_api
+ 1759 031c 13520000 		.word	21011
+ 1760 0320 C0010000 		.word	.LC22
+ 1761 0324 D8000000 		.word	dsp_params
+ 1762 0328 6208D0FF 		.word	-3143582
+ 1763 032c 8609D0FF 		.word	-3143290
+ 1764 0330 DC010000 		.word	.LC23
+ 1765 0334 F80FD0FF 		.word	-3141640
+ 1766 0338 4DB0FFFF 		.word	-20403
+ 1767 033c 17100000 		.word	4119
+ 1768 0340 C53F0000 		.word	16325
+ 1769 0344 D1020000 		.word	721
+ 1770 0348 8D190000 		.word	6541
+ 1771 034c 01040000 		.word	1025
+ 1772 0350 2800D0FF 		.word	-3145688
+ 1773 0354 5000D0FF 		.word	-3145648
+ 1774 0358 7800D0FF 		.word	-3145608
+ 1775              	.LFE27:
+ 2031              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 dsp.c
+     /tmp/cctpWT5y.s:15     .data:0000000000000000 dsp_api
+     /tmp/cctpWT5y.s:16     .data:0000000000000000 $d
+     /tmp/cctpWT5y.s:27     .rodata:0000000000000000 dsp_dumpcode
+     /tmp/cctpWT5y.s:28     .rodata:0000000000000000 $d
+     /tmp/cctpWT5y.s:38     .data:0000000000000020 __compound_literal.0
+     /tmp/cctpWT5y.s:132    .bss:0000000000000000 dsp_bootcode
+     /tmp/cctpWT5y.s:138    .data:00000000000000d8 dsp_params
+     /tmp/cctpWT5y.s:230    .text.dsp_dump_version:0000000000000000 dsp_dump_version
+     /tmp/cctpWT5y.s:237    .text.dsp_dump_version:0000000000000000 $a
+     /tmp/cctpWT5y.s:257    .text.dsp_dump_version:0000000000000030 $d
+     /tmp/cctpWT5y.s:266    .text.dsp_upload_sections_api:0000000000000000 dsp_upload_sections_api
+     /tmp/cctpWT5y.s:272    .text.dsp_upload_sections_api:0000000000000000 $a
+     /tmp/cctpWT5y.s:338    .text.dsp_api_memset:0000000000000000 dsp_api_memset
+     /tmp/cctpWT5y.s:345    .text.dsp_api_memset:0000000000000000 $a
+     /tmp/cctpWT5y.s:371    .text.dsp_memcpy_to_api:0000000000000000 dsp_memcpy_to_api
+     /tmp/cctpWT5y.s:378    .text.dsp_memcpy_to_api:0000000000000000 $a
+     /tmp/cctpWT5y.s:464    .text.dsp_memcpy_from_api:0000000000000000 dsp_memcpy_from_api
+     /tmp/cctpWT5y.s:471    .text.dsp_memcpy_from_api:0000000000000000 $a
+     /tmp/cctpWT5y.s:558    .text.dsp_end_scenario:0000000000000000 dsp_end_scenario
+     /tmp/cctpWT5y.s:564    .text.dsp_end_scenario:0000000000000000 $a
+     /tmp/cctpWT5y.s:589    .text.dsp_end_scenario:0000000000000034 $d
+     /tmp/cctpWT5y.s:596    .text.dsp_load_rx_task:0000000000000000 dsp_load_rx_task
+     /tmp/cctpWT5y.s:604    .text.dsp_load_rx_task:0000000000000000 $a
+     /tmp/cctpWT5y.s:625    .text.dsp_load_rx_task:0000000000000028 $d
+     /tmp/cctpWT5y.s:632    .text.dsp_load_tx_task:0000000000000000 dsp_load_tx_task
+     /tmp/cctpWT5y.s:640    .text.dsp_load_tx_task:0000000000000000 $a
+     /tmp/cctpWT5y.s:661    .text.dsp_load_tx_task:0000000000000028 $d
+     /tmp/cctpWT5y.s:669    .text.dsp_load_tch_param:0000000000000000 dsp_load_tch_param
+     /tmp/cctpWT5y.s:675    .text.dsp_load_tch_param:0000000000000000 $a
+     /tmp/cctpWT5y.s:788    .text.dsp_load_tch_param:00000000000000e0 $d
+     /tmp/cctpWT5y.s:795    .text.dsp_load_ciph_param:0000000000000000 dsp_load_ciph_param
+     /tmp/cctpWT5y.s:803    .text.dsp_load_ciph_param:0000000000000000 $a
+     /tmp/cctpWT5y.s:843    .text.dsp_load_ciph_param:0000000000000070 $d
+     /tmp/cctpWT5y.s:865    .text.dsp_dump_csum:0000000000000000 dsp_dump_csum
+     /tmp/cctpWT5y.s:871    .text.dsp_dump_csum:0000000000000000 $a
+     /tmp/cctpWT5y.s:900    .text.dsp_dump_csum:000000000000004c $d
+     /tmp/cctpWT5y.s:912    .text.dsp_checksum_task:0000000000000000 dsp_checksum_task
+     /tmp/cctpWT5y.s:918    .text.dsp_checksum_task:0000000000000000 $a
+     /tmp/cctpWT5y.s:952    .text.dsp_checksum_task:0000000000000040 $d
+     /tmp/cctpWT5y.s:960    .text.dsp_load_apc_dac:0000000000000000 dsp_load_apc_dac
+     /tmp/cctpWT5y.s:968    .text.dsp_load_apc_dac:0000000000000000 $a
+     /tmp/cctpWT5y.s:985    .text.dsp_load_apc_dac:000000000000001c $d
+     /tmp/cctpWT5y.s:1001   .text.dsp_pre_boot:0000000000000000 dsp_pre_boot
+     /tmp/cctpWT5y.s:1007   .text.dsp_pre_boot:0000000000000000 $a
+     /tmp/cctpWT5y.s:1064   .text.dsp_pre_boot:0000000000000080 $d
+     /tmp/cctpWT5y.s:1096   .rodata:0000000000000018 dr.2461
+     /tmp/cctpWT5y.s:1149   .text.dsp_dump:0000000000000000 dsp_dump
+     /tmp/cctpWT5y.s:1155   .text.dsp_dump:0000000000000000 $a
+     /tmp/cctpWT5y.s:1349   .text.dsp_dump:00000000000001a4 $d
+     /tmp/cctpWT5y.s:1376   .text.dsp_power_on:0000000000000000 dsp_power_on
+     /tmp/cctpWT5y.s:1382   .text.dsp_power_on:0000000000000000 $a
+     /tmp/cctpWT5y.s:1755   .text.dsp_power_on:000000000000030c $d
+
+UNDEFINED SYMBOLS
+printf
+tpu_dsp_frameirq_enable
+tpu_frame_irq_en
+__umodsi3
+puts
+calypso_reset_set
+delay_ms

@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+  24153	    440	  24120	  48713	   be49	board/compal_e99/hello_world.highram.elf

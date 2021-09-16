@@ -1,0 +1,53 @@
+   1              		.file	"rf_power.c"
+   9              	.Ltext0:
+  10              		.global	dbm2apc_gsm900_max
+  11              		.section	.rodata
+  12              		.align	2
+  15              	dbm2apc_gsm900_max:
+  16 0000 1F000000 		.word	31
+  17              		.global	dbm2apc_gsm900
+  18              		.align	1
+  21              	dbm2apc_gsm900:
+  22 0004 9700     		.short	151
+  23 0006 9800     		.short	152
+  24 0008 9900     		.short	153
+  25 000a 9B00     		.short	155
+  26 000c 9C00     		.short	156
+  27 000e 9E00     		.short	158
+  28 0010 A000     		.short	160
+  29 0012 A200     		.short	162
+  30 0014 A400     		.short	164
+  31 0016 A700     		.short	167
+  32 0018 AA00     		.short	170
+  33 001a AD00     		.short	173
+  34 001c B100     		.short	177
+  35 001e B600     		.short	182
+  36 0020 BB00     		.short	187
+  37 0022 C000     		.short	192
+  38 0024 C700     		.short	199
+  39 0026 CE00     		.short	206
+  40 0028 D600     		.short	214
+  41 002a DF00     		.short	223
+  42 002c E900     		.short	233
+  43 002e F400     		.short	244
+  44 0030 0401     		.short	260
+  45 0032 0F01     		.short	271
+  46 0034 2001     		.short	288
+  47 0036 3301     		.short	307
+  48 0038 4701     		.short	327
+  49 003a 5E01     		.short	350
+  50 003c 7801     		.short	376
+  51 003e 9701     		.short	407
+  52 0040 C801     		.short	456
+  53 0042 3F02     		.short	575
+  54              		.file 1 "board/gta0x/rf_power.c"
+  55              		.file 2 "/home/dark/gnuarm/bin/../lib/gcc/arm-elf/4.0.2/../../../../arm-elf/sys-include/stdint.h"
+  56              		.text
+  57              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 rf_power.c
+     /tmp/ccDZ0Da6.s:15     .rodata:0000000000000000 dbm2apc_gsm900_max
+     /tmp/ccDZ0Da6.s:16     .rodata:0000000000000000 $d
+     /tmp/ccDZ0Da6.s:21     .rodata:0000000000000004 dbm2apc_gsm900
+
+NO UNDEFINED SYMBOLS

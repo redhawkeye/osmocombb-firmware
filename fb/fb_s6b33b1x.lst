@@ -1,0 +1,758 @@
+   1              		.file	"fb_s6b33b1x.c"
+   9              	.Ltext0:
+  10              		.global	fb_rgb332
+  11              		.data
+  12              		.align	2
+  15              	fb_rgb332:
+  16 0000 04000000 		.word	fb_s6b33b1x_rgb332
+  17              		.align	2
+  20              	fb_s6b33b1x_rgb332:
+  21 0004 00000000 		.word	fb_s6b33b1x_mem
+  22 0008 00000000 		.space	8
+  22      00000000 
+  23              		.global	framebuffer
+  24              		.align	2
+  27              	framebuffer:
+  28 0010 14000000 		.word	fb_s6b33b1x_framebuffer
+  29              		.align	2
+  32              	fb_s6b33b1x_framebuffer:
+  33 0014 73366233 		.ascii	"s6b33b1x"
+  33      33623178 
+  34 001c 00000000 		.word	fb_s6b33b1x_init
+  35 0020 00000000 		.word	fb_rgb332_clear
+  36 0024 00000000 		.word	fb_rgb332_boxto
+  37 0028 00000000 		.word	fb_rgb332_lineto
+  38 002c 00000000 		.word	fb_rgb332_putstr
+  39 0030 00000000 		.word	fb_s6b33b1x_flush
+  40 0034 8000     		.short	128
+  41 0036 8000     		.short	128
+  42 0038 00000000 		.space	16
+  42      00000000 
+  42      00000000 
+  42      00000000 
+  43              		.section	.rodata
+  46              	s6b33b1x_initdata:
+  47 0000 00       		.byte	0
+  48 0001 26       		.byte	38
+  49 0002 01       		.byte	1
+  50 0003 00       		.byte	0
+  51 0004 00       		.byte	0
+  52 0005 02       		.byte	2
+  53 0006 01       		.byte	1
+  54 0007 00       		.byte	0
+  55 0008 00       		.byte	0
+  56 0009 2C       		.byte	44
+  57 000a 00       		.byte	0
+  58 000b 50       		.byte	80
+  59 000c 00       		.byte	0
+  60 000d 02       		.byte	2
+  61 000e 01       		.byte	1
+  62 000f 01       		.byte	1
+  63 0010 00       		.byte	0
+  64 0011 26       		.byte	38
+  65 0012 01       		.byte	1
+  66 0013 01       		.byte	1
+  67 0014 00       		.byte	0
+  68 0015 26       		.byte	38
+  69 0016 01       		.byte	1
+  70 0017 09       		.byte	9
+  71 0018 00       		.byte	0
+  72 0019 26       		.byte	38
+  73 001a 01       		.byte	1
+  74 001b 0B       		.byte	11
+  75 001c 00       		.byte	0
+  76 001d 26       		.byte	38
+  77 001e 01       		.byte	1
+  78 001f 0F       		.byte	15
+  79 0020 00       		.byte	0
+  80 0021 20       		.byte	32
+  81 0022 01       		.byte	1
+  82 0023 01       		.byte	1
+  83 0024 00       		.byte	0
+  84 0025 24       		.byte	36
+  85 0026 01       		.byte	1
+  86 0027 0A       		.byte	10
+  87 0028 00       		.byte	0
+  88 0029 2A       		.byte	42
+  89 002a 01       		.byte	1
+  90 002b 2D       		.byte	45
+  91 002c 00       		.byte	0
+  92 002d 30       		.byte	48
+  93 002e 01       		.byte	1
+  94 002f 0B       		.byte	11
+  95 0030 00       		.byte	0
+  96 0031 10       		.byte	16
+  97 0032 01       		.byte	1
+  98 0033 03       		.byte	3
+  99 0034 00       		.byte	0
+ 100 0035 34       		.byte	52
+ 101 0036 01       		.byte	1
+ 102 0037 88       		.byte	-120
+ 103 0038 00       		.byte	0
+ 104 0039 40       		.byte	64
+ 105 003a 01       		.byte	1
+ 106 003b 00       		.byte	0
+ 107 003c 00       		.byte	0
+ 108 003d 28       		.byte	40
+ 109 003e 01       		.byte	1
+ 110 003f 01       		.byte	1
+ 111 0040 00       		.byte	0
+ 112 0041 32       		.byte	50
+ 113 0042 01       		.byte	1
+ 114 0043 01       		.byte	1
+ 115 0044 00       		.byte	0
+ 116 0045 51       		.byte	81
+ 117 0046 02       		.byte	2
+ 118 0047 00       		.byte	0
+ 119              		.align	2
+ 122              	__FUNCTION__.1629:
+ 123 0048 66625F73 		.ascii	"fb_s6b33b1x_flush\000"
+ 123      36623333 
+ 123      6231785F 
+ 123      666C7573 
+ 123      6800
+ 124              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 125              		.align	2
+ 126              	.LC0:
+ 127 0000 25733A20 		.ascii	"%s: no damage\012\000"
+ 127      6E6F2064 
+ 127      616D6167 
+ 127      650A00
+ 128              		.section	.text.fb_s6b33b1x_flush,"ax",%progbits
+ 129              		.align	2
+ 131              	fb_s6b33b1x_flush:
+ 132              	.LFB19:
+ 133              		.file 1 "fb/fb_s6b33b1x.c"
+   1:fb/fb_s6b33b1x.c **** /* Framebuffer implementation - combined Sunplus SPCA552E and
+   2:fb/fb_s6b33b1x.c ****  * Samsung S6B33B1X LCD driver - as used in the Pirelli DP-L10 */
+   3:fb/fb_s6b33b1x.c **** 
+   4:fb/fb_s6b33b1x.c **** /* (C) 2012 by Steve Markgraf <steve@steve-m.de>
+   5:fb/fb_s6b33b1x.c ****  *
+   6:fb/fb_s6b33b1x.c ****  * based on fb_ssd1783.c:
+   7:fb/fb_s6b33b1x.c ****  * (C) 2010 by Christian Vogel <vogelchr@vogel.cx>
+   8:fb/fb_s6b33b1x.c ****  *
+   9:fb/fb_s6b33b1x.c ****  * All Rights Reserved
+  10:fb/fb_s6b33b1x.c ****  *
+  11:fb/fb_s6b33b1x.c ****  * This program is free software; you can redistribute it and/or modify
+  12:fb/fb_s6b33b1x.c ****  * it under the terms of the GNU General Public License as published by
+  13:fb/fb_s6b33b1x.c ****  * the Free Software Foundation; either version 2 of the License, or
+  14:fb/fb_s6b33b1x.c ****  * (at your option) any later version.
+  15:fb/fb_s6b33b1x.c ****  *
+  16:fb/fb_s6b33b1x.c ****  * This program is distributed in the hope that it will be useful,
+  17:fb/fb_s6b33b1x.c ****  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  18:fb/fb_s6b33b1x.c ****  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  19:fb/fb_s6b33b1x.c ****  * GNU General Public License for more details.
+  20:fb/fb_s6b33b1x.c ****  *
+  21:fb/fb_s6b33b1x.c ****  * You should have received a copy of the GNU General Public License along
+  22:fb/fb_s6b33b1x.c ****  * with this program; if not, write to the Free Software Foundation, Inc.,
+  23:fb/fb_s6b33b1x.c ****  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+  24:fb/fb_s6b33b1x.c ****  *
+  25:fb/fb_s6b33b1x.c ****  */
+  26:fb/fb_s6b33b1x.c **** 
+  27:fb/fb_s6b33b1x.c **** #include <fb/framebuffer.h>
+  28:fb/fb_s6b33b1x.c **** #include <fb/fb_rgb332.h>
+  29:fb/fb_s6b33b1x.c **** 
+  30:fb/fb_s6b33b1x.c **** #include <stdint.h>
+  31:fb/fb_s6b33b1x.c **** #include <stdio.h>
+  32:fb/fb_s6b33b1x.c **** #include <delay.h>
+  33:fb/fb_s6b33b1x.c **** #include <memory.h>
+  34:fb/fb_s6b33b1x.c **** 
+  35:fb/fb_s6b33b1x.c **** #define S6B33B1X_WIDTH		128
+  36:fb/fb_s6b33b1x.c **** #define S6B33B1X_HEIGHT		128
+  37:fb/fb_s6b33b1x.c **** #define LCD_INVIS_X_PIXELS	4
+  38:fb/fb_s6b33b1x.c **** 
+  39:fb/fb_s6b33b1x.c **** #define ARMIO_LATCH_OUT		0xfffe4802
+  40:fb/fb_s6b33b1x.c **** #define nCS4_ADDR		0x02800000
+  41:fb/fb_s6b33b1x.c **** 
+  42:fb/fb_s6b33b1x.c **** static uint8_t fb_s6b33b1x_mem[S6B33B1X_WIDTH * S6B33B1X_HEIGHT];
+  43:fb/fb_s6b33b1x.c **** 
+  44:fb/fb_s6b33b1x.c **** enum s6b33b1x_cmdflag { CMD, DATA, END };
+  45:fb/fb_s6b33b1x.c **** 
+  46:fb/fb_s6b33b1x.c **** struct s6b33b1x_cmdlist {
+  47:fb/fb_s6b33b1x.c **** 	enum s6b33b1x_cmdflag is_cmd:8;	/* 1: is a command, 0: is data, 2: end marker! */
+  48:fb/fb_s6b33b1x.c **** 	uint8_t data;			/* 8 bit to send to LC display */
+  49:fb/fb_s6b33b1x.c **** } __attribute__((packed));
+  50:fb/fb_s6b33b1x.c **** 
+  51:fb/fb_s6b33b1x.c **** static const struct s6b33b1x_cmdlist
+  52:fb/fb_s6b33b1x.c **** s6b33b1x_initdata[] = {
+  53:fb/fb_s6b33b1x.c **** 	{ CMD,  0x26 }, /* CMD   DCDC and AMP ON/OFF set */
+  54:fb/fb_s6b33b1x.c **** 	{ DATA, 0x00 }, /* DATA: everything off */
+  55:fb/fb_s6b33b1x.c **** 	{ CMD,  0x02 }, /* CMD   Oscillation Mode Set */
+  56:fb/fb_s6b33b1x.c **** 	{ DATA, 0x00 }, /* DATA: oscillator off */
+  57:fb/fb_s6b33b1x.c **** 	{ CMD,  0x2c }, /* CMD   Standby Mode off */
+  58:fb/fb_s6b33b1x.c **** 	{ CMD,  0x50 }, /* CMD   Display off */
+  59:fb/fb_s6b33b1x.c **** 	{ CMD,  0x02 }, /* CMD   Oscillation Mode Set */
+  60:fb/fb_s6b33b1x.c **** 	{ DATA, 0x01 }, /* DATA: oscillator on */
+  61:fb/fb_s6b33b1x.c **** 	{ CMD,  0x26 }, /* CMD   DCDC and AMP ON/OFF set */
+  62:fb/fb_s6b33b1x.c **** 	{ DATA, 0x01 }, /* DATA: Booster 1 on */
+  63:fb/fb_s6b33b1x.c **** 	{ CMD,  0x26 }, /* CMD   DCDC and AMP ON/OFF set */
+  64:fb/fb_s6b33b1x.c **** 	{ DATA, 0x09 }, /* DATA: Booster 1 on, OP-AMP on */
+  65:fb/fb_s6b33b1x.c **** 	{ CMD,  0x26 }, /* CMD   DCDC and AMP ON/OFF set */
+  66:fb/fb_s6b33b1x.c **** 	{ DATA, 0x0b }, /* DATA: Booster 1 + 2 on, OP-AMP on */
+  67:fb/fb_s6b33b1x.c **** 	{ CMD,  0x26 }, /* CMD   DCDC and AMP ON/OFF set */
+  68:fb/fb_s6b33b1x.c **** 	{ DATA, 0x0f }, /* DATA: Booster 1 + 2 + 3 on, OP-AMP on */
+  69:fb/fb_s6b33b1x.c **** 	{ CMD,  0x20 }, /* CMD   DC-DC Select */
+  70:fb/fb_s6b33b1x.c **** 	{ DATA, 0x01 }, /* DATA: step up x1.5 */
+  71:fb/fb_s6b33b1x.c **** 	{ CMD,  0x24 }, /* CMD   DCDC Clock Division Set */
+  72:fb/fb_s6b33b1x.c **** 	{ DATA, 0x0a }, /* DATA: fPCK = fOSC/6 */
+  73:fb/fb_s6b33b1x.c **** 	{ CMD,  0x2a }, /* CMD   Contrast Control */
+  74:fb/fb_s6b33b1x.c **** 	{ DATA, 0x2d }, /* DATA: default contrast */
+  75:fb/fb_s6b33b1x.c **** 	{ CMD,  0x30 }, /* CMD   Adressing mode set */
+  76:fb/fb_s6b33b1x.c **** 	{ DATA, 0x0b }, /* DATA: 65536 color mode */
+  77:fb/fb_s6b33b1x.c **** 	{ CMD,  0x10 }, /* CMD   Driver output mode set */
+  78:fb/fb_s6b33b1x.c **** 	{ DATA, 0x03 }, /* DATA: Display duty: 1/132 */
+  79:fb/fb_s6b33b1x.c **** 	{ CMD,  0x34 }, /* CMD   N-line inversion set */
+  80:fb/fb_s6b33b1x.c **** 	{ DATA, 0x88 }, /* DATA: inversion on, one frame, every 8 blocks */
+  81:fb/fb_s6b33b1x.c **** 	{ CMD,  0x40 }, /* CMD   Entry mode set */
+  82:fb/fb_s6b33b1x.c **** 	{ DATA, 0x00 }, /* DATA: Y address counter mode */
+  83:fb/fb_s6b33b1x.c **** 	{ CMD,  0x28 }, /* CMD   Temperature Compensation set */
+  84:fb/fb_s6b33b1x.c **** 	{ DATA, 0x01 }, /* DATA: slope -0.05%/degC */
+  85:fb/fb_s6b33b1x.c **** 	{ CMD,  0x32 }, /* CMD   ROW vector mode set */
+  86:fb/fb_s6b33b1x.c **** 	{ DATA, 0x01 }, /* DATA: every 2 subgroup */
+  87:fb/fb_s6b33b1x.c **** 	{ CMD,  0x51 }, /* CMD   Display on */
+  88:fb/fb_s6b33b1x.c **** 	{ END,  0x00 }, /* MARKER: end of list */
+  89:fb/fb_s6b33b1x.c **** };
+  90:fb/fb_s6b33b1x.c **** 
+  91:fb/fb_s6b33b1x.c **** static void fb_s6b33b1x_send_cmdlist(const struct s6b33b1x_cmdlist *p)
+  92:fb/fb_s6b33b1x.c **** {
+  93:fb/fb_s6b33b1x.c **** 	while(p->is_cmd != END){
+  94:fb/fb_s6b33b1x.c **** 		writew(p->data, nCS4_ADDR);
+  95:fb/fb_s6b33b1x.c **** 		p++;
+  96:fb/fb_s6b33b1x.c **** 	}
+  97:fb/fb_s6b33b1x.c **** }
+  98:fb/fb_s6b33b1x.c **** 
+  99:fb/fb_s6b33b1x.c **** static void fb_spca_write(uint16_t addr, uint16_t val)
+ 100:fb/fb_s6b33b1x.c **** {
+ 101:fb/fb_s6b33b1x.c **** 	writew(addr, nCS4_ADDR);
+ 102:fb/fb_s6b33b1x.c **** 	writew(val , nCS4_ADDR | 2);
+ 103:fb/fb_s6b33b1x.c **** }
+ 104:fb/fb_s6b33b1x.c **** 
+ 105:fb/fb_s6b33b1x.c **** static void fb_spca_init(void)
+ 106:fb/fb_s6b33b1x.c **** {
+ 107:fb/fb_s6b33b1x.c **** 	uint16_t reg;
+ 108:fb/fb_s6b33b1x.c **** 
+ 109:fb/fb_s6b33b1x.c **** 	/* Initialize Sunplus SPCA552E Media Controller for bypass mode */
+ 110:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x7e, 0x00);	/* internal register access */
+ 111:fb/fb_s6b33b1x.c **** 	delay_ms(10);
+ 112:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x7a, 0x00);	/* keep CPU in reset state */
+ 113:fb/fb_s6b33b1x.c **** 	delay_ms(10);
+ 114:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x7f, 0x00);	/* select main page */
+ 115:fb/fb_s6b33b1x.c **** 	delay_ms(5);
+ 116:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x72, 0x07);	/* don't reshape timing, 16 bit mode */
+ 117:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x14, 0x03);
+ 118:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x7f, 0x00);	/* select main page */
+ 119:fb/fb_s6b33b1x.c **** 	delay_ms(5);
+ 120:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x06, 0xff);
+ 121:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x7f, 0x09);
+ 122:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x19, 0x08);	/* backlight: 0x08 is on, 0x0c is off */
+ 123:fb/fb_s6b33b1x.c **** 	fb_spca_write(0x23, 0x18);
+ 124:fb/fb_s6b33b1x.c **** 
+ 125:fb/fb_s6b33b1x.c **** 	/* enable bypass mode */
+ 126:fb/fb_s6b33b1x.c **** 	reg = readw(ARMIO_LATCH_OUT);
+ 127:fb/fb_s6b33b1x.c **** 	reg |= (1 << 7);
+ 128:fb/fb_s6b33b1x.c **** 	writew(reg, ARMIO_LATCH_OUT);
+ 129:fb/fb_s6b33b1x.c **** }
+ 130:fb/fb_s6b33b1x.c **** 
+ 131:fb/fb_s6b33b1x.c **** static void fb_s6b33b1x_init(void)
+ 132:fb/fb_s6b33b1x.c **** {
+ 133:fb/fb_s6b33b1x.c **** 	printf("%s: initializing LCD.\n",__FUNCTION__);
+ 134:fb/fb_s6b33b1x.c **** 
+ 135:fb/fb_s6b33b1x.c **** 	fb_spca_init();
+ 136:fb/fb_s6b33b1x.c **** 	fb_s6b33b1x_send_cmdlist(s6b33b1x_initdata);
+ 137:fb/fb_s6b33b1x.c **** }
+ 138:fb/fb_s6b33b1x.c **** 
+ 139:fb/fb_s6b33b1x.c **** static void fb_s6b33b1x_flush(void)
+ 140:fb/fb_s6b33b1x.c **** {
+ 134              		.loc 1 140 0
+ 135              		@ args = 0, pretend = 0, frame = 16
+ 136              		@ frame_needed = 0, uses_anonymous_args = 0
+ 137              	.LVL0:
+ 138 0000 F0472DE9 		stmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
+ 139              	.LCFI0:
+ 141:fb/fb_s6b33b1x.c **** 	int x,y;
+ 142:fb/fb_s6b33b1x.c **** 	uint8_t *p;
+ 143:fb/fb_s6b33b1x.c **** 	struct s6b33b1x_cmdlist prepare_disp_write_cmds[] = {
+ 144:fb/fb_s6b33b1x.c **** 		{ CMD,  0x42 },			 /*  set column address */
+ 145:fb/fb_s6b33b1x.c **** 		{ DATA, fb_rgb332->damage_x1 + LCD_INVIS_X_PIXELS },
+ 146:fb/fb_s6b33b1x.c **** 		{ DATA, fb_rgb332->damage_x2 + LCD_INVIS_X_PIXELS - 1 },
+ 147:fb/fb_s6b33b1x.c **** 		{ CMD,  0x43 },			 /*  set page address (Y) */
+ 148:fb/fb_s6b33b1x.c **** 		{ DATA, fb_rgb332->damage_y1 },
+ 149:fb/fb_s6b33b1x.c **** 		{ DATA, fb_rgb332->damage_y2 - 1 },
+ 150:fb/fb_s6b33b1x.c **** 		{ END,  0x00 }
+ 151:fb/fb_s6b33b1x.c **** 	};
+ 140              		.loc 1 151 0
+ 141 0004 5C319FE5 		ldr	r3, .L16
+ 142 0008 005093E5 		ldr	r5, [r3, #0]
+ 143              		.loc 1 140 0
+ 144 000c 10D04DE2 		sub	sp, sp, #16
+ 145              	.LCFI1:
+ 146              	.LVL1:
+ 147              		.loc 1 151 0
+ 148 0010 0420D5E5 		ldrb	r2, [r5, #4]	@ zero_extendqisi2
+ 149 0014 0810D5E5 		ldrb	r1, [r5, #8]	@ zero_extendqisi2
+ 150 0018 0AC0D5E5 		ldrb	ip, [r5, #10]	@ zero_extendqisi2
+ 151 001c 0100A0E3 		mov	r0, #1
+ 152 0020 4230A0E3 		mov	r3, #66
+ 153 0024 0640D5E5 		ldrb	r4, [r5, #6]	@ zero_extendqisi2
+ 154 0028 0330CDE5 		strb	r3, [sp, #3]
+ 155 002c 003083E0 		add	r3, r3, r0
+ 156 0030 00E0A0E3 		mov	lr, #0
+ 157 0034 0930CDE5 		strb	r3, [sp, #9]
+ 158 0038 042082E2 		add	r2, r2, #4
+ 159 003c 031081E2 		add	r1, r1, #3
+ 160 0040 01C04CE2 		sub	ip, ip, #1
+ 161 0044 0230A0E3 		mov	r3, #2
+ 162 0048 0520CDE5 		strb	r2, [sp, #5]
+ 163 004c 0710CDE5 		strb	r1, [sp, #7]
+ 164 0050 0B40CDE5 		strb	r4, [sp, #11]
+ 165 0054 0C00CDE5 		strb	r0, [sp, #12]
+ 166 0058 0DC0CDE5 		strb	ip, [sp, #13]
+ 167 005c 0E30CDE5 		strb	r3, [sp, #14]
+ 168 0060 0FE0CDE5 		strb	lr, [sp, #15]
+ 169 0064 02E0CDE5 		strb	lr, [sp, #2]
+ 170 0068 0400CDE5 		strb	r0, [sp, #4]
+ 171 006c 0600CDE5 		strb	r0, [sp, #6]
+ 172 0070 08E0CDE5 		strb	lr, [sp, #8]
+ 173 0074 0A00CDE5 		strb	r0, [sp, #10]
+ 152:fb/fb_s6b33b1x.c **** 
+ 153:fb/fb_s6b33b1x.c **** 	/* If everything's clean, just return */
+ 154:fb/fb_s6b33b1x.c **** 	if(fb_rgb332->damage_x1 == fb_rgb332->damage_x2 ||
+ 174              		.loc 1 154 0
+ 175 0078 B470D5E1 		ldrh	r7, [r5, #4]
+ 176 007c B890D5E1 		ldrh	r9, [r5, #8]
+ 177 0080 090057E1 		cmp	r7, r9
+ 178 0084 2500000A 		beq	.L2
+ 179 0088 B600D5E1 		ldrh	r0, [r5, #6]
+ 180 008c BA80D5E1 		ldrh	r8, [r5, #10]
+ 181 0090 080050E1 		cmp	r0, r8
+ 182 0094 03108D10 		addne	r1, sp, r3
+ 183              	.LVL2:
+ 184 0098 2D00001A 		bne	.L5
+ 185              	.L2:
+ 155:fb/fb_s6b33b1x.c **** 		fb_rgb332->damage_y1 == fb_rgb332->damage_y2) {
+ 156:fb/fb_s6b33b1x.c **** 			printf("%s: no damage\n",__FUNCTION__);
+ 186              		.loc 1 156 0
+ 187 009c C8109FE5 		ldr	r1, .L16+4
+ 188              	.LVL3:
+ 189 00a0 C8009FE5 		ldr	r0, .L16+8
+ 190 00a4 FEFFFFEB 		bl	printf
+ 191 00a8 560000EA 		b	.L15
+ 192              	.LVL4:
+ 193              	.L7:
+ 194              	.LBB2:
+ 195              	.LBB3:
+ 196              		.loc 1 94 0
+ 197 00ac 0120D1E5 		ldrb	r2, [r1, #1]	@ zero_extendqisi2
+ 198 00b0 0A35A0E3 		mov	r3, #41943040
+ 199 00b4 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 200              		.loc 1 95 0
+ 201 00b8 021081E2 		add	r1, r1, #2
+ 202              	.L5:
+ 203              		.loc 1 93 0
+ 204 00bc 0030D1E5 		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 205 00c0 020053E3 		cmp	r3, #2
+ 206 00c4 2900001A 		bne	.L7
+ 207              	.LBE3:
+ 208              	.LBE2:
+ 157:fb/fb_s6b33b1x.c **** 			return;
+ 158:fb/fb_s6b33b1x.c **** 	}
+ 159:fb/fb_s6b33b1x.c **** 
+ 160:fb/fb_s6b33b1x.c **** 	fb_s6b33b1x_send_cmdlist(prepare_disp_write_cmds);
+ 161:fb/fb_s6b33b1x.c **** 
+ 162:fb/fb_s6b33b1x.c **** 	for(y=fb_rgb332->damage_y1;y<fb_rgb332->damage_y2;y++) {
+ 163:fb/fb_s6b33b1x.c **** 		p = & fb_rgb332->mem[y * framebuffer->width]; // start of line
+ 209              		.loc 1 163 0
+ 210 00c8 A4309FE5 		ldr	r3, .L16+12
+ 211 00cc 00A093E5 		ldr	sl, [r3, #0]
+ 212              		.loc 1 162 0
+ 213 00d0 0060A0E1 		mov	r6, r0
+ 214              	.LVL5:
+ 215 00d4 4F0000EA 		b	.L9
+ 216              	.LVL6:
+ 217              	.L10:
+ 218              		.loc 1 163 0
+ 219 00d8 B032DAE1 		ldrh	r3, [sl, #32]
+ 220              	.LVL7:
+ 221 00dc 002095E5 		ldr	r2, [r5, #0]
+ 222 00e0 962323E0 		mla	r3, r6, r3, r2
+ 223              	.LVL8:
+ 164:fb/fb_s6b33b1x.c **** 		p += fb_rgb332->damage_x1; // start of damage area
+ 165:fb/fb_s6b33b1x.c **** 
+ 166:fb/fb_s6b33b1x.c **** 		for(x=fb_rgb332->damage_x1; x<fb_rgb332->damage_x2; x++) {
+ 224              		.loc 1 166 0
+ 225 00e4 07E0A0E1 		mov	lr, r7
+ 226 00e8 074083E0 		add	r4, r3, r7
+ 227 00ec 4A0000EA 		b	.L11
+ 228              	.LVL9:
+ 229              	.L12:
+ 230 00f0 011054E5 		ldrb	r1, [r4, #-1]	@ zero_extendqisi2
+ 231              	.LVL10:
+ 232              	.LBB4:
+ 233              	.LBB5:
+ 234              	.LBB6:
+ 235              		.file 2 "include/fb/fb_rgb332.h"
+   1:include/fb/fb_rgb332.h **** #ifndef FB_RGB332_H
+   2:include/fb/fb_rgb332.h **** #define FB_RGB332_H
+   3:include/fb/fb_rgb332.h **** 
+   4:include/fb/fb_rgb332.h **** /* RGB framebuffer with 1 byte per pixel, bits mapped as RRRGGGBB */
+   5:include/fb/fb_rgb332.h **** 
+   6:include/fb/fb_rgb332.h **** struct fb_rgb332 {
+   7:include/fb/fb_rgb332.h **** 	uint8_t *mem;			/* set to backingstore memory */
+   8:include/fb/fb_rgb332.h **** 	uint16_t damage_x1,damage_y1;	/* current damage window, ul (incl) */
+   9:include/fb/fb_rgb332.h **** 	uint16_t damage_x2,damage_y2;	/* current damage window, lr (excl) */
+  10:include/fb/fb_rgb332.h **** };
+  11:include/fb/fb_rgb332.h **** 
+  12:include/fb/fb_rgb332.h **** extern void fb_rgb332_clear();
+  13:include/fb/fb_rgb332.h **** 
+  14:include/fb/fb_rgb332.h **** /* draw a box from cursor to x,y */
+  15:include/fb/fb_rgb332.h **** extern void fb_rgb332_boxto(uint16_t x,uint16_t y);
+  16:include/fb/fb_rgb332.h **** /* draw a line from cursor to x,y */
+  17:include/fb/fb_rgb332.h **** extern void fb_rgb332_lineto(uint16_t x,uint16_t y);
+  18:include/fb/fb_rgb332.h **** 
+  19:include/fb/fb_rgb332.h **** /* put string str onto framebuffer with line (bottom
+  20:include/fb/fb_rgb332.h ****    left pixel of, e.g. "m") starting at cursor.
+  21:include/fb/fb_rgb332.h ****    Maximum width consumed is maxwidth, actual width
+  22:include/fb/fb_rgb332.h ****    needed is returned */
+  23:include/fb/fb_rgb332.h **** extern int fb_rgb332_putstr(char *str,int maxwidth);
+  24:include/fb/fb_rgb332.h **** 
+  25:include/fb/fb_rgb332.h **** extern struct fb_rgb332 *fb_rgb332;
+  26:include/fb/fb_rgb332.h **** 
+  27:include/fb/fb_rgb332.h **** /* this convenience function can be used if you choose to
+  28:include/fb/fb_rgb332.h ****  * back a RGB565 display with a RGB332 framebuffer to conserve
+  29:include/fb/fb_rgb332.h ****  * ARM memory. It converts a rgb332 value to rgb565 as indicated
+  30:include/fb/fb_rgb332.h ****  * in the comments. */
+  31:include/fb/fb_rgb332.h **** 
+  32:include/fb/fb_rgb332.h **** static inline uint16_t
+  33:include/fb/fb_rgb332.h **** rgb332_to_565(uint8_t rgb332){
+  34:include/fb/fb_rgb332.h **** 
+  35:include/fb/fb_rgb332.h **** 	uint8_t red   =  (rgb332 & 0xe0) >> 5 ; // rrr. .... -> .... .rrr
+  36:include/fb/fb_rgb332.h **** 	uint8_t green = ((rgb332 & 0x1c) >> 2); // ...g gg.. -> .... .ggg
+ 236              		.loc 2 36 0
+ 237 00f4 1C2001E2 		and	r2, r1, #28
+  37:include/fb/fb_rgb332.h **** 	uint8_t blue  =   rgb332 & 0x03;        // .... ..bb -> .... ..bb
+ 238              		.loc 2 37 0
+ 239 00f8 03C001E2 		and	ip, r1, #3
+ 240              		.loc 2 36 0
+ 241 00fc 2221A0E1 		mov	r2, r2, lsr #2
+ 242              	.LVL11:
+ 243              		.loc 2 35 0
+ 244 0100 A112A0E1 		mov	r1, r1, lsr #5
+ 245              	.LVL12:
+ 246              	.LBE6:
+ 247              	.LBE5:
+ 167:fb/fb_s6b33b1x.c **** 			uint16_t data = rgb332_to_565(*p++);
+ 248              		.loc 1 167 0
+ 249 0104 822182E1 		orr	r2, r2, r2, asl #3
+ 250              	.LVL13:
+ 251 0108 A100A0E1 		mov	r0, r1, lsr #1
+ 252 010c 8C30A0E1 		mov	r3, ip, asl #1
+ 253              	.LVL14:
+ 254 0110 010180E1 		orr	r0, r0, r1, asl #2
+ 255 0114 8222A0E1 		mov	r2, r2, asl #5
+ 256 0118 8C3183E1 		orr	r3, r3, ip, asl #3
+ 257 011c 802582E1 		orr	r2, r2, r0, asl #11
+ 258 0120 AC3083E1 		orr	r3, r3, ip, lsr #1
+ 259 0124 023083E1 		orr	r3, r3, r2
+ 260              	.LVL15:
+ 168:fb/fb_s6b33b1x.c **** 			writew(data , nCS4_ADDR | 2);
+ 261              		.loc 1 168 0
+ 262 0128 48209FE5 		ldr	r2, .L16+16
+ 263 012c B030C2E1 		strh	r3, [r2, #0]	@ movhi
+ 264              	.LVL16:
+ 265              	.L11:
+ 266              	.LBE4:
+ 267              		.loc 1 166 0
+ 268 0130 09005EE1 		cmp	lr, r9
+ 269 0134 014084E2 		add	r4, r4, #1
+ 270 0138 01E08EE2 		add	lr, lr, #1
+ 271 013c 3A0000BA 		blt	.L12
+ 272              		.loc 1 162 0
+ 273 0140 016086E2 		add	r6, r6, #1
+ 274              	.L9:
+ 275 0144 080056E1 		cmp	r6, r8
+ 276 0148 340000BA 		blt	.L10
+ 169:fb/fb_s6b33b1x.c **** 		}
+ 170:fb/fb_s6b33b1x.c **** 	}
+ 171:fb/fb_s6b33b1x.c **** 
+ 172:fb/fb_s6b33b1x.c **** 	fb_rgb332->damage_x1 = fb_rgb332->damage_x2 = 0;
+ 173:fb/fb_s6b33b1x.c **** 	fb_rgb332->damage_y1 = fb_rgb332->damage_y2 = 0;
+ 277              		.loc 1 173 0
+ 278 014c 0030A0E3 		mov	r3, #0	@ movhi
+ 279              	.LVL17:
+ 280 0150 B630C5E1 		strh	r3, [r5, #6]	@ movhi
+ 281              		.loc 1 172 0
+ 282 0154 B830C5E1 		strh	r3, [r5, #8]	@ movhi
+ 283 0158 B430C5E1 		strh	r3, [r5, #4]	@ movhi
+ 284              		.loc 1 173 0
+ 285 015c BA30C5E1 		strh	r3, [r5, #10]	@ movhi
+ 286              	.L15:
+ 174:fb/fb_s6b33b1x.c **** }
+ 287              		.loc 1 174 0
+ 288 0160 10D08DE2 		add	sp, sp, #16
+ 289 0164 F087BDE8 		ldmfd	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
+ 290              	.L17:
+ 291              		.align	2
+ 292              	.L16:
+ 293 0168 00000000 		.word	fb_rgb332
+ 294 016c 48000000 		.word	__FUNCTION__.1629
+ 295 0170 00000000 		.word	.LC0
+ 296 0174 00000000 		.word	framebuffer
+ 297 0178 02008002 		.word	41943042
+ 298              	.LFE19:
+ 300              		.section	.rodata
+ 301 005a 0000     		.align	2
+ 304              	__FUNCTION__.1621:
+ 305 005c 66625F73 		.ascii	"fb_s6b33b1x_init\000"
+ 305      36623333 
+ 305      6231785F 
+ 305      696E6974 
+ 305      00
+ 306 006d 000000   		.section	.rodata.str1.4
+ 307 000f 00       		.align	2
+ 308              	.LC1:
+ 309 0010 25733A20 		.ascii	"%s: initializing LCD.\012\000"
+ 309      696E6974 
+ 309      69616C69 
+ 309      7A696E67 
+ 309      204C4344 
+ 310 0027 00       		.section	.text.fb_s6b33b1x_init,"ax",%progbits
+ 311              		.align	2
+ 313              	fb_s6b33b1x_init:
+ 314              	.LFB18:
+ 315              		.loc 1 132 0
+ 316              		@ args = 0, pretend = 0, frame = 0
+ 317              		@ frame_needed = 0, uses_anonymous_args = 0
+ 318              	.LVL18:
+ 319 0000 30402DE9 		stmfd	sp!, {r4, r5, lr}
+ 320              	.LCFI2:
+ 321              		.loc 1 133 0
+ 322 0004 04119FE5 		ldr	r1, .L23
+ 323 0008 04019FE5 		ldr	r0, .L23+4
+ 324              	.LBB7:
+ 325              	.LBB8:
+ 326              	.LBB9:
+ 327              	.LBB10:
+ 328              		.loc 1 102 0
+ 329 000c 04519FE5 		ldr	r5, .L23+8
+ 330              	.LBE10:
+ 331              	.LBE9:
+ 332              	.LBE8:
+ 333              	.LBE7:
+ 334              		.loc 1 133 0
+ 335 0010 FEFFFFEB 		bl	printf
+ 336              	.LBB11:
+ 337              	.LBB12:
+ 338              	.LBB13:
+ 339              	.LBB14:
+ 340              		.loc 1 101 0
+ 341 0014 0A45A0E3 		mov	r4, #41943040
+ 342 0018 7E30A0E3 		mov	r3, #126	@ movhi
+ 343 001c B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 344              		.loc 1 102 0
+ 345 0020 0030A0E3 		mov	r3, #0	@ movhi
+ 346              	.LBE14:
+ 347              	.LBE13:
+ 348              		.loc 1 111 0
+ 349 0024 0A00A0E3 		mov	r0, #10
+ 350              	.LBB15:
+ 351              	.LBB16:
+ 352              		.loc 1 102 0
+ 353 0028 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 354              	.LBE16:
+ 355              	.LBE15:
+ 356              		.loc 1 111 0
+ 357 002c FEFFFFEB 		bl	delay_ms
+ 358              	.LBB17:
+ 359              	.LBB18:
+ 360              		.loc 1 101 0
+ 361 0030 7A30A0E3 		mov	r3, #122	@ movhi
+ 362 0034 B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 363              		.loc 1 102 0
+ 364 0038 0030A0E3 		mov	r3, #0	@ movhi
+ 365              	.LBE18:
+ 366              	.LBE17:
+ 367              		.loc 1 113 0
+ 368 003c 0A00A0E3 		mov	r0, #10
+ 369              	.LBB19:
+ 370              	.LBB20:
+ 371              		.loc 1 102 0
+ 372 0040 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 373              	.LBE20:
+ 374              	.LBE19:
+ 375              		.loc 1 113 0
+ 376 0044 FEFFFFEB 		bl	delay_ms
+ 377              	.LBB21:
+ 378              	.LBB22:
+ 379              		.loc 1 101 0
+ 380 0048 7F30A0E3 		mov	r3, #127	@ movhi
+ 381 004c B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 382              		.loc 1 102 0
+ 383 0050 0030A0E3 		mov	r3, #0	@ movhi
+ 384              	.LBE22:
+ 385              	.LBE21:
+ 386              		.loc 1 115 0
+ 387 0054 0500A0E3 		mov	r0, #5
+ 388              	.LBB23:
+ 389              	.LBB24:
+ 390              		.loc 1 102 0
+ 391 0058 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 392              	.LBE24:
+ 393              	.LBE23:
+ 394              		.loc 1 115 0
+ 395 005c FEFFFFEB 		bl	delay_ms
+ 396              	.LBB25:
+ 397              	.LBB26:
+ 398              		.loc 1 101 0
+ 399 0060 7230A0E3 		mov	r3, #114	@ movhi
+ 400 0064 B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 401              		.loc 1 102 0
+ 402 0068 0730A0E3 		mov	r3, #7	@ movhi
+ 403 006c B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 404              	.LBE26:
+ 405              	.LBE25:
+ 406              	.LBB27:
+ 407              	.LBB28:
+ 408              		.loc 1 101 0
+ 409 0070 1430A0E3 		mov	r3, #20	@ movhi
+ 410 0074 B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 411              		.loc 1 102 0
+ 412 0078 0330A0E3 		mov	r3, #3	@ movhi
+ 413 007c B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 414              	.LBE28:
+ 415              	.LBE27:
+ 416              	.LBB29:
+ 417              	.LBB30:
+ 418              		.loc 1 101 0
+ 419 0080 7F30A0E3 		mov	r3, #127	@ movhi
+ 420 0084 B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 421              		.loc 1 102 0
+ 422 0088 0030A0E3 		mov	r3, #0	@ movhi
+ 423 008c B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 424              	.LBE30:
+ 425              	.LBE29:
+ 426              		.loc 1 119 0
+ 427 0090 0500A0E3 		mov	r0, #5
+ 428 0094 FEFFFFEB 		bl	delay_ms
+ 429              	.LBB31:
+ 430              	.LBB32:
+ 431              		.loc 1 101 0
+ 432 0098 0630A0E3 		mov	r3, #6	@ movhi
+ 433 009c B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 434              		.loc 1 102 0
+ 435 00a0 FF30A0E3 		mov	r3, #255	@ movhi
+ 436 00a4 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 437              	.LBE32:
+ 438              	.LBE31:
+ 439              	.LBB33:
+ 440              	.LBB34:
+ 441              		.loc 1 101 0
+ 442 00a8 7F30A0E3 		mov	r3, #127	@ movhi
+ 443 00ac B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 444              		.loc 1 102 0
+ 445 00b0 0930A0E3 		mov	r3, #9	@ movhi
+ 446 00b4 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 447              	.LBE34:
+ 448              	.LBE33:
+ 449              	.LBB35:
+ 450              	.LBB36:
+ 451              		.loc 1 101 0
+ 452 00b8 1930A0E3 		mov	r3, #25	@ movhi
+ 453 00bc B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 454              		.loc 1 102 0
+ 455 00c0 0830A0E3 		mov	r3, #8	@ movhi
+ 456 00c4 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 457              	.LBE36:
+ 458              	.LBE35:
+ 459              	.LBB37:
+ 460              	.LBB38:
+ 461              		.loc 1 101 0
+ 462 00c8 2330A0E3 		mov	r3, #35	@ movhi
+ 463 00cc B030C4E1 		strh	r3, [r4, #0]	@ movhi
+ 464              		.loc 1 102 0
+ 465 00d0 1830A0E3 		mov	r3, #24	@ movhi
+ 466              	.LBE38:
+ 467              	.LBE37:
+ 468              		.loc 1 126 0
+ 469 00d4 40209FE5 		ldr	r2, .L23+12
+ 470              	.LBB39:
+ 471              	.LBB40:
+ 472              		.loc 1 102 0
+ 473 00d8 B030C5E1 		strh	r3, [r5, #0]	@ movhi
+ 474              	.LBE40:
+ 475              	.LBE39:
+ 476              		.loc 1 126 0
+ 477 00dc B030D2E1 		ldrh	r3, [r2, #0]
+ 478              		.loc 1 128 0
+ 479 00e0 38109FE5 		ldr	r1, .L23+16
+ 480              	.LVL19:
+ 481              		.loc 1 127 0
+ 482 00e4 803083E3 		orr	r3, r3, #128
+ 483              	.LVL20:
+ 484              		.loc 1 128 0
+ 485 00e8 B030C2E1 		strh	r3, [r2, #0]	@ movhi
+ 486 00ec 3E0000EA 		b	.L19
+ 487              	.LVL21:
+ 488              	.L20:
+ 489              	.LBE12:
+ 490              	.LBE11:
+ 491              	.LBB41:
+ 492              	.LBB42:
+ 493              		.loc 1 94 0
+ 494 00f0 0120D1E5 		ldrb	r2, [r1, #1]	@ zero_extendqisi2
+ 495 00f4 0A35A0E3 		mov	r3, #41943040
+ 496 00f8 B020C3E1 		strh	r2, [r3, #0]	@ movhi
+ 497              		.loc 1 95 0
+ 498 00fc 021081E2 		add	r1, r1, #2
+ 499              	.LVL22:
+ 500              	.L19:
+ 501              		.loc 1 93 0
+ 502 0100 0030D1E5 		ldrb	r3, [r1, #0]	@ zero_extendqisi2
+ 503              	.LVL23:
+ 504 0104 020053E3 		cmp	r3, #2
+ 505 0108 3A00001A 		bne	.L20
+ 506              	.LBE42:
+ 507              	.LBE41:
+ 508              		.loc 1 137 0
+ 509 010c 3080BDE8 		ldmfd	sp!, {r4, r5, pc}
+ 510              	.L24:
+ 511              		.align	2
+ 512              	.L23:
+ 513 0110 5C000000 		.word	__FUNCTION__.1621
+ 514 0114 10000000 		.word	.LC1
+ 515 0118 02008002 		.word	41943042
+ 516 011c 0248FEFF 		.word	-112638
+ 517 0120 00000000 		.word	s6b33b1x_initdata
+ 518              	.LFE18:
+ 520              		.bss
+ 521              	fb_s6b33b1x_mem:
+ 522 0000 00000000 		.space	16384
+ 522      00000000 
+ 522      00000000 
+ 522      00000000 
+ 522      00000000 
+ 592              	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fb_s6b33b1x.c
+     /tmp/ccGPGyXb.s:15     .data:0000000000000000 fb_rgb332
+     /tmp/ccGPGyXb.s:16     .data:0000000000000000 $d
+     /tmp/ccGPGyXb.s:20     .data:0000000000000004 fb_s6b33b1x_rgb332
+     /tmp/ccGPGyXb.s:521    .bss:0000000000000000 fb_s6b33b1x_mem
+     /tmp/ccGPGyXb.s:27     .data:0000000000000010 framebuffer
+     /tmp/ccGPGyXb.s:32     .data:0000000000000014 fb_s6b33b1x_framebuffer
+     /tmp/ccGPGyXb.s:313    .text.fb_s6b33b1x_init:0000000000000000 fb_s6b33b1x_init
+     /tmp/ccGPGyXb.s:131    .text.fb_s6b33b1x_flush:0000000000000000 fb_s6b33b1x_flush
+     /tmp/ccGPGyXb.s:46     .rodata:0000000000000000 s6b33b1x_initdata
+     /tmp/ccGPGyXb.s:122    .rodata:0000000000000048 __FUNCTION__.1629
+     /tmp/ccGPGyXb.s:138    .text.fb_s6b33b1x_flush:0000000000000000 $a
+     /tmp/ccGPGyXb.s:293    .text.fb_s6b33b1x_flush:0000000000000168 $d
+     /tmp/ccGPGyXb.s:304    .rodata:000000000000005c __FUNCTION__.1621
+     /tmp/ccGPGyXb.s:319    .text.fb_s6b33b1x_init:0000000000000000 $a
+     /tmp/ccGPGyXb.s:513    .text.fb_s6b33b1x_init:0000000000000110 $d
+
+UNDEFINED SYMBOLS
+fb_rgb332_clear
+fb_rgb332_boxto
+fb_rgb332_lineto
+fb_rgb332_putstr
+printf
+delay_ms

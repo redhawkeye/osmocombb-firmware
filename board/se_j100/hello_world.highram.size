@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+  24133	    440	  23696	  48269	   bc8d	board/se_j100/hello_world.highram.elf
